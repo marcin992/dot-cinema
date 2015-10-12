@@ -8,10 +8,9 @@ module.exports = {
     uri: 'mongodb://localhost/dotcinema-dev'
   },
   sequelize: {
-    uri: 'sqlite://',
+    uri: 'postgres://dotcinema_admin:dtcnm2k15@localhost:5432/dotcinema',
     options: {
       logging: false,
-      storage: 'dev.sqlite',
       define: {
         timestamps: false
       }
