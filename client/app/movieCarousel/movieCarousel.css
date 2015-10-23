@@ -1,0 +1,8 @@
+.slide-container {
+  height: 400px;
+  text-align: center;
+  -webkit-background-size: contain;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+}

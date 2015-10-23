@@ -13,7 +13,10 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(client) app/vendor.css -->
       <!-- bower:css -->
-      <link rel="stylesheet" href="bower_components/foundation/css/foundation.css" />
+    <link rel="stylesheet" href="bower_components/foundation/css/foundation.css" />
+
+    <link rel="stylesheet" href="bower_components/slick-carousel/slick/slick.css" />
+      <link rel="stylesheet" href="bower_components/slick-carousel/slick/slick-theme.css" />
       <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
@@ -22,6 +25,7 @@
       <link rel="stylesheet" href="app/admin/admin.css">
       <link rel="stylesheet" href="app/app.css">
       <link rel="stylesheet" href="app/main/main.css">
+      <link rel="stylesheet" href="app/movieCarousel/movieCarousel.css">
       <link rel="stylesheet" href="components/footer/footer.css">
       <link rel="stylesheet" href="components/modal/modal.css">
       <!-- endinjector -->
@@ -67,6 +71,9 @@
       <script src="bower_components/jquery.cookie/jquery.cookie.js"></script>
       <script src="bower_components/jquery-placeholder/jquery.placeholder.js"></script>
       <script src="bower_components/foundation/js/foundation.js"></script>
+      <script src="bower_components/angular-foundation/mm-foundation-tpls.js"></script>
+      <script src="bower_components/slick-carousel/slick/slick.min.js"></script>
+      <script src="bower_components/angular-slick/dist/slick.js"></script>
       <!-- endbower -->
       <script src="socket.io-client/socket.io.js"></script>
     <!-- endbuild -->
@@ -81,6 +88,7 @@
       <script src="app/admin/admin.js"></script>
       <script src="app/main/main.controller.js"></script>
       <script src="app/main/main.js"></script>
+      <script src="app/movieCarousel/movieCarousel.directive.js"></script>
       <script src="components/auth/auth.service.js"></script>
       <script src="components/auth/user.service.js"></script>
       <script src="components/footer/footer.directive.js"></script>
