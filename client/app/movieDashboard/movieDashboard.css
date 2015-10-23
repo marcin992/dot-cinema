@@ -1,0 +1,38 @@
+.main-movie {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 450px;
+}
+
+.other-movie {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 150px;
+}
+
+.dashboard-link {
+  color: white;
+  margin-top: 70px;
+  margin-left: 40px;
+}
+
+.dashboard-link:hover {
+  color: white;
+}
+
+.movie-container {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.dashboard-text {
+  color: white;
+  margin-top:0;
+  padding: 20px;
+}
+
+.dashboard-text-main {
+  padding: 150px 0 0 0;
+}

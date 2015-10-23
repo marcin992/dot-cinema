@@ -36,6 +36,7 @@ module.exports = function(config) {
       'client/bower_components/angular-foundation/mm-foundation-tpls.js',
       'client/bower_components/slick-carousel/slick/slick.min.js',
       'client/bower_components/angular-slick/dist/slick.js',
+      'client/bower_components/moment/moment.js',
       'client/bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'node_modules/socket.io-client/socket.io.js',

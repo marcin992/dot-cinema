@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="small-9 columns main-movie movie-container" ng-style="{'background-image': 'url(' + mainMovie.image + ')'}">
+    <h4 class="dashboard-text-main"><a href="" class="dashboard-link">{{mainMovie.name}}</a></h4>
+    <h5>{{mainMovie.description}}</h5>
+  </div>
+  <div class="small-3 columns movie-container">
+    <div class="other-movie" ng-repeat="movie in otherMovies" ng-style="{'background-image': 'url(' + movie.image + ')'}">
+      <h5 class="dashboard-text">{{movie.name}}</h5>
+    </div>
+  </div>
+</div>

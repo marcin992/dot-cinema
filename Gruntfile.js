@@ -577,7 +577,6 @@ module.exports = function (grunt) {
         'env:all',
         'concurrent:server',
         'injector',
-        'wiredep:client',
         'postcss',
         'concurrent:debug'
       ]);
@@ -588,7 +587,6 @@ module.exports = function (grunt) {
       'env:all',
       'concurrent:server',
       'injector',
-      'wiredep:client',
       'postcss',
       'express:dev',
       'wait',
