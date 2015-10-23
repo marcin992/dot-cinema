@@ -6,6 +6,7 @@ angular.module('dotCinemaApp')
       templateUrl: 'app/seansesView/seansesView.html',
       restrict: 'EA',
       link: function (scope, element, attrs) {
+
       }
     };
   });
