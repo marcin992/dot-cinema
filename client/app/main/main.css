@@ -27,5 +27,11 @@
 /*}*/
 
 body {
-  background: #e6e6e6;
+  /*background: url(../../assets/images/background.png);*/
+  /*background-repeat: repeat;*/
+  font-family: 'Lato', sans-serif;
+}
+
+h1, h2, h3, h4, h5, p {
+  font-family: 'Lato', sans-serif;
 }
