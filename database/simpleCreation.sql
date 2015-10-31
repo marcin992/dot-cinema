@@ -75,7 +75,7 @@ CREATE TABLE halls
 (
   id integer primary key,
   name character varying(150),
-  chairs character varying(5)[]
+  chairs json
 );
 
 CREATE TABLE movies
