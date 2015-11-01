@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">DotCinema</string>
+
+    <string name="hello_world">Please login</string>
+    <string name="action_settings">Settings</string>
+    <string name="pass">Password</string>
+    <string name="nick">Nick or e-mail</string>
+    <string name="forgot">Need a help?</string>
+    <string name="register">Register</string>
+    <string name="registerHelp">or create new account</string>
+    <string name="loginButt">Login</string>
+</resources>
