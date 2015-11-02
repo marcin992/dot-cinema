@@ -9,4 +9,6 @@
     <string name="register">Register</string>
     <string name="registerHelp">or create new account</string>
     <string name="loginButt">Login</string>
+    <string name="title_activity_register_screen">RegisterScreen</string>
+    <string name="title_activity_main_profile_screen">MainProfileScreen</string>
 </resources>

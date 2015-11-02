@@ -8,18 +8,18 @@ import android.view.MenuItem;
 import android.view.View;
 
 
-public class LoginScreen extends ActionBarActivity {
+public class RegisterScreen extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_screen);
+        setContentView(R.layout.activity_register_screen);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_login_screen, menu);
+        getMenuInflater().inflate(R.menu.menu_register_screen, menu);
         return true;
     }
 
@@ -38,14 +38,14 @@ public class LoginScreen extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void startRegistration(View view) {
-        Intent intent = new Intent(this, RegisterScreen.class);
-        startActivity(intent);
-
+    public void registerNewUser(View view)
+    {
+        goToMainScreen();
     }
-    public void startLogin(View view) {
-        Intent intent = new Intent(this, MainProfileScreen.class);
+    public void goToMainScreen()
+    {
+        Intent intent = new Intent(this,MainProfileScreen.class);
         startActivity(intent);
-
     }
+
 }

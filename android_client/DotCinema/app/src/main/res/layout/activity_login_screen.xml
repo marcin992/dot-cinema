@@ -60,7 +60,8 @@
         android:text="@string/loginButt"
         android:id="@+id/loginButton"
         android:layout_below="@+id/passpowrdInput"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="startLogin" />
 
     <Button
         android:layout_width="wrap_content"
@@ -68,7 +69,8 @@
         android:text="@string/register"
         android:id="@+id/RegisterButton"
         android:layout_below="@+id/helpRegisterText"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="startRegistration" />
 
     <Button
         android:layout_width="wrap_content"

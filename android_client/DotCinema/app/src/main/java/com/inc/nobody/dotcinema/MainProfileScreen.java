@@ -1,25 +1,23 @@
 package com.inc.nobody.dotcinema;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 
-public class LoginScreen extends ActionBarActivity {
+public class MainProfileScreen extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_screen);
+        setContentView(R.layout.activity_main_profile_screen);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_login_screen, menu);
+        getMenuInflater().inflate(R.menu.menu_main_profile_screen, menu);
         return true;
     }
 
@@ -36,16 +34,5 @@ public class LoginScreen extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void startRegistration(View view) {
-        Intent intent = new Intent(this, RegisterScreen.class);
-        startActivity(intent);
-
-    }
-    public void startLogin(View view) {
-        Intent intent = new Intent(this, MainProfileScreen.class);
-        startActivity(intent);
-
     }
 }
