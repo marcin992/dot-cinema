@@ -1,4 +1,3 @@
-
 CREATE TABLE groups
 (
   id integer primary key,
@@ -30,7 +29,7 @@ CREATE TABLE users
   date_joint date,
   date_out date,
   active boolean,
-  groupid integer references group_permission(id),
+  groupid integer references groups(id),
   phone character varying(11),
   avatar bytea,
   description_sec text
@@ -49,7 +48,7 @@ CREATE TABLE sessions
   sessionid character varying(150),
   userid integer references users(id),
   browser character varying(300),
-  date_create date,
+  date_create timestamp without time zone,
   ip character varying(100)
 );
 
@@ -57,8 +56,8 @@ CREATE TABLE timesheets
 (
   id integer primary key,
   userid integer references users(id),
-  data_create date,
-  date_end date,
+  data_create timestamp without time zone,
+  date_end timestamp without time zone,
   session integer references sessions(id)
 );
 
@@ -66,8 +65,8 @@ CREATE TABLE scheludes_work
 (
   id integer primary key,
   userid integer references users(id),
-  data_create date,
-  date_end date
+  data_create timestamp without time zone,
+  date_end timestamp without time zone
 );
 
 
@@ -101,8 +100,8 @@ CREATE TABLE seanses
   id integer primary key,
   movie integer references movies(id),
   hall integer  references halls(id),
-  date_start date,
-  date_end date,
+  date_start timestamp without time zone,
+  date_end timestamp without time zone,
   cost numeric(10,2),
   cost_for_student numeric(10,2),
   description text
@@ -114,7 +113,5 @@ CREATE TABLE reservations
   userid integer references users(id),
   seanse integer references seanses(id),
   chair character varying(5),
-  dater date
+  dater timestamp without time zone
 )
-
-
