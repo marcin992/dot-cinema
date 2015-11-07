@@ -1,11 +1,14 @@
 package com.inc.nobody.dotcinema;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
 
 public class LoginScreen extends ActionBarActivity {
@@ -44,8 +47,23 @@ public class LoginScreen extends ActionBarActivity {
 
     }
     public void startLogin(View view) {
-        Intent intent = new Intent(this, MainProfileScreen.class);
-        startActivity(intent);
+
+        String text = ((EditText)findViewById(R.id.nickInput)).getText().toString().trim();
+        String password = ((EditText)findViewById(R.id.passpowrdInput)).getText().toString().trim();
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        String checkFromPrefsNick = sharedPref.getString(text, null);
+        String checkFromPrefsEmail = sharedPref.getString(text, null);
+        System.out.println("haslo"+" " +checkFromPrefsEmail + " "  + checkFromPrefsNick + " " + password);
+        if(checkFromPrefsEmail == password || checkFromPrefsNick == password)
+        {
+            Intent intent = new Intent(this, MainProfileScreen.class);
+            startActivity(intent);
+        }
+        else {
+            DialogUtil.getInstance().showInfoDialog(view.getContext(), view.getContext().getString(R.string.bad_pass));
+        }
+
+
 
     }
 }
