@@ -5,10 +5,13 @@
     <div class="row">
       <div class="large-12">
         <h3>Logowanie</h3>
-        <form name="form" ng-submit="login(form)">
+        <form name="form" ng-submit="login(form)" novalidate>
           <div class="row">
             <div class="large-12 columns">
-              <input type="email" name="email" ng-model="user.email" placeholder="Email" required>
+              <input type="email" ng-class="form.email.$error.email && submitted ? 'error' : ''" name="email" ng-model="user.email" placeholder="Email" required>
+              <small class="error" ng-show="form.email.$error.email && submitted">
+                Podaj poprawny email.
+              </small>
             </div>
           </div>
 
@@ -18,9 +21,21 @@
             </div>
           </div>
 
+          <small ng-show="errors.other" class="error">{{ errors.other }}</small>
+
           <div class="row">
             <div class="large-12 columns">
               <button class="button expand" type="submit">Zaloguj się</button>
+            </div>
+          </div>
+
+          <div class="text-center">
+            lub
+          </div>
+
+          <div class="row">
+            <div class="large-12 columns">
+              <a class="button secondary expand" ui-sref="signup" type="button">Stwórz nowe konto</a>
             </div>
           </div>
         </form>

@@ -10,7 +10,7 @@ function localAuthenticate(User, email, password, done) {
     .then(function(user) {
       if (!user) {
         return done(null, false, {
-          message: 'This email is not registered.'
+          message: 'Nie odnaleziono użytkownika.'
         });
       }
       user.authenticate(password, function(authError, authenticated) {
@@ -19,7 +19,7 @@ function localAuthenticate(User, email, password, done) {
         }
         if (!authenticated) {
           return done(null, false, {
-            message: 'This password is not correct.'
+            message: 'Hasło niepoprawne.'
           });
         } else {
           return done(null, user);

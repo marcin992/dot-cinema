@@ -694,7 +694,6 @@ module.exports = function (grunt) {
     'clean:dist',
     'concurrent:dist',
     'injector',
-    'wiredep:client',
     'useminPrepare',
     'postcss',
     'ngtemplates',
