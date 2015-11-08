@@ -209,7 +209,7 @@ module.exports = function (grunt) {
     // Automatically inject Bower components into the app and karma.conf.js
     wiredep: {
       options: {
-        exclude: [ 
+        exclude: [
           /bootstrap.js/,
           '/json3/',
           '/es5-shim/'
@@ -577,7 +577,6 @@ module.exports = function (grunt) {
         'env:all',
         'concurrent:server',
         'injector',
-        'wiredep:client',
         'postcss',
         'concurrent:debug'
       ]);
@@ -588,7 +587,6 @@ module.exports = function (grunt) {
       'env:all',
       'concurrent:server',
       'injector',
-      'wiredep:client',
       'postcss',
       'express:dev',
       'wait',
@@ -696,7 +694,6 @@ module.exports = function (grunt) {
     'clean:dist',
     'concurrent:dist',
     'injector',
-    'wiredep:client',
     'useminPrepare',
     'postcss',
     'ngtemplates',

@@ -6,7 +6,7 @@ angular.module('dotCinemaApp', [
   'ngSanitize',
   'btford.socket-io',
   'ui.router',
-  'ui.bootstrap',
+  'slick',
   'validation.match'
 ])
   .config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
