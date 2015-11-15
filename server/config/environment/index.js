@@ -49,7 +49,8 @@ var all = {
     dbUser: 'dotcinema_admin',
     dbPassword: require('../pass'),
     options: {
-      dialect: 'postgres'
+      dialect: 'postgres',
+      port: 7531
     }
   }
 };
