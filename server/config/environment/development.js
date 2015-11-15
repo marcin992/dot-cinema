@@ -13,7 +13,8 @@ module.exports = {
       define: {
         timestamps: false
       }
-    }
+    },
+    port: 5432
   },
 
   seedDB: true

@@ -26,7 +26,8 @@ module.exports = {
       logging: false,
       define: {
         timestamps: false
-      }
+      },
+      port: 7531
     }
 
   }
