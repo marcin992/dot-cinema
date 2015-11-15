@@ -27,7 +27,8 @@ module.exports = {
       define: {
         timestamps: false
       },
-      port: 7531
+      port: 7531,
+      protocol: 'ssl'
     }
 
   }
