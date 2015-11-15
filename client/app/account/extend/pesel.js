@@ -5,11 +5,11 @@ var sprawdzenie_pesel = function(pesel)
     var suma=0; // suma kontrolna
     tmp=0 // zmienna - potrzbuje na chwile
     cyfra_kontrolna=0;
-    
+
     if(pesel.length != 11)
     {
      console.log("Wprowadzono bledny numer PESEL");
-    } 
+    }
     else
     {
         for (var i=0; i < (pesel.length-1); i++)
@@ -27,4 +27,3 @@ var sprawdzenie_pesel = function(pesel)
                 }
     }
 }
-sprawdzenie_pesel();
