@@ -142,7 +142,7 @@ exports.me = function(req, res, next) {
     },
     attributes: [
       '_id',
-      'name',
+      'nick',
       'email',
       'role',
       'provider'
