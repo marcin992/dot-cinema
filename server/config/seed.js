@@ -50,13 +50,13 @@ User.sync()
   .then(function() {
     User.bulkCreate([{
       provider: 'local',
-      name: 'Test User',
+      nick: 'Test User',
       email: 'test@example.com',
       password: 'test'
     }, {
       provider: 'local',
       role: 'admin',
-      name: 'Admin',
+      nick: 'Admin',
       email: 'admin@example.com',
       password: 'admin'
     }])

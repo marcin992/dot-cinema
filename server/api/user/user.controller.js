@@ -4,6 +4,8 @@ import {User} from '../../sqldb';
 import passport from 'passport';
 import config from '../../config/environment';
 import jwt from 'jsonwebtoken';
+import nodemailer from 'nodemailer';
+import {MailSender} from '../../components/MailSender';
 
 function validationError(res, statusCode) {
   statusCode = statusCode || 422;
@@ -58,6 +60,11 @@ exports.create = function(req, res, next) {
       var token = jwt.sign({ _id: user._id }, config.secrets.session, {
         expiresInMinutes: 60 * 5
       });
+      let sender = MailSender.getInstance();
+      sender.sendMail(user.email, 'Dot-cinema - nowe konto', `Witaj ${user.nick}!
+      \nInformujemy, że konto w serwisie Dot-cinema zostało założone pomyślnie.
+      \nPozdrawiamy,
+      \nZespół Dot-cinema`);
       res.json({ token: token });
     })
     .catch(validationError(res));

@@ -15,11 +15,11 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
-    name: DataTypes.STRING,
+    nick: DataTypes.STRING,
     email: {
       type: DataTypes.STRING,
       unique: {
-        msg: 'The specified email address is already in use.'
+        msg: 'Adres jest obecnie używany.'
       },
       validate: {
         isEmail: true
