@@ -15,15 +15,17 @@ class MailSender {
     })
   }
 
-  sendMail(to, subject, body) {
-    let options = {
-      from: config.user,
-      to: to,
-      subject: subject,
-      text: body
-    };
-
-    return Q.denodeify(this.transporter.sendMail)(options);
+  sendMail(to, subject, body, callback) {
+    // TODO[Marcin] - configure mail sending on production
+    callback();
+    //let options = {
+    //  from: config.user,
+    //  to: to,
+    //  subject: subject,
+    //  text: body
+    //};
+    //
+    //this.transporter.sendMail(options, callback);
   }
 }
 var sender = new MailSender();
