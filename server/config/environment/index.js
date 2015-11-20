@@ -42,6 +42,15 @@ var all = {
         safe: true
       }
     }
+  },
+
+  sequelize: {
+    dbName: 'dotcinema',
+    dbUser: 'dotcinema_admin',
+    dbPassword: require('../pass'),
+    options: {
+      dialect: 'postgres'
+    }
   }
 };
 
