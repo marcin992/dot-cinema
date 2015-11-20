@@ -52,3 +52,11 @@
 .auth-panel {
   padding: 40px 20px 20px 20px;
 }
+
+.auth-panel button {
+  margin-bottom: 0;
+}
+
+.error-label {
+  height: 20px;
+}

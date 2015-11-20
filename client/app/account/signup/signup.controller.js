@@ -10,7 +10,7 @@ angular.module('dotCinemaApp')
 
       if (form.$valid) {
         Auth.createUser({
-          name: $scope.user.name,
+          nick: $scope.user.nick,
           email: $scope.user.email,
           password: $scope.user.password
         })
