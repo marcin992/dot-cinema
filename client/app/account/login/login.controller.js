@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('dotCinemaApp')
-  .controller('LoginCtrl', function($scope, Auth, $state) {
+  .controller('LoginCtrl', function($scope, Auth, $state, toastr) {
     $scope.user = {};
     $scope.errors = {};
 
@@ -18,6 +18,7 @@ angular.module('dotCinemaApp')
           $state.go('main');
         })
         .catch(function(err) {
+          toastr.error(err.message, 'Błąd');
           $scope.errors.other = err.message;
         });
       }

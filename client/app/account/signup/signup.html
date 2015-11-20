@@ -8,12 +8,14 @@
         <form name="form" ng-submit="register(form)" novalidate>
           <div class="row">
             <div class="large-12 columns">
-              <input type="text"
-                     ng-class="form.nick.$error.required && submitted ? 'error' : ''"
-                     name="nick"
-                     ng-model="user.nick"
-                     placeholder="Nick"
-                     required>
+              <label>Nick
+                <input type="text"
+                       ng-class="form.nick.$error.required && submitted ? 'error' : ''"
+                       name="nick"
+                       ng-model="user.nick"
+                       placeholder="Nick"
+                       required>
+              </label>
               <small class="error error-label" ng-if="form.nick.$error.required && submitted">
                 To pole jest wymagane.
               </small>
@@ -22,13 +24,15 @@
 
           <div class="row">
             <div class="large-12 columns">
-              <input type="email"
-                     ng-class="form.email.$error.email || form.email.$error.required && submitted ? 'error' : ''"
-                     name="email"
-                     ng-model="user.email"
-                     placeholder="Email"
-                     required>
-              <small class="error error-label" ng-if="form.email.$error.email || form.email.$error.required && submitted">
+              <label>Email
+                <input type="email"
+                       ng-class="(form.email.$error.email || form.email.$error.required) && submitted ? 'error' : ''"
+                       name="email"
+                       ng-model="user.email"
+                       placeholder="Email"
+                       required>
+              </label>
+              <small class="error error-label" ng-if="(form.email.$error.email || form.email.$error.required) && submitted">
                 Podaj poprawny email.
               </small>
             </div>
@@ -36,13 +40,15 @@
 
           <div class="row">
             <div class="large-12 columns">
-              <input type="password"
-                     name="password"
-                     ng-minlength="5"
-                     ng-class="(form.password.$error.required || form.password.$error.minlength) && submitted ? 'error' : ''"
-                     ng-model="user.password"
-                     placeholder="Hasło"
-                     required>
+              <label>Hasło
+                <input type="password"
+                       name="password"
+                       ng-minlength="5"
+                       ng-class="(form.password.$error.required || form.password.$error.minlength) && submitted ? 'error' : ''"
+                       ng-model="user.password"
+                       placeholder="Hasło"
+                       required>
+              </label>
               <small class="error error-label"
                      ng-if="(form.password.$error.required || form.password.$error.minlength) && submitted">
                 Podaj poprawne hasło (min. 5 znaków)
@@ -52,20 +58,20 @@
 
           <div class="row">
             <div class="large-12 columns">
-              <input type="password"
-                     name="passwordretype"
-                     ng-minlength="5"
-                     ng-class="(passwordRetype !== user.password) && submitted ? 'error' : ''"
-                     ng-model="passwordRetype"
-                     placeholder="Powtórz hasło"
-                     required>
+              <label>Powtórz hasło
+                <input type="password"
+                       name="passwordretype"
+                       ng-minlength="5"
+                       ng-class="(passwordRetype !== user.password) && submitted ? 'error' : ''"
+                       ng-model="passwordRetype"
+                       placeholder="Powtórz hasło"
+                       required>
+              </label>
               <small class="error error-label" ng-if="passwordRetype !== user.password && submitted">
                 Hasła muszą się zgadzać.
               </small>
             </div>
           </div>
-
-          <small ng-if="errors.other" class="error error-label">{{ errors.other }}</small>
 
           <div class="row">
             <div class="large-12 columns">

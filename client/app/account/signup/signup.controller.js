@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('dotCinemaApp')
-  .controller('SignupCtrl', function($scope, Auth, $state) {
+  .controller('SignupCtrl', function($scope, Auth, $state, toastr) {
     $scope.user = {};
     $scope.errors = {};
 
@@ -21,6 +21,7 @@ angular.module('dotCinemaApp')
         .catch(function(err) {
           err = err.data;
           $scope.errors = {};
+          toastr.error(err,message);
 
           // Update validity of form fields that match the sequelize errors
           if (err.name) {

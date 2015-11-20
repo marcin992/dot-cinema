@@ -7,7 +7,9 @@ angular.module('dotCinemaApp', [
   'btford.socket-io',
   'ui.router',
   'slick',
-  'validation.match'
+  'validation.match',
+  'ngAnimate',
+  'toastr'
 ])
   .config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
