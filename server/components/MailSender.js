@@ -1,10 +1,9 @@
-import {nodemailer} from 'nodemailer';
-import {Q} from 'q';
+import * as nodemailer from 'nodemailer';
+import * as Q from 'q';
 import * as config from '../config/mail/config';
 
-export class MailSender {
+class MailSender {
   transporter;
-  static instance;
 
   constructor() {
     this.transporter = nodemailer.createTransport({
@@ -14,14 +13,6 @@ export class MailSender {
         pass: config.password
       }
     })
-  }
-
-  static getInstance() {
-    if(!this.instance) {
-      this.instance = new MailSender();
-    }
-
-    return this.instance;
   }
 
   sendMail(to, subject, body) {
@@ -35,3 +26,5 @@ export class MailSender {
     return Q.denodeify(this.transporter.sendMail)(options);
   }
 }
+var sender = new MailSender();
+export {sender};
