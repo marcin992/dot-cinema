@@ -1,6 +1,7 @@
 'use strict';
 
 import crypto from 'crypto';
+import {EmployeesData} from '../../sqldb/index';
 
 var validatePresenceOf = function(value) {
   return value && value.length;
@@ -15,7 +16,10 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
-    nick: DataTypes.STRING,
+    nick: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     email: {
       type: DataTypes.STRING,
       unique: {
@@ -225,6 +229,10 @@ module.exports = function(sequelize, DataTypes) {
         }
       }
     }
+  });
+
+  User.hasOne(EmployeesData, {
+    foreign_key: 'employee_data_id'
   });
 
   return User;
