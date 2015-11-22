@@ -10,12 +10,12 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: true
     },
 
-    create: {
+    data_create: {
       type: DataTypes.STRING,
       allowNull: false,
     },
 
-    end: {
+    data_end: {
       type: DataTypes.STRING,
       allowNull: true,
     },
