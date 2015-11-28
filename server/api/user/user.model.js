@@ -19,7 +19,7 @@ module.exports = function(sequelize, DataTypes) {
     email: {
       type: DataTypes.STRING,
       unique: {
-        msg: 'The specified email address is already in use.'
+        msg: 'Adres jest obecnie używany.'
       },
       validate: {
         isEmail: true
@@ -223,9 +223,12 @@ module.exports = function(sequelize, DataTypes) {
         } else {
           fn(null);
         }
-      }
+      },
+
+      underscored: true
     }
   });
+
 
   return User;
 };

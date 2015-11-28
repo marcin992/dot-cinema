@@ -1,6 +1,6 @@
 'use strict';
 
-import {User} from '../../sqldb';
+import {User, EmployeesData} from '../../sqldb';
 import passport from 'passport';
 import config from '../../config/environment';
 import jwt from 'jsonwebtoken';
@@ -140,7 +140,11 @@ exports.me = function(req, res, next) {
       'email',
       'role',
       'provider'
-    ]
+    ],
+    include: [{
+      model: EmployeesData,
+      as: 'employee_data'
+    }]
   })
     .then(function(user) { // don't ever give out the password or salt
       if (!user) {

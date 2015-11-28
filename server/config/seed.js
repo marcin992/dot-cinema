@@ -7,6 +7,7 @@
 import sqldb from '../sqldb';
 var Thing = sqldb.Thing;
 var User = sqldb.User;
+var EmployeesData = sqldb.EmployeesData;
 
 Thing.sync()
   .then(function() {
@@ -64,3 +65,5 @@ User.sync()
       console.log('finished populating users');
     });
   });
+
+EmployeesData.sync();
