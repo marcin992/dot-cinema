@@ -32,7 +32,7 @@ public class MainProfileScreen extends ActionBarActivity {
         {
             list.add(values[i]);
         }
-        final StableArrayAdapter adapter = new StableArrayAdapter(this, android.R.layout.simple_list_item_1, list);
+        final StableArrayAdapter adapter = new StableArrayAdapter(this, R.layout.list_item, list);
         listview.setAdapter(adapter);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
