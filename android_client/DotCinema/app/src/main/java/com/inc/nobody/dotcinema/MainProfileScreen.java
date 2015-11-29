@@ -3,12 +3,15 @@ package com.inc.nobody.dotcinema;
 import android.content.Context;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.*;
 
@@ -21,18 +24,13 @@ public class MainProfileScreen extends ActionBarActivity {
         setContentView(R.layout.activity_main_profile_screen);
 
         final ListView listview = (ListView) findViewById(R.id.listView);
-        String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
-                "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-                "Linux", "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux",
-                "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux", "OS/2",
-                "Android", "iPhone", "WindowsMobile" };
 
-        final ArrayList<String> list = new ArrayList<String>();
-        for (int i = 0; i < values.length; ++i)
+        final Reservation[] list = new Reservation[6];
+        for (int i = 0; i < 6; ++i)
         {
-            list.add(values[i]);
+            list[i] =  Reservation.createFakeReservation();
         }
-        final StableArrayAdapter adapter = new StableArrayAdapter(this, R.layout.list_item, list);
+        final ReservationArrayAdapter adapter = new ReservationArrayAdapter(this, R.layout.list_item, list);
         listview.setAdapter(adapter);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -46,21 +44,23 @@ public class MainProfileScreen extends ActionBarActivity {
         });
     }
 
-    private class StableArrayAdapter extends ArrayAdapter<String> {
+    private class ReservationArrayAdapter extends ArrayAdapter<Reservation> {
+        private final Context context;
+        private final Reservation[] values;
+        HashMap<Reservation, Integer> mIdMap = new HashMap<Reservation, Integer>();
 
-        HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
-
-        public StableArrayAdapter(Context context, int textViewResourceId,
-                                  List<String> objects) {
+        public ReservationArrayAdapter(Context context, int textViewResourceId, Reservation[] objects) {
             super(context, textViewResourceId, objects);
-            for (int i = 0; i < objects.size(); ++i) {
-                mIdMap.put(objects.get(i), i);
+            for (int i = 0; i < objects.length; ++i) {
+                mIdMap.put(objects[i], i);
             }
+            this.context = context;
+            this.values = objects;
         }
 
         @Override
         public long getItemId(int position) {
-            String item = getItem(position);
+            Reservation item = getItem(position);
             return mIdMap.get(item);
         }
 
@@ -69,6 +69,20 @@ public class MainProfileScreen extends ActionBarActivity {
             return true;
         }
 
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View rowView = inflater.inflate(R.layout.list_item, parent, false);
+            TextView titleLabel = (TextView) rowView.findViewById(R.id.firstLine);
+            TextView descriptionLabel = (TextView) rowView.findViewById(R.id.secondLine);
+            titleLabel.setText(values[position].getMovieTitle());
+            descriptionLabel.setText(values[position].getAdditionalData());
+            // Change the icon for Windows and iPhone
+            String s = values[position].getMovieTitle();
+
+            return rowView;
+        }
     }
 
 
