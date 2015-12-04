@@ -15,6 +15,7 @@ var db = {
 };
 
 // Insert models below
+db.Rating = db.sequelize.import('../api/rating/rating.model');
 db.Reservation = db.sequelize.import('../api/reservation/reservation.model');
 db.Hall = db.sequelize.import('../api/hall/hall.model');
 db.Seance = db.sequelize.import('../api/seance/seance.model');
@@ -58,6 +59,26 @@ db.Reservation.belongsTo(db.Seance, {
 db.User.hasMany(db.Reservation, {
   foreignKey: 'user_id',
   as: 'reservations'
+});
+
+db.Movie.hasMany(db.Rating, {
+  foreignKey: 'movie_id',
+  as: 'ratings'
+});
+
+db.Rating.belongsTo(db.Movie, {
+  foreignKey: 'movie_id',
+  as: 'movie'
+});
+
+db.User.hasMany(db.Rating, {
+  foreignKey: 'user_id',
+  as: 'ratings'
+});
+
+db.Rating.belongsTo(db.User, {
+  foreignKey: 'user_id',
+  as: 'user'
 });
 
 db.sequelize.sync({
