@@ -18,6 +18,7 @@ function onConnect(socket) {
   });
 
   // Insert sockets below
+  require('../api/seance/seance.socket').register(socket);
   require('../api/movie/movie.socket').register(socket);
   require('../api/employeesData/employeesData.socket').register(socket);
   require('../api/thing/thing.socket').register(socket);
