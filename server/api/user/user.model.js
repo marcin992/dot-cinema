@@ -227,10 +227,10 @@ module.exports = function(sequelize, DataTypes) {
         } else {
           fn(null);
         }
-      },
-
-      underscored: true
-    }
+      }
+    },
+    underscored: true,
+    tableName: 'users'
   });
 
 

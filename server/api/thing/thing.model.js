@@ -11,5 +11,7 @@ module.exports = function(sequelize, DataTypes) {
     name: DataTypes.STRING,
     info: DataTypes.STRING,
     active: DataTypes.BOOLEAN
+  }, {
+    tableName: 'things'
   });
 };

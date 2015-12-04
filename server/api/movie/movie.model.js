@@ -1,40 +1,31 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('EmployeesData', {
+  return sequelize.define('Movie', {
     _id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    name: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    surname: {
-      type: DataTypes.STRING,
+    duration: {
+      type: DataTypes.INTEGER,
       allowNull: false
     },
-    pesel: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      unique: true
-    },
-    phone: {
+    description: {
       type: DataTypes.STRING,
       allowNull: true
     },
-    date_joined: {
-      type: DataTypes.DATE,
-      allowNull: false
-    },
-    date_out: {
-      type: DataTypes.DATE,
+    cover: {
+      type: DataTypes.BLOB,
       allowNull: true
     }
   }, {
     underscored: true,
-    tableName: 'employee_data'
+    tableName: 'movies'
   });
 };
