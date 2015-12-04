@@ -33,5 +33,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: true
     }
+  }, {
+    underscored: true
   });
 };

@@ -227,13 +227,12 @@ module.exports = function(sequelize, DataTypes) {
         } else {
           fn(null);
         }
-      }
+      },
+
+      underscored: true
     }
   });
 
-  User.hasOne(EmployeesData, {
-    foreign_key: 'employee_data_id'
-  });
 
   return User;
 };
