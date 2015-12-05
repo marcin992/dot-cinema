@@ -18,6 +18,7 @@ function onConnect(socket) {
   });
 
   // Insert sockets below
+  require('../api/timesheet/timesheet.socket').register(socket);
   require('../api/rating/rating.socket').register(socket);
   require('../api/reservation/reservation.socket').register(socket);
   require('../api/hall/hall.socket').register(socket);
