@@ -93,6 +93,6 @@ db.Timesheet.belongsTo(db.EmployeesData, {
 });
 
 db.sequelize.sync({
-  force: true
+  force: false
 });
 module.exports = db;
