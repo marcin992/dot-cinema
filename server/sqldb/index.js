@@ -40,16 +40,14 @@ db.Seance.belongsTo(db.Movie, {
   as: 'movie'
 });
 
-db.Hall.belongsToMany(db.Seance, {
-  as: 'seances',
-  through: 'halls_seances',
-  foreignKey: 'hall_id'
+db.Seance.belongsTo(db.Hall, {
+  foreignKey: 'hall_id',
+  as: 'hall'
 });
 
-db.Seance.belongsToMany(db.Hall, {
-  as: 'halls',
-  through: 'halls_seances',
-  foreignKey: 'seance_id'
+db.Hall.hasMany(db.Seance, {
+  foreignKey: 'hall_id',
+  as: 'seances'
 });
 
 db.Reservation.belongsTo(db.Seance, {

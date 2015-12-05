@@ -5,65 +5,61 @@
 
 'use strict';
 import sqldb from '../sqldb';
+import Q from 'q';
 var Thing = sqldb.Thing;
 var User = sqldb.User;
 var EmployeesData = sqldb.EmployeesData;
+var Movie = sqldb.Movie;
+var Timesheet = sqldb.Timesheet;
+var Rating = sqldb.Rating;
+var Reservation = sqldb.Reservation;
+var Hall = sqldb.Hall;
+var Seance = sqldb.Seance;
 
-Thing.sync()
-  .then(function() {
-    return Thing.destroy({ where: {} });
+Movie.destroy({
+  where: {}
+}).then(() => {
+  return Seance.destroy({
+    where: {}
   })
-  .then(function() {
-    Thing.bulkCreate([{
-      name: 'Development Tools',
-      info: 'Integration with popular tools such as Bower, Grunt, Babel, Karma, ' +
-             'Mocha, JSHint, Node Inspector, Livereload, Protractor, Jade, ' +
-             'Stylus, Sass, and Less.'
-    }, {
-      name: 'Server and Client integration',
-      info: 'Built with a powerful and fun stack: MongoDB, Express, ' +
-             'AngularJS, and Node.'
-    }, {
-      name: 'Smart Build System',
-      info: 'Build system ignores `spec` files, allowing you to keep ' +
-             'tests alongside code. Automatic injection of scripts and ' +
-             'styles into your index.html'
-    }, {
-      name: 'Modular Structure',
-      info: 'Best practice client and server structures allow for more ' +
-             'code reusability and maximum scalability'
-    }, {
-      name: 'Optimized Build',
-      info: 'Build process packs up your templates as a single JavaScript ' +
-             'payload, minifies your scripts/css/images, and rewrites asset ' +
-             'names for caching.'
-    }, {
-      name: 'Deployment Ready',
-      info: 'Easily deploy your app to Heroku or Openshift with the heroku ' +
-             'and openshift subgenerators'
-    }]);
-  });
-
-User.sync()
-  .then(function() {
-    return User.destroy({ where: {} });
+}).then(() => {
+  return Hall.destroy({
+    where: {}
   })
-  .then(function() {
-    User.bulkCreate([{
-      provider: 'local',
-      nick: 'Test User',
-      email: 'test@example.com',
-      password: 'test'
-    }, {
-      provider: 'local',
-      role: 'admin',
-      nick: 'Admin',
-      email: 'admin@example.com',
-      password: 'admin'
-    }])
-    .then(function() {
-      console.log('finished populating users');
-    });
+}).then(() => {
+  return Reservation.destroy({
+    where: {}
+  })
+}).then(() => {
+  return Movie.create({
+    title: 'Star Wars',
+    duration: 180
   });
+}).then(movie => {
+  return Seance.create({
+    date: Date.now(),
+    cost: 14.00,
+    movie_id: movie.get('_id')
+  });
+}).then(seance => {
 
-EmployeesData.sync();
+  return Hall.create({
+    name: 'A1',
+      chairs: {
+        A: 25,
+        B: 25,
+        C: 25,
+        D: 25,
+        E: 20
+      }
+  });
+}).then(hall => {
+  return Seance.update({
+    hall_id: hall.get('_id')
+  }, {
+    where: {
+      cost: 14.00
+    }
+  });
+});
+
