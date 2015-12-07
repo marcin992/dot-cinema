@@ -86,40 +86,8 @@ public class RegisterScreen extends ActionBarActivity {
         String nick =((EditText)findViewById(R.id.nickInput)).getText().toString();
         String email =((EditText)findViewById(R.id.emailInput)).getText().toString();
         String password =((EditText)findViewById(R.id.passwordInput)).getText().toString();
-
-        if(register(nick,email,password))
-        {
-            goToMainScreen();
-        }
-        else
-            ShowDialog(view.getContext());
-    }
-    private void ShowDialog(Context context)
-    {
-        DialogUtil.getInstance().showInfoDialog(context,context.getString(R.string.user_exist));
-    }
-    private boolean register(String nick,String email, String password)
-    {
-        return fakeSaveToPreferences(nick,email,password);
-    }
-    private boolean fakeSaveToPreferences(String nick, String email, String password) {
-        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-
-        String checkFromPrefsEmail = sharedPref.getString(email, null);
-        String checkFromPrefsNick = sharedPref.getString(nick, null);
-        if (checkFromPrefsEmail == null|| checkFromPrefsNick == null) {
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString(email, password);
-            editor.putString(nick, password);
-
-            System.out.println("register: " + email + " " + password + " " + nick);
-
-            editor.commit();
-            return true;
-        }
-
-        return false;
-
+        String response = HttpWrapper.getInstance().MakePostRegistration(email,password,nick);
+        DialogUtil.getInstance().showInfoDialog(view.getContext(),response);
     }
 
     public void goToMainScreen()
