@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.inc.nobody.dotcinema" >
-
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,6 +23,10 @@
         <activity
             android:name=".MainProfileScreen"
             android:label="@string/title_activity_main_profile_screen" >
+        </activity>
+        <activity
+            android:name=".ReservationScreen"
+            android:label="@string/title_activity_reservation_screen" >
         </activity>
     </application>
 
