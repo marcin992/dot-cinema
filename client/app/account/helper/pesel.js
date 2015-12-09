@@ -1,7 +1,7 @@
 var checkPesel = function(pesel) {
     var reg = /^[0-9]{11}$/;
 	
-    if(reg.test(pesel) == true && pesel.length == 11) {
+    if (reg.test(pesel) == true && pesel.length == 11) {
 		var arr = [1,3,7,9,1,3,7,9,1,3];
 		var sum = 0;
 
