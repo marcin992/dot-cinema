@@ -78,6 +78,13 @@ exports.show = function(req, res) {
     .catch(handleError(res));
 };
 
+exports.find = function(req, res) {
+  var filtering = req.body;
+  Reservation.find(filtering)
+    .then(responseWithResult(res))
+    .catch(handleError(res));
+};
+
 // Creates a new Reservation in the DB
 exports.create = function(req, res) {
   Reservation.create(req.body)
