@@ -5,8 +5,7 @@ var checkPesel = function(pesel) {
 		var arr = [1,3,7,9,1,3,7,9,1,3];
 		var sum = 0;
 
-		for (var i = 0; i < 10; i++)
-		{
+		for (var i = 0; i < 10; i++) {
 			sum += arr[i] * y[i];
 		}
 
