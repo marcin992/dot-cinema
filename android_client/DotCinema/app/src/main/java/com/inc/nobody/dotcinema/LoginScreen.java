@@ -75,7 +75,7 @@ public class LoginScreen extends ActionBarActivity {
         String text = ((EditText)findViewById(R.id.nickInput)).getText().toString().trim();
         String password = ((EditText)findViewById(R.id.passpowrdInput)).getText().toString().trim();
         String response = HttpWrapper.getInstance().MakePostLogin(text, password);
-        if(response == null || !response.equals("auth"))
+        if(!response.contains("token"))
             DialogUtil.getInstance().showInfoDialog(view.getContext(),response==null?"null":response);
         else {
             Intent intent = new Intent(this, MainProfileScreen.class);
