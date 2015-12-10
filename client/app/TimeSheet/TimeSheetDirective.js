@@ -6,6 +6,6 @@ angular.module('dotCinemaApp')
       .state('TimeSheet', {
         url: '/TimeSheet',
         templateUrl: 'app/TimeSheet/TimeSheet.html',
-        controller: 'AdminCtrl'
+        controller: 'TimeSheetController'
       });
   });
