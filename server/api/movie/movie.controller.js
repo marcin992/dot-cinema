@@ -12,10 +12,12 @@
 var _ = require('lodash');
 var sqldb = require('../../sqldb');
 var Movie = sqldb.Movie;
+var Seance = sqldb.Seance;
 
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
   return function(err) {
+    console.log(JSON.stringify(err));
     res.status(statusCode).send(err);
   };
 }
@@ -24,6 +26,7 @@ function responseWithResult(res, statusCode) {
   statusCode = statusCode || 200;
   return function(entity) {
     if (entity) {
+      console.log(entity);
       res.status(statusCode).json(entity);
     }
   };
@@ -74,6 +77,18 @@ exports.show = function(req, res) {
     }
   })
     .then(handleEntityNotFound(res))
+    .then(responseWithResult(res))
+    .catch(handleError(res));
+};
+
+exports.find = function(req, res) {
+  var payload = _.merge(req.body, {
+    include: [{
+      model: Seance,
+      as: 'seances'
+    }]
+  });
+  Movie.findAll(payload)
     .then(responseWithResult(res))
     .catch(handleError(res));
 };
