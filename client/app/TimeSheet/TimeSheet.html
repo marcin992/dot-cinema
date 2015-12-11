@@ -3,13 +3,18 @@
 
 <h2>My Timesheet</h2>
 
+<div ng-repeat="error in errors">
+	<h4>{{error.name}}</h4>
+	<p>{{error.message}}</p>
+</div>
+
 <div>
 	<span ng-if="timesheets.length != 0">
-		<span ng if="DateEndIsNull() == true">
+		<span ng if="timesheet.date_end.length != 0">
 			<button ng-click="Start()">Rozpocznij prace {1}</button>
 			<button disabled="disabled">Zakoncz prace {2}</button>
 		</span>
-		<span ng if="DateEndIsNull() == false">
+		<span ng if="timesheet.date_end.length == 0">
 			<button disabled="disabled">Rozpocznij prace {3}</button>
 			<button ng-click="End()">Zakoncz prace {4}</button>
 		</span>

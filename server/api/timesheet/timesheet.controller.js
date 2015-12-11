@@ -78,6 +78,18 @@ exports.show = function(req, res) {
     .catch(handleError(res));
 };
 
+// Gets a list of timesheets for employeesData
+exports.me = function(req, res) {
+  Timesheet.findAll({
+    where: {
+      employee_data_id: req.params.id
+    }
+  })
+    .then(handleEntityNotFound(res))
+    .then(responseWithResult(res))
+    .catch(handleError(res));
+};
+
 // Creates a new Timesheet in the DB
 exports.create = function(req, res) {
   Timesheet.create(req.body)
@@ -97,6 +109,13 @@ exports.update = function(req, res) {
   })
     .then(handleEntityNotFound(res))
     .then(saveUpdates(req.body))
+    .then(responseWithResult(res))
+    .catch(handleError(res));
+};
+
+exports.find = function(req, res) {
+  var filtering = req.body;
+  Timesheet.find(filtering)
     .then(responseWithResult(res))
     .catch(handleError(res));
 };

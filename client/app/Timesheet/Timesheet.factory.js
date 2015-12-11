@@ -1,57 +1,46 @@
 'use strict';
 
 angular.module('dotCinemaApp')
-  .factory('Timesheet', function ($http) {
+  .constant('API_URI', '/api/timesheets/')
+  .factory('Timesheet', ['$http', 'API_URI', function($http, API_URI) {
 
-    var api = '/api/timesheets/';
+    function getUrl() {
+        return API_URI;
+    }
+
+    function getUrlForId(itemId) {
+        return getUrl() + itemId;
+    }
+
     var timesheetsFactory = [];
     
     timesheetsFactory.GetAll = function() {
-        return $http.get(api);
+        return $http.get(getUrl());
     },
 
-    timesheetsFactory.Gets = function(employer) {
-        return $http.get(this.api, employer);
+    timesheetsFactory.Gets = function(Employer) {
+        return $http.get(getUrlForId("me/" + 1));
     },
 
     timesheetsFactory.End = function(timesheet) {
-        return $http.put(this.api, timesheet);
+        return $http.put(getUrl(), timesheet);
     },
 
     timesheetsFactory.Start = function(timesheet) {
-        return $http.post(this.api, timesheet);
+        return $http.post(getUrl(), timesheet);
     },
 
     timesheetsFactory.Update = function(timesheet) {
-        return $http.put(this.api, timesheet);
+        return $http.put(getUrl(), timesheet);
     },
 
     timesheetsFactory.Delete = function(timesheet) {
-        return $http.delete(this.api, timesheet);
+        return $http.delete(getUrl(), timesheet);
     },
 
     timesheetsFactory.GetDateNow = function() {
-        var date = new Date();
-
-        var hour = date.getHours();
-        hour = (hour < 10 ? "0" : "") + hour;
-
-        var min  = date.getMinutes();
-        min = (min < 10 ? "0" : "") + min;
-
-        var sec  = date.getSeconds();
-        sec = (sec < 10 ? "0" : "") + sec;
-
-        var year = date.getFullYear();
-
-        var month = date.getMonth() + 1;
-        month = (month < 10 ? "0" : "") + month;
-
-        var day  = date.getDate();
-        day = (day < 10 ? "0" : "") + day;
-
-        return year + "-" + month + "-" + day + "T" + hour + ":" + min + ":" + sec;
+        return "2015-12-11 11:30:03.10514+01";    
     }
 
     return timesheetsFactory;
-  });
+  }]);
