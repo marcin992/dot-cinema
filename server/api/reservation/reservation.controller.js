@@ -12,6 +12,8 @@
 var _ = require('lodash');
 var sqldb = require('../../sqldb');
 var Reservation = sqldb.Reservation;
+var Seance = sqldb.Seance;
+var Movie = sqldb.Movie;
 
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
@@ -80,7 +82,17 @@ exports.show = function(req, res) {
 
 exports.find = function(req, res) {
   var filtering = req.body;
-  Reservation.find(filtering)
+  var payload = _.merge(filtering, {
+    include: [{
+      model: Seance,
+      as: 'seance',
+      include: [{
+        model: Movie,
+        as: 'movie'
+      }]
+    }]
+  });
+  Reservation.findAll(payload)
     .then(responseWithResult(res))
     .catch(handleError(res));
 };
