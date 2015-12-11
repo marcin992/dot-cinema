@@ -88,8 +88,12 @@ public class RegisterScreen extends ActionBarActivity {
         String password =((EditText)findViewById(R.id.passwordInput)).getText().toString();
         String response = HttpWrapper.getInstance().MakePostRegistration(email,password,nick);
 
-        if(response.contains("token"))
+        if(response.contains("token")) {
+            IdentityHolder.getInstance().setEmail(email);
+            IdentityHolder.getInstance().setToken(response.replace("token:","").trim());
+
             goToMainScreen();
+        }
         else
             DialogUtil.getInstance().showInfoDialog(view.getContext(),response);
     }

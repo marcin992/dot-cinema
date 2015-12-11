@@ -6,6 +6,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.scheme.PlainSocketFactory;
@@ -21,6 +22,7 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -37,6 +39,8 @@ public class HttpWrapper {
     final String mainUrl = "https://91.196.50.18:443";
     final String loginUrl = "/auth/local";
     final String registerUrl = "/api/users";
+    final String reservationsUrl = "/api/reservations";
+
 
     public String getLoginUrl()
     {
@@ -45,6 +49,10 @@ public class HttpWrapper {
     public String getRegisterUrl()
     {
         return mainUrl + registerUrl;
+    }
+    public String getReservationsUrl()
+    {
+        return mainUrl + reservationsUrl;
     }
 
     private static HttpWrapper instance;
@@ -79,6 +87,14 @@ public class HttpWrapper {
         JSONObject response = MakePost(getRegisterUrl(),parameters);
         return FindMessageOrToken(response);
     }
+
+    public String MakeGetReservations()
+    {
+        JSONArray response = MakeGet(getReservationsUrl());
+        System.out.println(response.toString());
+        return response.toString();
+    }
+
 
     public String FindMessageOrToken(JSONObject response)
     {
@@ -133,11 +149,47 @@ public class HttpWrapper {
             httpClient.getConnectionManager().shutdown(); //Deprecated
         }
     }
+
+    public JSONArray MakeGet(String url) {
+
+        HttpClient httpClient = getHttpClient(); //Deprecated
+
+        try {
+            HttpGet request = new HttpGet(url);
+            request.addHeader("Authorization", "Bearer " + IdentityHolder.getInstance().getToken());
+            HttpResponse response = httpClient.execute(request);
+
+            // handle response here...
+            JSONArray message = GetJSONArray(PrintHttpResponse(response));
+            return  message;
+        }
+        catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return null;
+        }
+        catch (ClientProtocolException e) {
+            e.printStackTrace();
+            return null;
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+        finally {
+            httpClient.getConnectionManager().shutdown(); //Deprecated
+        }
+    }
+
+
     private JSONObject createErrorJson(String message)
     {
         JSONObject toReturn = new JSONObject();
         try {
-            toReturn.put("message",message);
+            toReturn.put("message", message);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -179,6 +231,10 @@ public class HttpWrapper {
 
     private JSONObject GetJSON(String information) throws JSONException {
         return new JSONObject(information);
+    }
+
+    private JSONArray GetJSONArray(String information) throws JSONException {
+        return new JSONArray(information);
     }
     private String PrintHttpResponse(HttpResponse response) throws IOException {
         BufferedReader r = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
