@@ -31,7 +31,7 @@ angular.module('dotCinemaApp')
 
     ApiRequester.getData(tableNames.seances)
       .then(function (seances) {
-        seances = _.map(seances, seance => {
+        seances = _.map(seances, function(seance) {
           return _.merge(seance, {
             hour: moment(seance.date).format('HH:mm')
           });

@@ -8,7 +8,9 @@ angular.module('dotCinemaApp')
       getData: function (table, filtering) {
         filtering = filtering || {where: {}};
         return $http.post(url + table, JSON.stringify(filtering))
-          .then(result => result.data);
+          .then(function(result) {
+            return result.data
+          });
       }
     };
   });
