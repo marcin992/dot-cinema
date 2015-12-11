@@ -19,7 +19,6 @@ angular.module('dotCinemaApp')
       //Timesheet.GetAll()
       Timesheet.Gets(Employer)
       .success(function(timesheets) {
-        console.log(timesheets);
         $scope.timesheets = timesheets;
       })
       .error(function(error) {

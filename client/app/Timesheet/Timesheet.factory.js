@@ -19,7 +19,8 @@ angular.module('dotCinemaApp')
     },
 
     timesheetsFactory.Gets = function(Employer) {
-        return $http.get(getUrlForId("me/" + 1));
+        var id = Employer._id;
+        return $http.get(getUrlForId("me/" + id));
     },
 
     timesheetsFactory.End = function(timesheet) {
