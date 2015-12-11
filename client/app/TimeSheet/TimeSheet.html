@@ -1,3 +1,40 @@
 <navbar></navbar>
+<div ng-app="dotCinemaApp" ng-controller="TimeSheetController"> 
 
 <h2>My Timesheet</h2>
+
+<div>
+	<span ng-if="timesheets.length != 0">
+		<span ng if="DateEndIsNull() == true">
+			<button ng-click="Start()">Rozpocznij prace {1}</button>
+			<button disabled="disabled">Zakoncz prace {2}</button>
+		</span>
+		<span ng if="DateEndIsNull() == false">
+			<button disabled="disabled">Rozpocznij prace {3}</button>
+			<button ng-click="End()">Zakoncz prace {4}</button>
+		</span>
+	</span>
+	<span ng-if="timesheets.length == 0">
+		<button ng-click="Start()">Rozpocznij prace {5}</button>
+		<button disabled="disabled">Zakoncz prace {6}</button>
+	</span>
+</div>
+
+<table>
+	<thead>
+		<tr>
+			<td>Data rozpoczecia</td>
+			<td>Data zakonczenia</td>
+		</tr>
+	</thead>
+	<tbody>
+		  <tr ng-repeat="ts in timesheets | orderBy: '-date_start'">
+		    <td>
+		    	{{ ts.date_start.replace("T", " ").replace("Z", "").split(".")[0] }}
+		    </td>
+		    <td>
+		    	{{ ts.date_end.replace("T", " ").replace("Z", "").split(".")[0] }}
+		    </td>
+		  </tr>
+	</tbody>
+</table>

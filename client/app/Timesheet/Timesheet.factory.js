@@ -30,7 +30,7 @@ angular.module('dotCinemaApp')
         return $http.delete(this.api, timesheet);
     },
 
-    this.GetDateNow = function() {
+    timesheetsFactory.GetDateNow = function() {
         var date = new Date();
 
         var hour = date.getHours();
@@ -50,7 +50,7 @@ angular.module('dotCinemaApp')
         var day  = date.getDate();
         day = (day < 10 ? "0" : "") + day;
 
-        return year + ":" + month + ":" + day + ":" + hour + ":" + min + ":" + sec;
+        return year + "-" + month + "-" + day + "T" + hour + ":" + min + ":" + sec;
     }
 
     return timesheetsFactory;
