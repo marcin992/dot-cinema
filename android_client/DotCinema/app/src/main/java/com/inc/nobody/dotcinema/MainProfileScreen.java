@@ -22,8 +22,15 @@ public class MainProfileScreen extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_profile_screen);
+        TextView textView = (TextView) findViewById(R.id.textView);
+        TextView textView2 = (TextView) findViewById(R.id.textView2);
 
+        textView.setText(IdentityHolder.getInstance().getEmail());
+        textView2.setText(IdentityHolder.getInstance().getToken());
         final ListView listview = (ListView) findViewById(R.id.listView);
+
+
+        HttpWrapper.getInstance().MakeGetReservations();
 
         final Reservation[] list = new Reservation[6];
         for (int i = 0; i < 6; ++i)
@@ -37,7 +44,7 @@ public class MainProfileScreen extends ActionBarActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
-                final String item = (String) parent.getItemAtPosition(position);
+                final String item = Utils.MD5(Integer.toString(((Reservation) parent.getItemAtPosition(position)).getId()));
                 DialogUtil.getInstance().showInfoDialog(view.getContext(),item);
             }
 
