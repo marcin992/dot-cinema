@@ -11,6 +11,7 @@ angular.module('dotCinemaApp')
       var Employer = User.employee_data;
         
       $scope.Init = function() {
+        Employer = User.employee_data;
         if (Employer != undefined && Employer._id != undefined) {
           Timesheet.Gets(Employer)
           .success(function(timesheets) {
