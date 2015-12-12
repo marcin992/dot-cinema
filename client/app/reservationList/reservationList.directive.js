@@ -9,6 +9,9 @@ angular.module('dotCinemaApp')
         reservations: '='
       },
       link: function (scope, element, attrs) {
+        scope.isPast = function(reservation) {
+          return moment() > moment(reservation.seance.date);
+        };
       }
     };
   });

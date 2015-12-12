@@ -15,7 +15,7 @@ angular.module('dotCinemaApp')
       return Reservations.createReservation(newReservation)
         .then(function(res) {
           alert('Zarezerwowano miejsce!');
-          $state.go('main');
+          $state.go('profile');
         })
     };
 

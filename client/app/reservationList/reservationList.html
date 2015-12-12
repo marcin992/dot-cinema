@@ -5,7 +5,7 @@
     <img src="http://placehold.it/80x80&text=[img]">
   </div>
   <div class="large-10 columns">
-    <h5>{{reservation.seance.movie.title}}</h5>
-    <p>{{reservation.seance.preetyDate}}, godz. {{reservation.seance.hour}}, sala: {{reservation.seance.hall.name}}, miejsce: {{reservation.chair}}</p>
+    <h5 ng-class="isPast(reservation) ? 'reservation-past' : ''">{{reservation.seance.movie.title}}</h5>
+    <p ng-class="isPast(reservation) ? 'reservation-past' : ''">{{reservation.seance.preetyDate}}, godz. {{reservation.seance.hour}}, sala: {{reservation.seance.hall.name}}, miejsce: {{reservation.chair}}</p>
   </div>
 </div>
