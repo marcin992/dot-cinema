@@ -10,7 +10,7 @@
     <br>
     <h5>Wybrane miejsce: {{selectedPlace}}</h5>
     <br><br><hr>
-    <a href="" class="button" ng-disabled="!selectedPlace">Rezerwuj</a>
+    <a href="" class="button" ng-disabled="!selectedPlace" ng-click="createReservation()">Rezerwuj</a>
   </div>
   <div class="large-8 columns">
     <place-select seance="seance" selected-place="selectedPlace"></place-select>

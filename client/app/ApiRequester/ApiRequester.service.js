@@ -11,6 +11,13 @@ angular.module('dotCinemaApp')
           .then(function(result) {
             return result.data
           });
+      },
+
+      createEntity: function(table, object) {
+        return $http.post(url + table + '/create', JSON.stringify(object))
+          .then(function(result) {
+            return result.data;
+          });
       }
     };
   });

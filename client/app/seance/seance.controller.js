@@ -1,11 +1,23 @@
 'use strict';
 
 angular.module('dotCinemaApp')
-  .controller('SeanceCtrl', function ($scope, $stateParams, ApiRequester, TableNames) {
+  .controller('SeanceCtrl', function ($scope, $stateParams, ApiRequester, TableNames, Reservations, $state, Auth) {
     var tableNames = TableNames.getTableNames();
     $scope.seanceId = $stateParams.seanceId;
     $scope.seance = {};
     $scope.selectedPlace = '';
+
+    $scope.createReservation = function() {
+      var newReservation = {
+        chair: $scope.selectedPlace,
+        seance_id: $scope.seanceId
+      };
+      return Reservations.createReservation(newReservation)
+        .then(function(res) {
+          alert('Zarezerwowano miejsce!');
+          $state.go('main');
+        })
+    };
 
     ApiRequester.getData(tableNames.seances, {
       where: {
