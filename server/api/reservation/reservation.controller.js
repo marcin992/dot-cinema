@@ -14,6 +14,7 @@ var sqldb = require('../../sqldb');
 var Reservation = sqldb.Reservation;
 var Seance = sqldb.Seance;
 var Movie = sqldb.Movie;
+var Hall = sqldb.Hall;
 
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
@@ -89,6 +90,9 @@ exports.find = function(req, res) {
       include: [{
         model: Movie,
         as: 'movie'
+      }, {
+        model: Hall,
+        as: 'hall'
       }]
     }]
   });

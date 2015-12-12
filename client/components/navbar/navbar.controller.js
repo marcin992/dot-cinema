@@ -3,8 +3,13 @@
 angular.module('dotCinemaApp')
   .controller('NavbarCtrl', function ($scope, Auth) {
     $scope.menu = [{
-      'title': 'Home',
-      'state': 'main'
+      'title': 'Strona główna',
+      'state': 'main',
+      condition: true
+    }, {
+      title: 'Mój profil',
+      state: 'profile',
+      condition: Auth.isLoggedIn()
     }];
 
     $scope.isCollapsed = true;

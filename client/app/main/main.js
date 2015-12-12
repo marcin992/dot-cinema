@@ -13,5 +13,10 @@ angular.module('dotCinemaApp')
         url: '/seance/:seanceId',
         templateUrl: 'app/seance/seance.html',
         controller: 'SeanceCtrl'
+      })
+      .state('profile', {
+        url: '/profile',
+        controller: 'ProfileCtrl',
+        templateUrl: 'app/profile/profile.html'
       });
   });
