@@ -1,5 +1,5 @@
 <navbar></navbar>
-<div ng-app="dotCinemaApp" ng-controller="TimeSheetController"> 
+<div ng-app="dotCinemaApp" ng-controller="TimeSheetController" data-ng-init="Init()">
 
 <h2>My Timesheet</h2>
 
@@ -10,11 +10,11 @@
 
 <div>
 	<span ng-if="timesheets.length != 0">
-		<span ng if="timesheet.date_end.length != 0">
+		<span ng if="DateEndIsNull() == true">
 			<button ng-click="Start()">Rozpocznij prace {1}</button>
 			<button disabled="disabled">Zakoncz prace {2}</button>
 		</span>
-		<span ng if="timesheet.date_end.length == 0">
+		<span ng if="DateEndIsNull() == false">
 			<button disabled="disabled">Rozpocznij prace {3}</button>
 			<button ng-click="End()">Zakoncz prace {4}</button>
 		</span>
@@ -23,6 +23,9 @@
 		<button ng-click="Start()">Rozpocznij prace {5}</button>
 		<button disabled="disabled">Zakoncz prace {6}</button>
 	</span>
+
+	<button ng-click="Init()">Odswiez</button>
+	<button ng-click="GetAll()">Daj Wszystkie</button>
 </div>
 
 <table>
