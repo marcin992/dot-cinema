@@ -13,6 +13,7 @@ var _ = require('lodash');
 var sqldb = require('../../sqldb');
 var Seance = sqldb.Seance;
 var Movie = sqldb.Movie;
+var Hall = sqldb.Hall;
 
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
@@ -84,6 +85,9 @@ exports.find = function(req, res) {
     include: [{
       model: Movie,
       as: 'movie'
+    }, {
+      model: Hall,
+      as: 'hall'
     }]
   });
   Seance.findAll(payload)
