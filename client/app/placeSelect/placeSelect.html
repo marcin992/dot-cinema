@@ -1,0 +1,8 @@
+<h5 class="text-center">Ekran</h5>
+<div ng-repeat="(row, number) in seance.hall.chairs" class="text-center">
+  <ul class="button-group">
+    <li ng-repeat="x in [] | range:1:number">
+      <a href="" class="button small chair-button" ng-click="selectPlace(row, x)"></a>
+    </li>
+  </ul>
+</div>

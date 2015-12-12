@@ -31,7 +31,7 @@
   src: url(../assets/fonts/Sawasdee.ttf);
 }
 
-.color-primary-0 { background-color: #dad9da
+.color-primary-0 { background-color: #eeedee
 }	/* Main Primary color */
 .color-primary-1 { background-color: #302931 }
 .color-primary-2 { background-color: #4E4E4E }
@@ -60,4 +60,8 @@
 
 .error-label {
   height: 33px;
+}
+
+.scrollable {
+  overflow-y: auto;
 }

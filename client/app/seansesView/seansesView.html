@@ -1,7 +1,7 @@
 <div>
-  <div class="panel">
+  <div class="panel seances-list">
     <h3>Repertuar</h3>
-    <div class="row">
+    <div class="row scrollable">
 
       <div class="large-3 columns" ng-repeat="day in days">
         <h4>{{ day.dayName }} </h4>
@@ -9,8 +9,9 @@
 
         <accordion>
           <accordion-group ng-repeat="(movie, seances1) in seances[day.date] track by $index" heading="{{movie}}">
-            <div ng-repeat="seance in seances1 track by $index" ng-class="isPast(seance) ? 'seance-disabled' : ''">
-              {{seance.hour}}
+            <div ng-repeat="seance in seances1 track by $index">
+              <a ui-sref="seance({seanceId: seance._id})" ng-if="!isPast(seance)" ng-click="openSeanceModal(seance)">{{seance.hour}}</a>
+              <p ng-if="isPast(seance)" ng-class="isPast(seance) ? 'seance-disabled' : ''">{{seance.hour}}</p>
             </div>
           </accordion-group>
         </accordion>

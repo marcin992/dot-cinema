@@ -1,3 +1,7 @@
 .seance-disabled {
   color: #bababa;
 }
+
+.seances-list {
+  height: 50vh;
+}
