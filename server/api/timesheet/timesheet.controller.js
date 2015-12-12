@@ -99,6 +99,10 @@ exports.create = function(req, res) {
 
 // Updates an existing Timesheet in the DB
 exports.update = function(req, res) {
+  console.log(req);
+  console.log("---");
+  console.log(res);
+  
   if (req.body._id) {
     delete req.body._id;
   }
