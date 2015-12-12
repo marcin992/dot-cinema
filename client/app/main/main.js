@@ -18,5 +18,10 @@ angular.module('dotCinemaApp')
         url: '/profile',
         controller: 'ProfileCtrl',
         templateUrl: 'app/profile/profile.html'
-      });
+      })
+      .state('movies', {
+        url: '/movies/:movieId',
+        controller: 'MoviesCtrl',
+        templateUrl: 'app/movies/movies.html'
+      })
   });
