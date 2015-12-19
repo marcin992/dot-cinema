@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('dotCinemaApp')
-  .factory('Date', function () {
+  .factory('DateFactory', function () {
 
     var dateFactory = [];
 
