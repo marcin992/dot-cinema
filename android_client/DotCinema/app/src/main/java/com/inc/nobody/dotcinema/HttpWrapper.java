@@ -3,13 +3,26 @@ package com.inc.nobody.dotcinema;
 import android.util.Pair;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpVersion;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.scheme.PlainSocketFactory;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.AbstractHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.DefaultHttpRequestRetryHandler;
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpParams;
+import org.apache.http.params.HttpProtocolParams;
+import org.apache.http.protocol.HTTP;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -17,14 +30,17 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.security.KeyStore;
 
 /**
  * Created by maciej on 06/12/15.
  */
 public class HttpWrapper {
-    final String mainUrl = "http://91.196.50.18:8088";
+    final String mainUrl = "https://91.196.50.18:443";
     final String loginUrl = "/auth/local";
     final String registerUrl = "/api/users";
+    final String reservationsUrl = "/api/reservations";
+
 
     public String getLoginUrl()
     {
@@ -33,6 +49,10 @@ public class HttpWrapper {
     public String getRegisterUrl()
     {
         return mainUrl + registerUrl;
+    }
+    public String getReservationsUrl()
+    {
+        return mainUrl + reservationsUrl;
     }
 
     private static HttpWrapper instance;
@@ -53,9 +73,8 @@ public class HttpWrapper {
                 new Pair("email",email),
                 new Pair("password",password),
         };
-        String response = MakePost(getLoginUrl(),parameters);
-        System.out.println(response);
-        return response;
+        JSONObject response = MakePost(getLoginUrl(),parameters);
+        return FindMessageOrToken(response);
     }
 
     public String MakePostRegistration(String email, String password,String nick)
@@ -65,12 +84,37 @@ public class HttpWrapper {
                 new Pair("password",password),
                 new Pair("nick",nick)
         };
-        String response = MakePost(getRegisterUrl(),parameters);
-        System.out.println(response);
-        return response;
+        JSONObject response = MakePost(getRegisterUrl(),parameters);
+        return FindMessageOrToken(response);
     }
 
-    public String MakePost(String url,Pair<String,Object> ... params) {
+    public String MakeGetReservations()
+    {
+        JSONArray response = MakeGet(getReservationsUrl());
+        System.out.println(response.toString());
+        return response.toString();
+    }
+
+
+    public String FindMessageOrToken(JSONObject response)
+    {
+      while(response.keys().hasNext())
+      {
+          try {
+
+              String key = response.keys().next();
+                  if(key.equals("message"))
+                      return "error: " + response.getString(key);
+                  else if(key.equals("token"))
+                      return "token: " + response.getString(key);
+          } catch (JSONException e) {
+              e.printStackTrace();
+          }
+      }
+        return  "error: unknown";
+    }
+
+    public JSONObject MakePost(String url,Pair<String,Object> ... params) {
 
         HttpClient httpClient = getHttpClient(); //Deprecated
 
@@ -83,34 +127,97 @@ public class HttpWrapper {
 
             // handle response here...
             JSONObject message = GetJSON(PrintHttpResponse(response));
-            return  message.toString();
+            return  message;
         }
         catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-            return "UnsupportedEncodingException";
+            return createErrorJson("UnsupportedEncodingException");
         }
         catch (ClientProtocolException e) {
             e.printStackTrace();
-            return "ClientProtocolException";
+            return createErrorJson("ClientProtocolException");
         }
         catch (IOException e) {
             e.printStackTrace();
-            return "IOException";
+            return createErrorJson("IOException");
         }
         catch (JSONException e) {
             e.printStackTrace();
-            return "JSONException";
+            return createErrorJson("JSONException");
         }
         finally {
             httpClient.getConnectionManager().shutdown(); //Deprecated
         }
     }
 
-    private HttpClient getHttpClient()
+    public JSONArray MakeGet(String url) {
+
+        HttpClient httpClient = getHttpClient(); //Deprecated
+
+        try {
+            HttpGet request = new HttpGet(url);
+            request.addHeader("Authorization", "Bearer " + IdentityHolder.getInstance().getToken());
+            HttpResponse response = httpClient.execute(request);
+
+            // handle response here...
+            JSONArray message = GetJSONArray(PrintHttpResponse(response));
+            return  message;
+        }
+        catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return null;
+        }
+        catch (ClientProtocolException e) {
+            e.printStackTrace();
+            return null;
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+        finally {
+            httpClient.getConnectionManager().shutdown(); //Deprecated
+        }
+    }
+
+
+    private JSONObject createErrorJson(String message)
     {
-        HttpClient httpClient = new DefaultHttpClient();
-        ((AbstractHttpClient) httpClient).setHttpRequestRetryHandler(new DefaultHttpRequestRetryHandler(0, false));
-        return httpClient;
+        JSONObject toReturn = new JSONObject();
+        try {
+            toReturn.put("message", message);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return toReturn;
+    }
+
+    public HttpClient getHttpClient() {
+        try {
+            KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
+            trustStore.load(null, null);
+
+            SSLSocketFactory sf = new MySSLSocketFactory(trustStore);
+            sf.setHostnameVerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+
+            HttpParams params = new BasicHttpParams();
+            HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
+            HttpProtocolParams.setContentCharset(params, HTTP.UTF_8);
+
+            SchemeRegistry registry = new SchemeRegistry();
+            registry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
+            registry.register(new Scheme("https", sf, 443));
+
+            ClientConnectionManager ccm = new ThreadSafeClientConnManager(params, registry);
+
+            return new DefaultHttpClient(ccm, params);
+        } catch (Exception e) {
+            return new DefaultHttpClient();
+        }
     }
     private String createJsonString(Pair<String,Object> ... params) throws JSONException {
         JSONObject toReturn = new JSONObject();
@@ -124,6 +231,10 @@ public class HttpWrapper {
 
     private JSONObject GetJSON(String information) throws JSONException {
         return new JSONObject(information);
+    }
+
+    private JSONArray GetJSONArray(String information) throws JSONException {
+        return new JSONArray(information);
     }
     private String PrintHttpResponse(HttpResponse response) throws IOException {
         BufferedReader r = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));

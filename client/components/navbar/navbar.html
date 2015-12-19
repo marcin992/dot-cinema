@@ -46,7 +46,7 @@
   <section class="top-bar-section">
 
     <ul class="right">
-      <li ng-repeat="item in menu"><a ui-sref="{{item.state}}">{{item.title}}</a> </li>
+      <li ng-repeat="item in menu" ng-if="item.condition"><a ui-sref="{{item.state}}">{{item.title}}</a> </li>
       <li class="divider"></li>
       <!--<li class="has-dropdown">-->
         <!--<a href="#">Main Item 1</a>-->

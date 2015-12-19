@@ -12,6 +12,9 @@
 var _ = require('lodash');
 var sqldb = require('../../sqldb');
 var Reservation = sqldb.Reservation;
+var Seance = sqldb.Seance;
+var Movie = sqldb.Movie;
+var Hall = sqldb.Hall;
 
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
@@ -74,6 +77,26 @@ exports.show = function(req, res) {
     }
   })
     .then(handleEntityNotFound(res))
+    .then(responseWithResult(res))
+    .catch(handleError(res));
+};
+
+exports.find = function(req, res) {
+  var filtering = req.body;
+  var payload = _.merge(filtering, {
+    include: [{
+      model: Seance,
+      as: 'seance',
+      include: [{
+        model: Movie,
+        as: 'movie'
+      }, {
+        model: Hall,
+        as: 'hall'
+      }]
+    }]
+  });
+  Reservation.findAll(payload)
     .then(responseWithResult(res))
     .catch(handleError(res));
 };

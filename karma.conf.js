@@ -39,6 +39,7 @@ module.exports = function(config) {
       'client/bower_components/moment/moment.js',
       'client/bower_components/angular-toastr/dist/angular-toastr.tpls.js',
       'client/bower_components/angular-animate/angular-animate.js',
+      'client/bower_components/stringjs/dist/string.min.js',
       'client/bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'node_modules/socket.io-client/socket.io.js',

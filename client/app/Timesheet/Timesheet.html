@@ -1,0 +1,63 @@
+<navbar></navbar>
+<div ng-app="dotCinemaApp" ng-controller="TimesheetController" data-ng-init="init()">
+
+<h2>My Timesheet</h2>
+
+<div ng-repeat="error in errors">
+	<h4>{{error.name}}</h4>
+	<p>{{error.message}}</p>
+</div>
+
+<div ng-if="!readonly">
+	<span ng-if="timesheets.length != 0">
+		<span ng ng-show="!empty">
+			<button ng-click="start()">Rozpocznij pracę</button>
+			<button disabled="disabled">Zakończ pracę</button>
+		</span>
+		<span ng ng-show="empty">
+			<button disabled="disabled">Rozpocznij pracę</button>
+			<button ng-click="end()">Zakończ pracę</button>
+		</span>
+	</span>
+	<span ng-if="timesheets.length == 0">
+		<button ng-click="start()">Rozpocznij pracę</button>
+		<button disabled="disabled">Zakończ pracę</button>
+	</span>
+
+	<button ng-click="init()">Odśwież stron</button>
+	<button ng-click="getAll()">Pobierz wszystkie</button>
+</div>
+
+<span ng-show="timesheets.length != 0">
+	<table>
+		<thead>
+			<tr>
+				<td>Data rozpoczęcie</td>
+				<td>Data zakończenia</td>
+				<td>Czas trwania</td>
+				<span ng-show="!showWorkerName">
+					<td>Pracownik</td>
+				</span>
+			</tr>
+		</thead>
+		<tbody>
+			  <tr ng-repeat="ts in timesheets | orderBy: '-date_start'">
+			    <td>{{ ts.date_start }}</td>
+			    <td>{{ ts.date_end }}</td>
+			    <td>{{ ts.hours }}</td>
+			 	<span ng-show="!showWorkerName">
+				<td>{{ ts.getEmployerName() }}</td>
+				</span>
+			  </tr>
+		</tbody>
+	</table>
+</span>
+
+<span ng-if="timesheets.length == 0">
+		<span ng-if="loaded">
+			<div> Trwa pobieranie danych... Proszę czekać. </div>
+		<span>
+		<span ng-if="!loaded">
+			<div>Brak danych do wyświetlenia</div>
+		<span>
+</span>
