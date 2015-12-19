@@ -1,5 +1,5 @@
 <navbar></navbar>
-<div ng-app="dotCinemaApp" ng-controller="TimeSheetController" data-ng-init="Init()">
+<div ng-app="dotCinemaApp" ng-controller="TimesheetController" data-ng-init="init()">
 
 <h2>My Timesheet</h2>
 
@@ -8,41 +8,56 @@
 	<p>{{error.message}}</p>
 </div>
 
-<div>
+<div ng-if="!readonly">
 	<span ng-if="timesheets.length != 0">
-		<span ng if="DateEndIsNull() == true">
-			<button ng-click="Start()">Rozpocznij prace {1}</button>
-			<button disabled="disabled">Zakoncz prace {2}</button>
+		<span ng ng-show="!empty">
+			<button ng-click="start()">Rozpocznij pracę</button>
+			<button disabled="disabled">Zakończ pracę</button>
 		</span>
-		<span ng if="DateEndIsNull() == false">
-			<button disabled="disabled">Rozpocznij prace {3}</button>
-			<button ng-click="End()">Zakoncz prace {4}</button>
+		<span ng ng-show="empty">
+			<button disabled="disabled">Rozpocznij pracę</button>
+			<button ng-click="end()">Zakończ pracę</button>
 		</span>
 	</span>
 	<span ng-if="timesheets.length == 0">
-		<button ng-click="Start()">Rozpocznij prace {5}</button>
-		<button disabled="disabled">Zakoncz prace {6}</button>
+		<button ng-click="start()">Rozpocznij pracę</button>
+		<button disabled="disabled">Zakończ pracę</button>
 	</span>
 
-	<button ng-click="Init()">Odswiez</button>
-	<button ng-click="GetAll()">Daj Wszystkie</button>
+	<button ng-click="init()">Odśwież stron</button>
+	<button ng-click="getAll()">Pobierz wszystkie</button>
 </div>
 
-<table>
-	<thead>
-		<tr>
-			<td>Data rozpoczecia</td>
-			<td>Data zakonczenia</td>
-		</tr>
-	</thead>
-	<tbody>
-		  <tr ng-repeat="ts in timesheets | orderBy: '-date_start'">
-		    <td>
-		    	{{ ts.date_start.replace("T", " ").replace("Z", "").split(".")[0] }}
-		    </td>
-		    <td>
-		    	{{ ts.date_end.replace("T", " ").replace("Z", "").split(".")[0] }}
-		    </td>
-		  </tr>
-	</tbody>
-</table>
+<span ng-show="timesheets.length != 0">
+	<table>
+		<thead>
+			<tr>
+				<td>Data rozpoczęcie</td>
+				<td>Data zakończenia</td>
+				<td>Czas trwania</td>
+				<span ng-show="!showWorkerName">
+					<td>Pracownik</td>
+				</span>
+			</tr>
+		</thead>
+		<tbody>
+			  <tr ng-repeat="ts in timesheets | orderBy: '-date_start'">
+			    <td>{{ ts.date_start }}</td>
+			    <td>{{ ts.date_end }}</td>
+			    <td>{{ ts.hours }}</td>
+			 	<span ng-show="!showWorkerName">
+				<td>{{ ts.getEmployerName() }}</td>
+				</span>
+			  </tr>
+		</tbody>
+	</table>
+</span>
+
+<span ng-if="timesheets.length == 0">
+		<span ng-if="loaded">
+			<div> Trwa pobieranie danych... Proszę czekać. </div>
+		<span>
+		<span ng-if="!loaded">
+			<div>Brak danych do wyświetlenia</div>
+		<span>
+</span>

@@ -3,9 +3,9 @@
 angular.module('dotCinemaApp')
   .config(function($stateProvider) {
     $stateProvider
-      .state('TimeSheet', {
-        url: '/TimeSheet',
-        templateUrl: 'app/TimeSheet/TimeSheet.html',
-        controller: 'TimeSheetController'
+      .state('Timesheet', {
+        url: '/Timesheet',
+        templateUrl: 'app/Timesheet/Timesheet.html',
+        controller: 'TimesheetController'
       });
   });

@@ -1,16 +1,7 @@
 'use strict';
 
 angular.module('dotCinemaApp')
-  .constant('API_URI', '/api/timesheets/')
-  .factory('Timesheet', ['$http', 'API_URI', function($http, API_URI) {
-
-    function getUrl() {
-        return API_URI;
-    }
-
-    function getUrlForId(itemId) {
-        return getUrl() + itemId;
-    }
+  .factory('Timesheet', function (ApiRequester, Auth, TableNames) {
 
     var timesheetsFactory = [];
     
