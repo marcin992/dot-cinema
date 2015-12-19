@@ -18,6 +18,22 @@ angular.module('dotCinemaApp')
           .then(function(result) {
             return result.data;
           });
+      },
+
+      editData: function (table, filtering) {
+        filtering = filtering || {where: {}};
+        return $http.put(url + table, JSON.stringify(filtering))
+          .then(function(result) {
+            return result.data
+          });
+      },
+
+      deleteData: function (table, filtering) {
+        filtering = filtering || {where: {}};
+        return $http.delete(url + table, JSON.stringify(filtering))
+          .then(function(result) {
+            return result.data
+          });
       }
     };
   });
