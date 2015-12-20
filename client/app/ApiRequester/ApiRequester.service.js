@@ -20,9 +20,9 @@ angular.module('dotCinemaApp')
           });
       },
 
-      editData: function (table, filtering) {
+      editData: function (table, object) {
         filtering = filtering || {where: {}};
-        return $http.put(url + table, JSON.stringify(filtering))
+        return $http.put(url + table, JSON.stringify(object))
           .then(function(result) {
             return result.data
           });

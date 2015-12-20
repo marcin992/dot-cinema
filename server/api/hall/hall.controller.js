@@ -78,6 +78,15 @@ exports.show = function(req, res) {
     .catch(handleError(res));
 };
 
+exports.find = function(req, res) {
+  var filtering = req.body;
+  var payload = _.merge(filtering, {
+  });
+  Hall.findAll(payload)
+    .then(responseWithResult(res))
+    .catch(handleError(res));
+};
+
 // Creates a new Hall in the DB
 exports.create = function(req, res) {
   Hall.create(req.body)
