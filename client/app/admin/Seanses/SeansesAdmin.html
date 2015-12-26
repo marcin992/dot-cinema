@@ -1,82 +1,151 @@
 <navbar></navbar>
-<div ng-app="dotCinemaApp" ng-controller="SeansesAdminController" data-ng-init="init()">
 
-	<div class="large-3" ng-show="loaded.movies">
-		<span ng-show="searchRun">Trwa wyszukiwanie...</span>
-		<form name="form" ng-submit="search(form)">
-			<input type="text" maxlength="50" size="50" hint="Search movie" name="title" ng-model="searchTitle"/> 
-			<button type="submit">Szukaj</button>
-		</form>
-	</div>
+<div class="row">
+	<div ng-app="dotCinemaApp" ng-controller="SeansesAdminController" data-ng-init="init()">
 
-	<div ng-show="!loaded.movies"><p>Ładowanie listy filmów...</p></div>
-	<div ng-show="!loaded.halls"><p>Ładowanie listy sal...</p></div>
-
-	<div ng-show="movies.length > 0">
-		<div style="float:left;">
-			<table>
-				<thead>
-					<tr>
-						<td></td>
-						<td>Title</td>
-						<td>Duration</td>
-						<td>Description</td>
-						<td>Count</td>
-						<td></td>
-					</tr>
-				</thead>
-				<tbody ng-repeat="movie in movies | orderBy: '-_id' | limitTo: moviesToShow">
-					<tr>
-						<td></td>
-						<td> {{ movie.title }} </td>
-						<td> {{ movie.duration }} min. </td>
-						<td> {{ movie.description }}  </td>
-						<td> {{ movie.seances.length }}  </td>
-						<td ng-click="selectMovie(movie)">Wybierz</td>
-					</tr>
-				</tbody>
-				<tfoot ng-show="movies.length > moviesToShow">
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td ng-click="showAll()">Show more ({{ movies.length - moviesToShow }})...</td>
-					</tr>
-				</tfoot>			
-			</table>
+		<div class="row">
+			<div class="panel" ng-show="!loaded.movies">
+				<p>Ładowanie listy filmów...</p>
+			</div>
+			<div class="panel" ng-show="!loaded.halls">
+				<p>Ładowanie listy sal...</p>
+			</div>
+			<div class="panel" ng-show="movies.length == 0 && loaded.movies">
+				<p>Brak danych do wyświetlenia</p>
+			</div>
 		</div>
-		<div style="float:right;">
-			<div style="float:left;" ng=show="movie != null">
-				<div ng-show="movie.seances.length == 0">
-					<p>Brak danych do wyświetlenia</p>
+
+		<div class="row" ng-show="loaded.movies">
+			<div class="large-7 columns">
+				<span ng-show="searchRun">
+					<p>Trwa wyszukiwanie...</p>
+				</span>
+				<form name="form" ng-submit="search(form)" style="display: inline-block">
+					<label for="movieTitle" style="float: left">
+						<input type="text" maxlength="50" size="50" placeholder="Szukaj filmów..." hint="Szukaj filmów" id="movieTitle" name="title" ng-model="searchTitle" pattern="^[A-Za-z0-9]{3-50}$"> 
+					</label>
+					<button value="Szukaj" style="float: right; margin-left: 5px" type="submit">Szukaj</button>
+				</form>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="large-2 columns">
+				<div class="row">
+					<div class="large-7 columns">	
+						<div ng-show="movies.length > 0">
+							<table>
+								<thead>
+									<tr>								
+										<td>lp.</td>
+										<td>Tytuł</td>
+										<td>Czas trwania</td>
+										<td>Opis</td>
+										<td>Ilość seansów</td>
+										<td></td>
+									</tr>
+								</thead>
+
+								<tbody ng-repeat="movie in movies | orderBy: '-_id' | limitTo: moviesToShow">
+									<tr> 
+										<td> {{ $index + 1 }} </td>
+										<td> {{ movie.title }} </td>
+										<td> {{ movie.duration }} min. </td>
+										<td> {{ movie.description }}  </td>
+										<td> {{ movie.seances.length }}  </td>
+										<td ng-click="selectMovie(movie)">WYBIERZ</td>
+									</tr>
+								</tbody>
+
+								<tfoot ng-show="movies.length > moviesToShow">
+									<tr>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td ng-click="showAll()">Pokaż więcej ({{ movies.length - moviesToShow }})...</td>
+									</tr>
+								</tfoot>			
+							</table>
+						</div>
+					</div>
 				</div>
-				<div ng-show="movie.seances.length > 0">
-					<table style="width=100%;">
-						<thead>
-							<tr>
-								<td>Data</td>
-								<td>Godzina</td>
-								<td>Cena</td>
-								<td>Sala</td>
-							</tr>
-						</thead>
-						<tbody ng-repeat="seance in movie.seances | orderBy: '-date'">
-							<tr>
-								<td>{{ seance.date.split("T")[0] }}</td>
-								<td>{{ seance.date.split("T")[1].split(".")[0] }} </td>
-								<td> {{ seance.cost }} zl.</td>
-								<td> {{ seance.hall.name }}</td>
-							</tr>
-						</tbody>
-					</table>
+			</div>
+			<div class="large-5 columns">
+				<div class="row">
+					<div class="panel" ng-show="halls.length > 0 && seanceForm != null">
+						<form name="formSeance" ng-submit="seanceForm(formSeance)">
+							<fieldset>
+								<h4>Dodanie seansu do filmu "{{ movie.name }}" </h4>
+								<label for="date">
+									<input placeholder="Data seansu" type="date" name="date" value="seanceForm.date" ng-model="dateTime.date">
+								</label>
+								<label for="time">
+									<input placeholder="Godzina rozpoczęcia seansu"type="text" value="seanceForm.time" name="time" ng-model="dateTime.time">
+								</label>
+								<label="cost">
+									<input placeholder="Cena biletu" ng-model="seance.cost" type="number" name="cost" value="seanceForm.cost">
+								</label>
+								<label for="hall">
+									<span ng-show="seanceForm._id == 0">
+										<select name="hall" ng-model="seance.hall">
+											<option selected>Wybierz sale</option>
+											<option ng-repeat="hall in halls" value="{{ hall._id }}"> {{ hall.name }} </option>
+										</select>
+									</span>
+									<span ng-show="seanceForm._id > 0">
+										<select name="hall" ng-model="seance.hall">
+											<option ng-show="seanceForm.hall_id == hall._id" selected ng-repeat="hall in halls" value="{{ hall._id }}"> {{ hall.name }} </option>
+											<option ng-show="seanceForm.hall_id != hall._id" ng-repeat="hall in halls" value="{{ hall._id }}"> {{ hall.name }} </option>
+										</select>
+									</span>
+								</label>
+								<label for="id">
+									<input ng-if="seance != null" type="hidden" ng-model="seance._id" value="{{ seanceForm._id }} " name="formId">
+								</label>
+								<label for="movie">
+									<input type="hidden" ng-model="seance.movie" value="movie._id" name="movie">
+								</label>
+								<button type="submit">Zapisz</button>
+							</fieldset>
+						</form>
+					</div>
+
+					<div ng=show="movie != null">
+						<div class="panel" ng-show="movie.seances.length == 0">
+							<p>Brak danych do wyświetlenia</p>
+						</div>
+					</div>
+					<div panel seances-admin-seances-list" ng-show="movie.seances.length > 0">
+						<table style="width=100%;">
+							<thead>
+								<tr>
+									<td>lp.</td>
+									<td>Data</td>
+									<td>Godzina</td>
+									<td>Cena</td>
+									<td>Sala</td>
+									<td></td>
+									<td></td>
+								</tr>
+							</thead>
+							
+							<tbody ng-repeat="seance in movie.seances | orderBy: '-date'">
+								<tr>
+									<td> {{ $index + 1 }} </td>
+									<td>{{ seance.date.split("T")[0] }}</td>
+									<td>{{ seance.date.split("T")[1].split(".")[0] }} </td>
+									<td> {{ seance.cost }} zl.</td>
+									<td> {{ seance.hall.name }}</td>
+									<td ng-click="editSeance(seance)">EDYTUJ</td>
+									<td ng-click="deleteSeance(seance)">USUŃ</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-
-	<div ng-show="movies.length == 0 && loaded.movies">
-		<p>Brak danych do wyświetlenia</p>
 	</div>
 </div>

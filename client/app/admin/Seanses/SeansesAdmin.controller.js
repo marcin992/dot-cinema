@@ -13,10 +13,10 @@ angular.module('dotCinemaApp')
     $scope.allMovies = false;
   	$scope.errors = [];
   	$scope.movies = [];
-  	$scope.reservations = [];
-  	$scope.seanses = {};
+  	$scope.seanses = [];
     $scope.halls = [];
     $scope.movie = null;
+    $scope.seanceForm = { _id: 0 };
 
     var limit = 1;
     $scope.moviesToShow = limit;
@@ -49,25 +49,26 @@ angular.module('dotCinemaApp')
       }, 1000);
   	},
 
-  	$scope.editSeanses = function() {
-
+  	$scope.editSeance = function(seance) {
+      $scope.seanceForm = {
+        _id: seance._id,
+        date: seance.date.split("T")[0],
+        time: seance.date.split("T")[1].split(".")[0],
+        hall_id: seance.hall_id,
+        cost: seance.cost
+      }
   	},
 
-  	$scope.deleteSeanses = function() {
-
+  	$scope.deleteSeanse = function(seance) {
+      console.log(seance);
   	},
 
-  	$scope.addedSeanses = function() {
-
-  	},
-
-  	$scope.validatedSeanseTime = function() {
-
+  	$scope.seanceForm = function(formSeance) {
+      console.log(formSeance);
   	},
 
     $scope.selectMovie = function(movie) {
         $scope.movie = movie;
-        console.log(movie);
     },
 
     $scope.showAll = function() {
