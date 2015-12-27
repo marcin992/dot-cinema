@@ -39,7 +39,7 @@ angular.module('dotCinemaApp')
       },
 
       seansesAdminFactory.addSeanse = function(newSeanse) {
-        ApiRequester.createEntity(seanse, newSeanse)
+        ApiRequester.createEntity(seansesTable, newSeanse)
               .then( function (seance) {
                 seanses[0] = seanse;
               });
@@ -48,7 +48,7 @@ angular.module('dotCinemaApp')
       },
 
       seansesAdminFactory.editSeanse = function(seanse) {
-        ApiRequester.editData(seanse, seanse)
+        ApiRequester.editData(seansesTable, seanse)
               .then( function (seance) {
                 seanses[0] = seanse;
               });
@@ -57,7 +57,7 @@ angular.module('dotCinemaApp')
       },
 
       seansesAdminFactory.deleteSeanse = function(seanse) {
-        ApiRequester.deleteData(seanse, seanse)
+        ApiRequester.deleteData(seansesTable, seanse)
               .then( function (seance) {
                 seanses[0] = seanse;
               });
