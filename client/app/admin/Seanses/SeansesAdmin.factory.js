@@ -7,60 +7,62 @@ angular.module('dotCinemaApp')
       var seansesTable = TableNames.getTableNames().seanses;
 
       var seansesAdminFactory = [];
-      var toReturn = [];
+      var movies = [];
+      var seanses = [];
+      var halls = [];
 
       seansesAdminFactory.getMovies = function(filtr) {
         ApiRequester.getData(moviesTable, filtr)
-              .then(function (movies) {
-                toReturn = movies;
+              .then(function (content) {
+                movies = content;
               });
 
-        return toReturn;
+        return movies;
       },
 
       seansesAdminFactory.getHalls = function(filtr) {
         ApiRequester.getData(hallsTable, filtr)
-              .then(function (halls) {
-                toReturn = halls;
+              .then(function (content) {
+                halls = content;
               });
 
-        return toReturn;
+        return halls;
       },
 
       seansesAdminFactory.getSeanses = function(filtr) {
         ApiRequester.getData(seansesTable, filtr)
               .then(function (seanse) {
-                toReturn[0] = seanse;
+                seanses = seanse;
               });
 
-        return toReturn[0];
+        return seanses;
       },
 
       seansesAdminFactory.addSeanse = function(newSeanse) {
         ApiRequester.createEntity(seanse, newSeanse)
               .then( function (seance) {
-                toReturn[0] = seanse;
+                seanses[0] = seanse;
               });
 
-        return toReturn[0]
+        return seanses[0]
       },
 
       seansesAdminFactory.editSeanse = function(seanse) {
         ApiRequester.editData(seanse, seanse)
               .then( function (seance) {
-                toReturn[0] = seanse;
+                seanses[0] = seanse;
               });
 
-        return toReturn[0]
+        return seanses[0]
       },
 
       seansesAdminFactory.deleteSeanse = function(seanse) {
         ApiRequester.deleteData(seanse, seanse)
               .then( function (seance) {
-                toReturn[0] = seanse;
+                seanses[0] = seanse;
               });
 
-        return toReturn[0]
+        return seanses[0]
       }
 
       return seansesAdminFactory;

@@ -13,20 +13,112 @@
 			<div class="panel" ng-show="movies.length == 0 && loaded.movies">
 				<p>Brak danych do wyświetlenia</p>
 			</div>
+			<div class="panel" ng-show="alerts.length > 0">
+				<p>{{ alerts[alerts.length - 1].value }}</p>
+			</div>
+		</div>
+
+		<div class="panel" ng-show="halls.length > 0 && formShow != false">
+			<form name="formSeance" ng-submit="sendDateFromForm(formSeance)">
+				<fieldset>
+					<span ng-show="seanceForm._id == 0">
+						<h4>Dodanie seansu do filmu "{{ movie.title }}" </h4>
+					</span>
+					<span ng-show="seanceForm._id > 0">
+						<h4>Edycja seansu filmu "{{ movie.title }}" - identyfikator seansu: {{ seanceForm._id }} </h4>
+					</span>
+
+					<label for="date">Data seansu
+						<input 
+							required 
+							placeholder="Data seansu" 
+							type="date" 
+							name="date" 
+							pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]"
+							ng-model="dateTime.date">
+					</label>
+					
+					<label for="time">Godzina seansu
+						<input 
+							required 
+							placeholder="Godzina rozpoczęcia seansu"
+							type="text" 
+							name="time" 
+							ng-model="dateTime.time">
+					</label>
+
+					<label="cost">Cena biletu
+						<input 
+							required
+							placeholder="Cena biletu" 
+							ng-model="seanceForm.cost" 
+							type="number" 
+							name="cost" 
+							min="1"
+							value="seanceForm.cost">
+					</label>
+
+					<label for="hall">Sala
+						<select 
+							name="hall" 
+							ng-model="seanceForm.hall_id"
+							required
+							ng-options="hall._id as hall.name for hall in halls">
+						</select>
+					</label>
+								
+					<label for="id">
+						<input 
+							ng-show="seanceForm._id != 0" 
+							type="hidden" 
+							ng-model="seanceForm._id" 
+							value="{{ seanceForm._id }} " 
+							name="id"
+							disabled>
+					</label>
+		
+					<label for="movie">
+						<input 
+							type="hidden"
+							ng-model="movie._id" 
+							value="movie._id" 
+							name="movie"
+							required
+							disabled>
+					</label>
+				
+					<button type="submit">Zapisz</button>
+				</fieldset>
+			</form>
 		</div>
 
 		<div class="row" ng-show="loaded.movies">
-			<div class="large-7 columns">
+			<div class="panel large-7 columns">
 				<span ng-show="searchRun">
-					<p>Trwa wyszukiwanie...</p>
+				<p>Trwa wyszukiwanie...</p>
 				</span>
-				<form name="form" ng-submit="search(form)" style="display: inline-block">
-					<label for="movieTitle" style="float: left">
-						<input type="text" maxlength="50" size="50" placeholder="Szukaj filmów..." hint="Szukaj filmów" id="movieTitle" name="title" ng-model="searchTitle" pattern="^[A-Za-z0-9]{3-50}$"> 
+				<form name="form" ng-submit="search(form)" style="display: inline-block; margin: 0 auto">
+					<label for="movieTitle" style="float: left">						<input 
+							type="text" 
+							maxlength="50" 
+							size="50" 
+							placeholder="Szukaj filmów..." 
+							hint="Szukaj filmów" 
+							id="searchTitle" 
+							name="title" 
+							ng-model="searchTitle" 
+							pattern="[A-Za-z0-9]{1,50}"
+							style="margin: 0 auto"> 
 					</label>
-					<button value="Szukaj" style="float: right; margin-left: 5px" type="submit">Szukaj</button>
+					<button value="Szukaj" style="float: right; margin-left: 5px; padding-bottom: 10px;  padding-top: 10px;" type="submit">Szukaj</button>
 				</form>
 			</div>
+		<div class="panel large-5 columns" style="background-color: #eeedee; border: none">
+			<form ng-show="movie != null" ng-submit="showForm()" style="display: inline-block; margin: 0 auto">
+				<button ng-show="!formShow" type="submit" style="float: right; margin-left: 5px; padding-bottom: 10px; padding-top: 10px;">Dodaj seans</button>
+				<button ng-show="formShow" type="submit" style="float: right; margin-left: 5px; padding-bottom: 10px; padding-top: 10px;">Ukryj panel</button>
+			</form>
+		</div>
 		</div>
 
 		<div class="row">
@@ -74,44 +166,6 @@
 			</div>
 			<div class="large-5 columns">
 				<div class="row">
-					<div class="panel" ng-show="halls.length > 0 && seanceForm != null">
-						<form name="formSeance" ng-submit="seanceForm(formSeance)">
-							<fieldset>
-								<h4>Dodanie seansu do filmu "{{ movie.name }}" </h4>
-								<label for="date">
-									<input placeholder="Data seansu" type="date" name="date" value="seanceForm.date" ng-model="dateTime.date">
-								</label>
-								<label for="time">
-									<input placeholder="Godzina rozpoczęcia seansu"type="text" value="seanceForm.time" name="time" ng-model="dateTime.time">
-								</label>
-								<label="cost">
-									<input placeholder="Cena biletu" ng-model="seance.cost" type="number" name="cost" value="seanceForm.cost">
-								</label>
-								<label for="hall">
-									<span ng-show="seanceForm._id == 0">
-										<select name="hall" ng-model="seance.hall">
-											<option selected>Wybierz sale</option>
-											<option ng-repeat="hall in halls" value="{{ hall._id }}"> {{ hall.name }} </option>
-										</select>
-									</span>
-									<span ng-show="seanceForm._id > 0">
-										<select name="hall" ng-model="seance.hall">
-											<option ng-show="seanceForm.hall_id == hall._id" selected ng-repeat="hall in halls" value="{{ hall._id }}"> {{ hall.name }} </option>
-											<option ng-show="seanceForm.hall_id != hall._id" ng-repeat="hall in halls" value="{{ hall._id }}"> {{ hall.name }} </option>
-										</select>
-									</span>
-								</label>
-								<label for="id">
-									<input ng-if="seance != null" type="hidden" ng-model="seance._id" value="{{ seanceForm._id }} " name="formId">
-								</label>
-								<label for="movie">
-									<input type="hidden" ng-model="seance.movie" value="movie._id" name="movie">
-								</label>
-								<button type="submit">Zapisz</button>
-							</fieldset>
-						</form>
-					</div>
-
 					<div ng=show="movie != null">
 						<div class="panel" ng-show="movie.seances.length == 0">
 							<p>Brak danych do wyświetlenia</p>
