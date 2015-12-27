@@ -179,7 +179,7 @@ angular.module('dotCinemaApp')
 
       var filtr = {
         where: {
-          hall_id: seanceToValidate._id
+          hall_id: seanceToValidate._id,
           date: {
             $between: [
               new Date(date - 1000*60*60*24), 
