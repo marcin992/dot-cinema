@@ -71,7 +71,7 @@ angular.module('dotCinemaApp')
 
       $scope.dateTime = {
         date: date,
-        time: seance.date.split("T")[1].split(".")[0]
+        time: seance.date.split("T")[1].split(".")[0].replace(":00")
       };
 
       $scope.formShow = true;
@@ -87,6 +87,8 @@ angular.module('dotCinemaApp')
           $scope.alerts.push({
             value: "Sukces! Seans numer " + seance._id + " został usunięty!"
           });
+
+          $scope.movie.seances.splice(seance);
         }
       }
 
@@ -100,17 +102,18 @@ angular.module('dotCinemaApp')
         s.date = $scope.dateTime.date.getFullYear() 
           + "-" + $scope.dateTime.date.getMonth() 
           + "-" + $scope.dateTime.date.getDate() 
-          + "T" + $scope.dateTime.time;
+          + "T" + $scope.dateTime.time + ":00";
 
         s.movie_id = $scope.movie_id;
 
-        if (s._id == 0) {
-          s._id = null;
-        }
-
         if (formSeance.$valid && validateDateTimeSeance(s)) {
           if ($scope.seanceForm._id == 0 || $scope.seanceForm._id == null) {
-            var newSeance = SeancesAdminFactory.addSeance(s);
+            var newSeance = SeancesAdminFactory.addSeance({
+              date: s.date,
+              hall_id: s.hall_id,
+              cost: s.cost,
+              movie_id: $scope.movie._id
+            });
             $scope.alerts.push({
               value: "Sukces! Seans dodany!"
             });
@@ -120,7 +123,7 @@ angular.module('dotCinemaApp')
           else {
             var editSeance = SeancesAdminFactory.editSeance(s);
             $scope.alerts.push({
-              value: "Sukces! Seans zeedytowany!"
+              value: "Sukces! Seans został zaktualizowany!"
             });
 
             setTimeout(function() {
@@ -210,7 +213,7 @@ angular.module('dotCinemaApp')
           date: {
             $between: [
               new Date(date - 1000*60*60*24), 
-              new Date(date + - 1000*60*60*24)
+              new Date(date + 1000*60*60*24)
             ]
           }
         }
