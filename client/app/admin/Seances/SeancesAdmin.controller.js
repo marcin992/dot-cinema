@@ -97,15 +97,13 @@ angular.module('dotCinemaApp')
       if (!formRunning) {
         formRunning = true;
 
-        console.log($scope.dateTime.date);
-
         var s = $scope.seanceForm;
         s.date = $scope.dateTime.date.getFullYear() 
           + "-" + $scope.dateTime.date.getMonth() 
           + "-" + $scope.dateTime.date.getDate() 
           + "T" + $scope.dateTime.date.time;
 
-        s.movie = $scope.movie;
+        s.movie_id = $scope.movie_id;
 
         if (s._id == 0) {
           s._id = null;
@@ -113,7 +111,7 @@ angular.module('dotCinemaApp')
 
         if (validateDateTimeSeance(s)) {
           if ($scope.seanceForm._id == 0 || $scope.seanceForm._id == null) {
-            var newSeance = seancesAdminFactory.addSeance();
+            var newSeance = SeancesAdminFactory.addSeance(s);
             $scope.alerts.push({
               value: "Sukces! Seans dodany!"
             });
@@ -121,7 +119,7 @@ angular.module('dotCinemaApp')
             $scope.movie.seances.push(newSeance);
           }
           else {
-            var editSeance = SeancesAdminFactory.editSeance();
+            var editSeance = SeancesAdminFactory.editSeance(s);
             $scope.alerts.push({
               value: "Sukces! Seans zeedytowany!"
             });
@@ -224,10 +222,10 @@ angular.module('dotCinemaApp')
       for (var s in seancesList) {
         if (s._id != seanceToValidate._id) {
           var dateStart = new Date(s);
-          var dateEnd = new Date(new Date(dateStart.getTime() + s.movie.duration * 60000))
+          var dateEnd = new Date(new Date(dateStart.getTime() + $scope.movie.duration * 60000))
         
           var seanceDateStart = new Date(seanceToValidate);
-          var seanceDateEnd = new Date(new Date(seanceDateStart.getTime() + seanceToValidate.movie.duration * 60000))
+          var seanceDateEnd = new Date(new Date(seanceDateStart.getTime() + $scope.movie.duration * 60000))
         
           if (dateStart <= seanceDateStart) {
             return false;
