@@ -55,7 +55,9 @@ angular.module('dotCinemaApp')
       $scope.seanceForm = {
         _id: 0,
         hall_id: -1,
-        cost: ""
+        cost: "",
+        movie: {
+        }
       };
   	},
 
@@ -76,9 +78,16 @@ angular.module('dotCinemaApp')
       $scope.formShow = true;
   	},
 
-  	$scope.deleteSeanse = function(seance) {
-      var confirm = confirm("Czy chcesz na pewno skasowa seans numer " + seance._id + "?");
-      console.log(confirm);
+  	$scope.deleteSeance = function(seance) {
+      var confirm = window.confirm("Czy chcesz na pewno skasować seans numer " + seance._id + "?");
+      
+      if (confirm) {
+        var s = SeansesAdminFactory.deleteSeance(seance);
+        $scope.alerts.push({
+          value: "Sukces! Seans numer " + seance._id + " został usunięty!"
+        });
+        console.log(s);
+      }
 
   	},
 
@@ -92,12 +101,14 @@ angular.module('dotCinemaApp')
           + "-" + $scope.dateTime.date.getDate() 
           + "T" + $scope.dateTime.date.time;
 
+        s.movie = $scope.movie;
+
         if (s._id == 0) {
           s._id = null;
         }
 
         if (validateDateTimeSeance(s)) {
-          if ($scope.seanceForm._id == 0) {
+          if ($scope.seanceForm._id == 0 || $scope.seanceForm._id == null) {
             var newSeanse = SeansesAdminFactory.addSeanse();
             alerts.push({
               value: "Sukces! Seans dodany!"
@@ -198,7 +209,10 @@ angular.module('dotCinemaApp')
       console.log(seansesList);
 
       for (var s in seansesList) {
-        console.log(s);
+        if (s._id != seanceToValidate._id) {
+          var d = new Date(s);
+          d = new Date(new Date(d.getTime() + s.movie.duration*60000))
+        }
       }
 
       return true;

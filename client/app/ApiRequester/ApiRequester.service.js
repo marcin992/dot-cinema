@@ -21,16 +21,14 @@ angular.module('dotCinemaApp')
       },
 
       editData: function (table, object) {
-        filtering = filtering || {where: {}};
         return $http.put(url + table, JSON.stringify(object))
           .then(function(result) {
             return result.data
           });
       },
 
-      deleteData: function (table, filtering) {
-        filtering = filtering || {where: {}};
-        return $http.delete(url + table, JSON.stringify(filtering))
+      deleteData: function (table, object) {
+        return $http.delete(url + table, JSON.stringify(object))
           .then(function(result) {
             return result.data
           });
