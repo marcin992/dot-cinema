@@ -83,17 +83,14 @@ angular.module('dotCinemaApp')
   	},
 
   	$scope.sendDateFromForm = function(formSeance) {
-      console.log($scope.seanceForm);
-      console.log($scope.dateTime);
-
-      if (formSeance.$valid && !formRunning) {
+      if (!formRunning) {
         formRunning = true;
 
         var s = $scope.seanceForm;
         s.date = $scope.dateTime.date.getFullYear() 
-          + "-" + $scope.date.dateTime.getMonth() 
-          + "-" + $scope.date.dateTime.getDate() 
-          + "T" + $scope.date.dateTime.time;
+          + "-" + $scope.dateTime.date.getMonth() 
+          + "-" + $scope.dateTime.date.getDate() 
+          + "T" + $scope.dateTime.date.time;
 
         if (s._id == 0) {
           s._id = null;
@@ -102,9 +99,15 @@ angular.module('dotCinemaApp')
         if (validateDateTimeSeance(s)) {
           if ($scope.seanceForm._id == 0) {
             var newSeanse = SeansesAdminFactory.addSeanse();
+            alerts.push({
+              value: "Sukces! Seans dodany!"
+            });
           }
           else {
             var editSeanse = SeansesAdminFactory.editSeanse();
+            alerts.push({
+              value: "Sukces! Seans zeedytowany!"
+            });
           }
         }
         else {
@@ -190,6 +193,9 @@ angular.module('dotCinemaApp')
       }
 
       var seansesList = SeansesAdminFactory.getSeanses(filtr);
+
+      console.log(filtr);
+      console.log(seansesList);
 
       for (var s in seansesList) {
         console.log(s);
