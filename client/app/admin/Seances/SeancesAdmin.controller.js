@@ -97,6 +97,8 @@ angular.module('dotCinemaApp')
       if (!formRunning) {
         formRunning = true;
 
+        console.log($scope.dateTime.date);
+
         var s = $scope.seanceForm;
         s.date = $scope.dateTime.date.getFullYear() 
           + "-" + $scope.dateTime.date.getMonth() 
