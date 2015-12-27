@@ -56,8 +56,7 @@ angular.module('dotCinemaApp')
         _id: 0,
         hall_id: -1,
         cost: "",
-        movie: {
-        }
+        movie_id: -1
       };
     },
 
@@ -101,7 +100,7 @@ angular.module('dotCinemaApp')
         s.date = $scope.dateTime.date.getFullYear() 
           + "-" + $scope.dateTime.date.getMonth() 
           + "-" + $scope.dateTime.date.getDate() 
-          + "T" + $scope.dateTime.date.time;
+          + "T" + $scope.dateTime.time;
 
         s.movie_id = $scope.movie_id;
 
@@ -109,7 +108,7 @@ angular.module('dotCinemaApp')
           s._id = null;
         }
 
-        if (validateDateTimeSeance(s)) {
+        if (formSeance.$valid && validateDateTimeSeance(s)) {
           if ($scope.seanceForm._id == 0 || $scope.seanceForm._id == null) {
             var newSeance = SeancesAdminFactory.addSeance(s);
             $scope.alerts.push({
