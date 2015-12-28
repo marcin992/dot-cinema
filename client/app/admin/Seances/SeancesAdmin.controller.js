@@ -68,10 +68,11 @@ angular.module('dotCinemaApp')
       };
 
       var date = new Date(seance.date.split("T")[0]);
+      var time = seance.date.split("T")[1].split(".")[0].split(":")
 
       $scope.dateTime = {
         date: date,
-        time: seance.date.split("T")[1].split(".")[0].replace(":00")
+        time: time[0] + ":" + time[1]
       };
 
       $scope.formShow = true;
@@ -97,6 +98,8 @@ angular.module('dotCinemaApp')
     $scope.sendDateFromForm = function(formSeance) {
       if (!formRunning) {
         formRunning = true;
+
+        console.log(formSeance);
 
         var s = $scope.seanceForm;
         s.date = $scope.dateTime.date.getFullYear() 
