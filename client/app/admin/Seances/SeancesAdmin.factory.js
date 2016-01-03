@@ -11,31 +11,25 @@ angular.module('dotCinemaApp')
       var seances = [];
       var halls = [];
 
-      seancesAdminFactory.getMovies = function(filtr) {
+      seancesAdminFactory.getMovies = function(filtr, callback) {
         ApiRequester.getData(moviesTable, filtr)
               .then(function (content) {
-                movies = content;
+                callback(content);
               });
-
-        return movies;
       },
 
-      seancesAdminFactory.getHalls = function(filtr) {
+      seancesAdminFactory.getHalls = function(filtr, callback) {
         ApiRequester.getData(hallsTable, filtr)
               .then(function (content) {
-                halls = content;
+                callback(content);
               });
-
-        return halls;
       },
 
-      seancesAdminFactory.getSeances = function(filtr) {
+      seancesAdminFactory.getSeances = function(filtr, callback) {
         ApiRequester.getData(seancesTable, filtr)
-              .then(function (seance) {
-                seances = seance;
+              .then(function (content) {
+                callback(content);
               });
-
-        return seances;
       },
 
       seancesAdminFactory.addSeance = function(newSeance) {

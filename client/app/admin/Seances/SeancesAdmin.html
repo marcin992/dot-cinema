@@ -10,6 +10,9 @@
 			<div class="panel" ng-show="!loaded.halls">
 				<p>Ładowanie listy sal...</p>
 			</div>
+			<div class="panel" ng-show="!loaded.seances">
+				<p>Ładowanie listy seansów...</p>
+			</div>
 			<div class="panel" ng-show="movies.length == 0 && loaded.movies">
 				<p>Brak danych do wyświetlenia</p>
 			</div>
@@ -107,7 +110,7 @@
 							id="searchTitle" 
 							name="title" 
 							ng-model="searchTitle" 
-							pattern="[A-Za-z0-9]{1,50}"
+							pattern="[A-Za-z0-9 ]{1,50}"
 							style="margin: 0 auto"> 
 					</label>
 					<button value="Szukaj" style="float: right; margin-left: 5px; padding-bottom: 10px;  padding-top: 10px;" type="submit">Szukaj</button>
