@@ -12,5 +12,10 @@ angular.module('dotCinemaApp')
         url: '/Admin/Seances',
         templateUrl: 'app/admin/Seances/SeancesAdmin.html',
         controller: 'SeancesAdminController'
+      })
+      .state('HallsAdmin', {
+        url: '/Admin/Halls',
+        templateUrl: 'app/admin/Halls/HallsAdmin.html',
+        controller: 'HallsAdminController'
       });
   });

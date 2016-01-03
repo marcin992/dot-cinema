@@ -1,0 +1,57 @@
+<navbar></navbar>
+
+<div class="row">
+	<div data-ng-init="init()">
+		<div class="row">
+			<div class="panel" ng-show="!loaded.halls">
+				<p>Ładowanie listy sal...</p>
+			</div>
+			<div class="panel" ng-show="halls.length == 0 && loaded.halls">
+				<p>Brak danych do wyświetlenia</p>
+			</div>
+
+			<div class="panel" ng-show="messages.length > 0">
+				<p>{{ messages[messages.length - 1].value }}</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="large-2 columns">
+				<div class="row">
+					<div class="large-6 columns">	
+						<div ng-show="hallsView.length > 0">
+							<table>
+								<thead>
+									<tr>								
+										<td>lp.</td>
+										<td>Nazwa</td>
+										<td>Ilość rzędów</td>
+										<td>Ilość miejsc</td>
+										<td></td>
+										<td></td>
+									</tr>
+								</thead>
+
+								<tbody ng-repeat="hall in hallsView | orderBy: '+name'">
+									<tr> 
+										<td> {{ $index + 1 }} </td>
+										<td> {{ hall.name }} </td>
+										<td> {{ hall.row }} </td>
+										<td> {{ hall.place }}  </td>
+										<td ng-click="edit(hall)">EDYTUJ</td>
+										<td ng-click="delete(hall)">USUŃ</td>
+									</tr>
+								</tbody>
+
+								<tfoot ng-show="movies.length > moviesToShow">		
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="large-5 columns">
+				<div class="row">
+				</div>
+			</div>
+	</div>
+</div>
