@@ -1,5 +1,5 @@
 <navbar></navbar>
-<div ng-app="dotCinemaApp" ng-controller="TimesheetController" data-ng-init="init()">
+<div data-ng-init="init()">
 
 <h2>My Timesheet</h2>
 
@@ -35,7 +35,7 @@
 				<td>Data rozpoczęcie</td>
 				<td>Data zakończenia</td>
 				<td>Czas trwania</td>
-				<span ng-show="!showWorkerName">
+				<span ng-show="showWorkerName">
 					<td>Pracownik</td>
 				</span>
 			</tr>
@@ -45,7 +45,7 @@
 			    <td>{{ ts.date_start }}</td>
 			    <td>{{ ts.date_end }}</td>
 			    <td>{{ ts.hours }}</td>
-			 	<span ng-show="!showWorkerName">
+			 	<span ng-show="showWorkerName">
 				<td>{{ ts.getEmployerName() }}</td>
 				</span>
 			  </tr>
