@@ -19,7 +19,7 @@
 			<div class="large-2 columns">
 				<div class="row">
 					<div class="large-6 columns">	
-						<div ng-show="hallsView.length > 0">
+						<div ng-show="halls.length > 0">
 							<table>
 								<thead>
 									<tr>								
@@ -32,26 +32,130 @@
 									</tr>
 								</thead>
 
-								<tbody ng-repeat="hall in hallsView | orderBy: '+name'">
+								<tbody ng-repeat="hall in halls | orderBy: '+name'">
 									<tr> 
 										<td> {{ $index + 1 }} </td>
-										<td> {{ hall.name }} </td>
-										<td> {{ hall.row }} </td>
-										<td> {{ hall.place }}  </td>
+										<td> {{ hall.view.name }} </td>
+										<td> {{ hall.view.row }} </td>
+										<td> {{ hall.view.place }}  </td>
 										<td ng-click="edit(hall)">EDYTUJ</td>
 										<td ng-click="delete(hall)">USUŃ</td>
 									</tr>
 								</tbody>
-
-								<tfoot ng-show="movies.length > moviesToShow">		
 							</table>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="large-5 columns">
+			<div class="large-6 columns">
 				<div class="row">
+					<div class="large-12 columns" style="background-color: #eeedee; border: none">	
+						<form name="form" ng-submit="formAction(form)">
+							<fieldset>
+								<span ng-show="hallEdit == null">
+									<h4>Dodawanie nowej sali</h4>
+								</span>
+								<span ng-show="hall._id != undefined">
+									<h4>Edycja sali {{ hallEdit.name }}</h4>
+								</span>
+
+								<label for="name"><b>Nazwa sali</b>
+									<input
+										required
+										type="text"
+										min="1"
+										ng-model="hall.name"
+										name="name"
+										placeholder="Nazwa sali"
+									/>
+								</label>
+								<label for="rows"><b>Dodawanie rzędów</b>
+									<div class="large-12 columns">
+										<div class="row">
+											<table>
+												<thead>
+													<tr>
+														<td>
+															<div class ="large-4 columns">Nazwa rzędu
+															</div>
+														</td>
+														<td>
+															<div class ="large-4 columns">Ilość miejsc
+															</div>
+														</td>
+														<td>
+															<div class ="large-4 columns">
+															</div>
+														</td>
+													</tr>
+												</thead>
+												<div>
+													<tbody ng-repeat="chair in hall.chairs">
+														<tr>
+															<td>
+																<div class ="large-12 columns">
+																	<input 
+																		required
+																		type="text"
+																		min="1"
+																		ng-model="hall.chairs[$index].key"
+																	/>
+																</div>
+															</td>
+															<td>
+																<div class="large-12 columns">	
+																	<input 
+																		required
+																		type="number"
+																		min="1"
+																		ng-model="hall.chairs[$index].value"
+																	/>
+																</div>
+															</td>
+															<td>
+																<div class="large-12 columns">
+																	<button type="button" ng-click="remove($index)" style="float: right; margin-left: 5px; padding-bottom: 10px;  padding-top: 10px;">Usuń</button>
+																</div>
+															</td>
+														</tr>
+													</tbody>
+												</div>
+												<tfoot style="background-color: inherit; border: none">
+													<tr>
+														<td>
+															<div class ="large-12 columns"></div>
+														</td>
+														<td>
+															<div class ="large-12 columns"></div>
+														</td>
+														<td>
+															<div class="large-12 columns">
+																<button type="button" ng-click="add()" style="float: right; margin-left: 5px; padding-bottom: 10px;  padding-top: 10px;">Dodaj rząd</button>
+															</div>
+														</td>
+													</tr>
+												</tfoot>									
+											</table>
+										</div>
+									</div>
+								</label>
+								<label>
+									<div class="large-11 columns">
+										<div class="row" style="float: right;">
+											<div class="large-5 columns">
+												<button type="submit">Wyślij</button>
+											</div>
+											<div class="large-6 columns">
+												<button type="reset" ng-click="clear()">Wyczyść</button>
+											</div>
+										</div>
+									</div>
+								</label>
+							</fieldset>
+						</form>
+					</div>
 				</div>
 			</div>
+		</div>
 	</div>
 </div>

@@ -4,29 +4,51 @@ angular.module('dotCinemaApp')
   .service('HallsAdminService', function () {
     var hallsAdminService = [];
 
-    hallsAdminService.getView = function(halls) {
-    	var hallViews = [];
+    hallsAdminService.getView = function(halls, callback) {
+    	//var hallViews = [];
+    	var hallsWithView = [];
 
     	for (var hall in halls) {
-    		var countPlace = 0;
-    		var countRow = 0;
-    		
-    		for (var row in halls[hall].chairs) {
-    			countRow++;
-    			countPlace = halls[hall].chairs[row];
-    		}
+    		var view = hallsAdminService.createView(halls[hall]);
 
-    		var hallView = {
-    			id: halls[hall]._id,
+    		//hallViews.push(view);
+
+    		hallsWithView.push({
+    			_id: halls[hall]._id,
     			name: halls[hall].name,
-    			row: countRow,
-    			place: countPlace
-    		};
-
-    		hallViews.push(hallView);
+    			chairs: halls[hall].chairs,
+    			view: view
+    		});
     	}
 
-    	return hallViews;
+    	//return hallViews;
+    	//return halls;
+    	callback(hallsWithView);
+    },
+
+    hallsAdminService.createErrors = function() {
+    	var errors = [];
+
+    	return errors;
+    }
+
+    hallsAdminService.createView = function(hall) {
+    	var countPlace = 0;
+   		var countRow = 0;
+    		
+   		for (var row in hall.chairs) {
+   			countRow++;
+    		countPlace += hall.chairs[row];
+    	}
+
+    	var view = {
+    		id: hall._id,
+   			name: hall.name,    			
+   			row: countRow,
+    		place: countPlace
+    	};
+
+    	return view;
     }
 
     return hallsAdminService;
