@@ -24,8 +24,8 @@
 		<button disabled="disabled">Zakończ pracę</button>
 	</span>
 
-	<button ng-click="init()">Odśwież stron</button>
-	<button ng-click="getAll()">Pobierz wszystkie</button>
+	<button ng-click="init()">Odśwież listę</button>
+	<button ng-show="false" ng-click="getAll()">Pobierz wszystkie</button>
 </div>
 
 <span ng-show="timesheets.length != 0">
@@ -35,7 +35,7 @@
 				<td>Data rozpoczęcie</td>
 				<td>Data zakończenia</td>
 				<td>Czas trwania</td>
-				<span ng-show="showWorkerName">
+				<span ng-show="false">
 					<td>Pracownik</td>
 				</span>
 			</tr>
@@ -45,7 +45,7 @@
 			    <td>{{ ts.date_start }}</td>
 			    <td>{{ ts.date_end }}</td>
 			    <td>{{ ts.hours }}</td>
-			 	<span ng-show="showWorkerName">
+			 	<span ng-show="false">
 				<td>{{ ts.getEmployerName() }}</td>
 				</span>
 			  </tr>
