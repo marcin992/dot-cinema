@@ -10,8 +10,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     date_start: DataTypes.DATE,
     date_end: DataTypes.DATE,
-    {
+  }, {
     underscored: true,
-    tableName: 'schedules'
-    });
+    tableName: 'ratings'
+  });
 };
