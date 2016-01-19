@@ -32,22 +32,18 @@ angular.module('dotCinemaApp')
               });
       },
 
-      seancesAdminFactory.addSeance = function(newSeance) {
+      seancesAdminFactory.addSeance = function(newSeance, callback) {
         ApiRequester.createEntity(seancesTable, newSeance)
-              .then( function (seance) {
-                seances[0] = seance;
+              .then( function (content) {
+                callback(content);
               });
-
-        return seances[0]
       },
 
-      seancesAdminFactory.editSeance = function(seance) {
+      seancesAdminFactory.editSeance = function(seance, callback) {
         ApiRequester.editData(seancesTable, seance)
-              .then( function (seance) {
-                seances[0] = seance;
+              .then( function (content) {
+                callback(content);
               });
-
-        return seances[0]
       },
 
       seancesAdminFactory.deleteSeance = function(seance) {

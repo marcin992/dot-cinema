@@ -88,52 +88,79 @@ angular.module('dotCinemaApp')
         formRunning = true;
 
         var s = $scope.seanceForm;
-        s.date = $scope.dateTime.date.getFullYear() 
-          + "-" + $scope.dateTime.date.getMonth() 
-          + "-" + $scope.dateTime.date.getDate() 
-          + "T" + $scope.dateTime.time + ":00";
 
-        s.movie_id = $scope.movie_id;
+        $scope.dateTime.date.setHours($scope.dateTime.time.split(":")[0]);
+        $scope.dateTime.date.setMinutes($scope.dateTime.time.split(":")[1]);
+        $scope.dateTime.date.setSeconds(0);
+        $scope.dateTime.date.setMilliseconds(0);
+        s.movie_id = $scope.movie._id;
+        s.date = $scope.dateTime.date;
 
-        if (formSeance.$valid && validateDateTimeSeance(s)) {
-          if ($scope.seanceForm._id == 0 || $scope.seanceForm._id == null) {
-            var newSeance = SeancesAdminFactory.addSeance({
-              date: s.date,
-              hall_id: s.hall_id,
-              cost: s.cost,
-              movie_id: $scope.movie._id
-            });
+        var notExistSeance = true;
 
-            $scope.alerts.push({
-              value: "Sukces! Seans dodany!"
-            });
+        if (s.date > new Date()) {
 
-            $scope.movie.seances.push(newSeance);
+          validateDateTimeSeance(s, function(bool) {
+            notExistSeance = bool;
 
-            initSeanceForm();
-          }
-          else {
-            SeancesAdminFactory.editSeance(s);
-            $scope.alerts.push({
-              value: "Sukces! Seans został zaktualizowany!"
-            });
+            if (formSeance.$valid && notExistSeance) {
+              s.date = s.date.setMinutes(s.date.getMinutes() + ((-1) * s.date.getTimezoneOffset()));
 
-            initSeanceForm();
+              if ($scope.seanceForm._id == 0 || $scope.seanceForm._id == null) {
+                var newSeance = {};
 
-                for (var i=0; i<$scope.movie.seances.length; i++) {
-                  if ($scope.movie.seances[i]._id == s._id) {
-                    $scope.movie.seances[i] = s;
-                  }
-                }
-          }
-        }
-        else {
-          $scope.alerts.push({
-            value: "Sala o tej porze jest zajęta"
+                SeancesAdminFactory.addSeance({
+                  date: s.date,
+                  hall_id: s.hall_id,
+                  cost: s.cost,
+                  movie_id: $scope.movie._id
+                }, function(data) {
+                  newSeance = data;
+
+                  $scope.alerts.push({
+                    value: "Sukces! Seans dodany!"
+                  });
+
+                  newSeance.hall = getHallFromId(newSeance.hall_id);
+
+                  $scope.movie.seances.push(newSeance);
+
+                  initSeanceForm();
+                });
+              }
+              else {
+                SeancesAdminFactory.editSeance(s, function(data) {
+                  s = data;
+                  s.hall = getHallFromId(s.hall_id);
+
+                  $scope.alerts.push({
+                    value: "Sukces! Seans został zaktualizowany!"
+                  });
+
+                    initSeanceForm();
+
+                    for (var index in $scope.movie.seances) {
+                      if ($scope.movie.seances[index]._id == s._id) {
+                        $scope.movie.seances[index] = s;
+                      }
+                    }
+                });
+              }
+            }
+            else {
+              $scope.alerts.push({
+                value: "Sala o tej porze jest zajęta"
+              });
+            }
+
+            formRunning = false;
           });
         }
-
-        formRunning = false;
+        else {
+              $scope.alerts.push({
+                value: "Data nie może być wcześniejsza niż dzisiejsza"
+              });
+        }
       }
     },
 
@@ -154,6 +181,10 @@ angular.module('dotCinemaApp')
       else {
         $scope.formShow = false;
       }
+    },
+
+    $scope.clear = function() {
+        initSeanceForm();
     }
 
     $scope.search = function(form) {
@@ -170,7 +201,7 @@ angular.module('dotCinemaApp')
             var search = { 
               where: {
                 title: {
-                  $like: '%' + $scope.searchTitle + '%'
+                  $iLike: '%' + $scope.searchTitle + '%'
                 }
               }
             };
@@ -200,12 +231,12 @@ angular.module('dotCinemaApp')
       }
     }
 
-    function validateDateTimeSeance(seanceToValidate) {
-      var date = new Date(seanceToValidate.date.split("T"));
+    function validateDateTimeSeance(seanceToValidate, callback) {
+      var date = seanceToValidate.date;
 
       var filtr = {
         where: {
-          hall_id: seanceToValidate._id,
+          hall_id: seanceToValidate.hall_id,
           date: {
             $between: [
               new Date(date - 1000*60*60*24), 
@@ -216,43 +247,39 @@ angular.module('dotCinemaApp')
       }
 
       $scope.loaded.seances = false;
-      seancesList = [null];
+      seancesList = new Array();
 
       SeancesAdminFactory.getSeances(filtr, function(content){
           seancesList = content;
+          $scope.loaded.seances = true;
+          var exist = false;
 
-          if (seancesList != null) {
-            $scope.loaded.seances = true;
-          }
+          for (var i in seancesList) {
+                  if (seancesList[i]._id != seanceToValidate._id) {
+                    var dateStart = new Date(seancesList[i].date);
+                    var dateEnd = new Date(new Date(dateStart.getTime() + seancesList[i].movie.duration * 60000))
+                  
+                    var seanceDateStart = new Date(seanceToValidate.date);
+                    var seanceDateEnd = new Date(new Date(seanceDateStart.getTime() + $scope.movie.duration * 60000))
+                  
+                    if (dateStart <= seanceDateStart && dateEnd >= seanceDateStart) {
+                      exist = true;
+                      callback(false);
+                      break;
+                    }
+
+                    if (dateStart <= seanceDateEnd && dateEnd >= seanceDateEnd) {
+                      exist = true;
+                      callback(false);
+                      break;
+                    }
+                  }
+                }
+
+              if (!exist) {
+                callback(true);
+              };
         });
-
-      for (var s in seancesList) {
-        if (s._id != seanceToValidate._id) {
-          var dateStart = new Date(s);
-          var dateEnd = new Date(new Date(dateStart.getTime() + $scope.movie.duration * 60000))
-        
-          var seanceDateStart = new Date(seanceToValidate);
-          var seanceDateEnd = new Date(new Date(seanceDateStart.getTime() + $scope.movie.duration * 60000))
-        
-          if (dateStart <= seanceDateStart) {
-            return false;
-          }
-
-          if (dateStart <= seanceDateEnd) {
-            return false;
-          }
-
-          if (dateEnd <= seanceDateStart) {
-            return false;
-          }
-
-          if (dateEnd <= seanceDateEnd) {
-            return false;
-          }
-        }
-      }
-
-      return true;
     } 
 
     function initSeanceForm() {
@@ -269,4 +296,14 @@ angular.module('dotCinemaApp')
       };      
     }
 
+
+    function getHallFromId(id) {
+      for (var index in $scope.halls) {
+        if ($scope.halls[index]._id == id) {
+          return $scope.halls[index];
+        }
+
+        return {};
+      }
+    }
   });
