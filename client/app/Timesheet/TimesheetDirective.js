@@ -7,5 +7,10 @@ angular.module('dotCinemaApp')
         url: '/Timesheet',
         templateUrl: 'app/Timesheet/Timesheet.html',
         controller: 'TimesheetController'
+      })
+      .state('TimesheetByEmployer', {
+        url: '/Timesheet/:ID',
+        templateUrl: 'app/Timesheet/Timesheet.html',
+        controller: 'TimesheetController'
       });
   });

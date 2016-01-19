@@ -1,14 +1,15 @@
 <navbar></navbar>
 <div data-ng-init="init()">
 
-<h2>My Timesheet</h2>
+<h2 ng-show="!readonly">My Timesheet</h2>
+<h2 ng-show="readonly">Timesheet pracownika {{ Employer.name }} {{ Employer.surname }} </h2>
 
 <div ng-repeat="error in errors">
 	<h4>{{error.name}}</h4>
 	<p>{{error.message}}</p>
 </div>
 
-<div ng-if="!readonly">
+<div ng-show="!readonly">
 	<span ng-if="timesheets.length != 0">
 		<span ng ng-show="!empty">
 			<button ng-click="start()">Rozpocznij pracę</button>
@@ -35,9 +36,6 @@
 				<td>Data rozpoczęcie</td>
 				<td>Data zakończenia</td>
 				<td>Czas trwania</td>
-				<span ng-show="false">
-					<td>Pracownik</td>
-				</span>
 			</tr>
 		</thead>
 		<tbody>
@@ -45,9 +43,6 @@
 			    <td>{{ ts.date_start }}</td>
 			    <td>{{ ts.date_end }}</td>
 			    <td>{{ ts.hours }}</td>
-			 	<span ng-show="false">
-				<td>{{ ts.getEmployerName() }}</td>
-				</span>
 			  </tr>
 		</tbody>
 	</table>

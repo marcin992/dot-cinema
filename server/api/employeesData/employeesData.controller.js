@@ -112,3 +112,13 @@ exports.destroy = function(req, res) {
     .then(removeEntity(res))
     .catch(handleError(res));
 };
+
+
+exports.find = function(req, res) {
+  var filtering = req.body;
+  var payload = _.merge(filtering, {
+  });
+  EmployeesData.findAll(payload)
+    .then(responseWithResult(res))
+    .catch(handleError(res));
+};

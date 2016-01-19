@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('dotCinemaApp')
-  .controller('SeancesAdminController', function ($scope, Auth, SeancesAdminFactory) {
+  .controller('SeancesAdminController', function ($scope, Auth, SeancesAdminFactory, $stateParams) {
     var User = Auth.getCurrentUser();
      
     $scope.loaded = {
