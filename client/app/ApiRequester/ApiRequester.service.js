@@ -27,8 +27,8 @@ angular.module('dotCinemaApp')
           });
       },
 
-      deleteData: function (table, object) {
-        return $http.delete(url + table + "/" + object._id, JSON.stringify(object))
+      deleteData: function (table, id) {
+        return $http.delete(url + table + "/" + id)
           .then(function(result) {
             return result.data
           });

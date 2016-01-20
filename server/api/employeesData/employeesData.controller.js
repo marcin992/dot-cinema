@@ -12,6 +12,7 @@
 var _ = require('lodash');
 var sqldb = require('../../sqldb');
 var EmployeesData = sqldb.EmployeesData;
+var User = sqldb.User;
 
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
@@ -117,6 +118,10 @@ exports.destroy = function(req, res) {
 exports.find = function(req, res) {
   var filtering = req.body;
   var payload = _.merge(filtering, {
+    include: [{
+      model: User,
+      as: 'user'
+    }]
   });
   EmployeesData.findAll(payload)
     .then(responseWithResult(res))

@@ -31,6 +31,11 @@ db.User.hasOne(db.EmployeesData, {
   as: 'employee_data'
 });
 
+db.EmployeesData.belongsTo(db.User, {
+  foreignKey: 'user_id',
+  as: 'user'
+});
+
 db.EmployeesData.hasMany(db.Schedule, {
   foreignKey: 'employee_id',
   as: 'Schedules'

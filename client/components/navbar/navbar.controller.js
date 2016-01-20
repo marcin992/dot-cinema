@@ -7,17 +7,21 @@ angular.module('dotCinemaApp')
       'state': 'main',
       condition: true
     }, {
+      title: 'Zarządzaj pracownikami',
+      state: 'employees',
+      condition: Auth.isManager()
+    }, {
       title: 'Mój profil',
       state: 'profile',
       condition: Auth.isLoggedIn()
     }, {
       title: 'Seanse',
       state: 'SeancesAdmin',
-      condition: Auth.isAdmin()
+      condition: Auth.isCinemaSetter()
     }, {
       title: 'Sale',
       state: 'HallsAdmin',
-      condition: Auth.isAdmin()
+      condition: Auth.isCinemaSetter()
     }];
 
     $scope.isCollapsed = true;

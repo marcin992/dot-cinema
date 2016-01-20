@@ -20,7 +20,8 @@
     "moment": "~2.10.6",
     "angular-toastr": "~1.6.0",
     "angular-animate": "~1.4.8",
-    "stringjs": "~3.3.1"
+    "stringjs": "~3.3.1",
+    "angular-xeditable": "~0.1.9"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.0"

@@ -24,4 +24,9 @@ angular.module('dotCinemaApp')
         controller: 'MoviesCtrl',
         templateUrl: 'app/movies/movies.html'
       })
+      .state('employees', {
+        url: '/employees',
+        templateUrl: 'app/employees/employees.html',
+        controller: 'EmployeesCtrl'
+      });
   });

@@ -29,7 +29,8 @@ angular.module('dotCinemaApp', [
     'validation.match',
     'ngAnimate',
     'toastr',
-    'mm.foundation'
+    'mm.foundation',
+    'xeditable'
   ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
@@ -66,7 +67,7 @@ angular.module('dotCinemaApp', [
     };
   })
 
-  .run(function ($rootScope, $state, Auth) {
+  .run(function ($rootScope, $state, Auth, editableOptions, editableThemes) {
     // Redirect to login if route requires auth and the user is not logged in
     $rootScope.$on('$stateChangeStart', function (event, next) {
       if (next.authenticate) {
@@ -78,4 +79,8 @@ angular.module('dotCinemaApp', [
         });
       }
     });
+
+    editableThemes['default'].submitTpl = '<button class="button tiny info">Zapisz</button>'
+    editableThemes['default'].cancelTpl = '<button class="button tiny info">Anuluj</button>'
+    editableOptions.theme = 'default';
   });

@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="bower_components/slick-carousel/slick/slick.css" />
       <link rel="stylesheet" href="bower_components/slick-carousel/slick/slick-theme.css" />
       <link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.css" />
+      <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.css" />
       <!-- endbower -->
     <!-- endbuild -->
     <link href='https://fonts.googleapis.com/css?family=Playfair+Display&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
@@ -28,6 +29,8 @@
       <link rel="stylesheet" href="app/Timesheet/Timesheet.css">
       <link rel="stylesheet" href="app/admin/admin.css">
       <link rel="stylesheet" href="app/app.css">
+      <link rel="stylesheet" href="app/crudList/crudList.css">
+      <link rel="stylesheet" href="app/employees/employees.css">
       <link rel="stylesheet" href="app/main/main.css">
       <link rel="stylesheet" href="app/movieCarousel/movieCarousel.css">
       <link rel="stylesheet" href="app/movieDashboard/movieDashboard.css">
@@ -75,7 +78,7 @@
       <script src="bower_components/angular-cookies/angular-cookies.js"></script>
       <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
       <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-      <script src="bower_components/lodash/lodash.min.js"></script>
+      <script src="bower_components/lodash/lodash.js"></script>
       <script src="bower_components/angular-socket-io/socket.js"></script>
       <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
       <script src="bower_components/angular-validation-match/dist/angular-validation-match.min.js"></script>
@@ -86,10 +89,11 @@
       <script src="bower_components/angular-foundation/mm-foundation-tpls.js"></script>
       <script src="bower_components/slick-carousel/slick/slick.min.js"></script>
       <script src="bower_components/angular-slick/dist/slick.js"></script>
-      <script src="bower_components/moment/min/moment-with-locales.min.js"></script>
+      <script src="bower_components/moment/moment.js"></script>
       <script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
       <script src="bower_components/angular-animate/angular-animate.js"></script>
       <script src="bower_components/stringjs/dist/string.min.js"></script>
+      <script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
       <!-- endbower -->
       <script src="socket.io-client/socket.io.js"></script>
     <!-- endbuild -->
@@ -98,8 +102,10 @@
       <!-- injector:js -->
       <script src="app/ApiRequester/ApiRequester.service.js"></script>
       <script src="app/Date/Date.factory.js"></script>
+      <script src="app/Employees/Employees.service.js"></script>
       <script src="app/Movies/Movies.service.js"></script>
       <script src="app/Reservations/Reservations.service.js"></script>
+      <script src="app/RoleHierarchy/RoleHierarchy.service.js"></script>
       <script src="app/Seanses/Seanses.service.js"></script>
       <script src="app/TableNames/TableNames.service.js"></script>
       <script src="app/Timesheet/Timesheet.factory.js"></script>
@@ -117,6 +123,9 @@
       <script src="app/admin/Seances/SeancesAdmin.factory.js"></script>
       <script src="app/admin/admin.controller.js"></script>
       <script src="app/admin/admin.js"></script>
+      <script src="app/crudList/crudList.directive.js"></script>
+      <script src="app/employees/employeeEditor.controller.js"></script>
+      <script src="app/employees/employees.controller.js"></script>
       <script src="app/main/main.controller.js"></script>
       <script src="app/main/main.js"></script>
       <script src="app/movieCarousel/movieCarousel.directive.js"></script>

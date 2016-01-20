@@ -1,0 +1,24 @@
+<div>
+  <table class="crud-list">
+    <thead>
+      <tr>
+        <th ng-repeat="column in columns">{{ column.guiName }}</th>
+        <th>Akcje</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr ng-repeat="row in data">
+        <td ng-repeat="column in columns">
+          {{ !column.customValue ? row[column.dbName] : column.customValue(row) }}
+        </td>
+        <td>
+          <ul class="stack button-group">
+            <li><a href="" class="button tiny info" ng-click="onSelect({row: row})">Edytuj</a></li>
+            <li><a href="" class="button tiny info" ng-click="onDelete({row: row})">Usuń</a></li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

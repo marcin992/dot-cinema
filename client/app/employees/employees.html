@@ -1,0 +1,13 @@
+<navbar></navbar>
+
+
+<div class="row">
+  <h3>Pracownicy</h3>
+  <br>
+  <div class="large-10 columns">
+    <crud-list data="employees" columns="columns" onUpdate="update(row)" on-delete="delete(row)" on-select="select(row)"></crud-list>
+  </div>
+  <div class="large-2 columns">
+    <a href="" class="button success"><span class="fa fa-plus"></span>Dodaj pracownika</a>
+  </div>
+</div>

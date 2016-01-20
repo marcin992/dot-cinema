@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('dotCinemaApp')
-  .factory('Auth', function Auth($http, User, $cookies, $q) {
+  .factory('Auth', function Auth($http, User, $cookies, $q, RoleHierarchy) {
     /**
      * Return a callback or noop function
      *
@@ -14,24 +14,26 @@ angular.module('dotCinemaApp')
 
     currentUser = {};
 
+    var roleHierarchy = RoleHierarchy.getRoleHierarchy();
+
     if ($cookies.get('token')) {
       currentUser = User.get();
     }
 
     var hasRole = function(role, callback) {
-      if (arguments.length === 0) {
-        return currentUser.role === role;
+      if (arguments.length === 1) {
+        return currentUser.role === role || _.contains(roleHierarchy[currentUser.role], role);
       }
 
-      return this.getCurrentUser(null)
+      return service.getCurrentUser(null)
         .then(function(user) {
-          var is = user.role === role;
+          var is = user.role === role || _.contains(roleHierarchy[user.role], role);
           safeCb(callback)(is);
           return is;
         });
     };
 
-    return {
+    var service = {
 
       /**
        * Authenticate user and save token
@@ -42,23 +44,23 @@ angular.module('dotCinemaApp')
        */
       login: function(user, callback) {
         return $http.post('/auth/local', {
-          email: user.email,
-          password: user.password
-        })
-        .then(function(res) {
-          $cookies.put('token', res.data.token);
-          currentUser = User.get();
-          return currentUser.$promise;
-        })
-        .then(function(user) {
-          safeCb(callback)(null, user);
-          return user;
-        })
-        .catch(function(err) {
-          this.logout();
-          safeCb(callback)(err.data);
-          return $q.reject(err.data);
-        }.bind(this));
+            email: user.email,
+            password: user.password
+          })
+          .then(function(res) {
+            $cookies.put('token', res.data.token);
+            currentUser = User.get();
+            return currentUser.$promise;
+          })
+          .then(function(user) {
+            safeCb(callback)(null, user);
+            return user;
+          })
+          .catch(function(err) {
+            this.logout();
+            safeCb(callback)(err.data);
+            return $q.reject(err.data);
+          }.bind(this));
       },
 
       /**
@@ -151,15 +153,15 @@ angular.module('dotCinemaApp')
           });
       },
 
-       /**
-        * Check if a user is an admin
-        *   (synchronous|asynchronous)
-        *
-        * @param  {Function|*} callback - optional, function(is)
-        * @return {Bool|Promise}
-        */
+      /**
+       * Check if a user is an admin
+       *   (synchronous|asynchronous)
+       *
+       * @param  {Function|*} callback - optional, function(is)
+       * @return {Bool|Promise}
+       */
       isAdmin: function(callback) {
-         return hasRole('admin', callback);
+        return hasRole('admin', callback);
       },
 
       isCinemaSetter: function(callback) {
@@ -183,4 +185,5 @@ angular.module('dotCinemaApp')
         return $cookies.get('token');
       }
     };
+    return service;
   });
