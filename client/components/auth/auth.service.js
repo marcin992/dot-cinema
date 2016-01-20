@@ -18,6 +18,19 @@ angular.module('dotCinemaApp')
       currentUser = User.get();
     }
 
+    var hasRole = function(role, callback) {
+      if (arguments.length === 0) {
+        return currentUser.role === role;
+      }
+
+      return this.getCurrentUser(null)
+        .then(function(user) {
+          var is = user.role === role;
+          safeCb(callback)(is);
+          return is;
+        });
+    };
+
     return {
 
       /**
@@ -146,16 +159,19 @@ angular.module('dotCinemaApp')
         * @return {Bool|Promise}
         */
       isAdmin: function(callback) {
-        if (arguments.length === 0) {
-          return currentUser.role === 'admin';
-        }
+         return hasRole('admin', callback);
+      },
 
-        return this.getCurrentUser(null)
-          .then(function(user) {
-            var is = user.role === 'admin';
-            safeCb(callback)(is);
-            return is;
-          });
+      isCinemaSetter: function(callback) {
+        return hasRole('cinema_setter', callback);
+      },
+
+      isManager: function(callback) {
+        return hasRole('manager', callback);
+      },
+
+      isEmployee: function(callback) {
+        return hasRole('employee', callback);
       },
 
       /**

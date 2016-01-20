@@ -10,6 +10,14 @@ angular.module('dotCinemaApp')
       title: 'Mój profil',
       state: 'profile',
       condition: Auth.isLoggedIn()
+    }, {
+      title: 'Seanse',
+      state: 'SeancesAdmin',
+      condition: Auth.isAdmin()
+    }, {
+      title: 'Sale',
+      state: 'HallsAdmin',
+      condition: Auth.isAdmin()
     }];
 
     $scope.isCollapsed = true;
