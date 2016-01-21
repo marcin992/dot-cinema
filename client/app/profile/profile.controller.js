@@ -1,8 +1,11 @@
 'use strict';
 
 angular.module('dotCinemaApp')
-  .controller('ProfileCtrl', function ($scope, Reservations) {
+  .controller('ProfileCtrl', function ($scope, Reservations, Auth, Employees) {
     $scope.reservations = [];
+    $scope.user = Auth.getCurrentUser();
+    $scope.isEmployee = Auth.isEmployee;
+    $scope.columns = Employees.getColumns();
 
     Reservations.getUsersReservations()
       .then(function(reservations) {

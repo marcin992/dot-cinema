@@ -1,5 +1,8 @@
 <h4>Moje rezerwacje</h4>
 <hr>
+<div class="row" ng-if="reservations.length === 0">
+  <h5>Nie masz żadnych rezerwacji</h5>
+</div>
 <div class="row" ng-repeat="reservation in reservations">
   <div class="large-2 columns">
     <img src="http://placehold.it/80x80&text=[img]">

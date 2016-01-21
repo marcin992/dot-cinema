@@ -69,6 +69,9 @@ angular.module('dotCinemaApp')
           },
           mode: function() {
             return 'create';
+          },
+          columns: function() {
+            return Employees.getColumns()
           }
         }
       });
@@ -102,7 +105,11 @@ angular.module('dotCinemaApp')
           },
           mode: function() {
             return 'update';
+          },
+          columns: function() {
+            return Employees.getColumns()
           }
+
         }
       });
 

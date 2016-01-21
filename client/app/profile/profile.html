@@ -1,5 +1,41 @@
 <navbar></navbar>
-
 <div class="row panel">
+  <h3>Ustawienia profilu</h3>
+  <div class="row">
+    <div class="large-12 columns">
+      <strong>Nick:</strong> {{ user.nick }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-12 columns">
+      <strong>Email:</strong> {{ user.email }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-12 columns">
+      <strong>Uprawnienia:</strong> {{ user.role }}
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="large-12 columns">
+      <a href="" ui-sref="passwordChange" class="button small">Zmień hasło</a>
+    </div>
+  </div>
+  <div class="row" ng-if="user.role === 'user'">
+    <div class="large-12 columns">
+      <a href="" class="button small">Usuń konto</a>
+    </div>
+  </div>
+</div>
+<div class="row panel" ng-if="user.role === 'user'">
   <reservation-list reservations="reservations"></reservation-list>
+</div>
+<div class="row panel" ng-if="isEmployee()">
+  <h3>Dane pracownika</h3>
+  <div class="row" ng-repeat="column in columns">
+    <div class="large-12 columns">
+      <strong>{{ column.guiName }}: </strong>{{ user.employee_data[column.dbName] }}
+    </div>
+  </div>
 </div>

@@ -28,5 +28,10 @@ angular.module('dotCinemaApp')
         url: '/employees',
         templateUrl: 'app/employees/employees.html',
         controller: 'EmployeesCtrl'
+      })
+      .state('passwordChange', {
+        url: '/passwordChange',
+        templateUrl: 'app/passwordChange/passwordChange.html',
+        controller: 'PasswordChangeCtrl'
       });
   });
