@@ -1,8 +1,13 @@
 package com.inc.nobody.dotcinema;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.view.LayoutInflater;
+import android.widget.ImageView;
 
 /**
  * Created by maciej on 07/11/15.
@@ -33,5 +38,13 @@ public class DialogUtil {
 
         AlertDialog alert11 = builder1.create();
         alert11.show();
+    }
+    public void showImgDialog(Context context, Bitmap bm)
+    {
+        Dialog dialog =new Dialog(context);
+        dialog.setContentView(R.layout.image_dialog);
+        ImageView img = (ImageView) dialog.findViewById(R.id.image_to_set);
+        img.setImageBitmap(bm);
+        dialog.show();
     }
 }

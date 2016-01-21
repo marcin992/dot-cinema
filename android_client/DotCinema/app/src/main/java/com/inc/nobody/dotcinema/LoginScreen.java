@@ -3,6 +3,12 @@ package com.inc.nobody.dotcinema;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.RectF;
+import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +16,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+
+import com.itextpdf.text.Image;
+import com.itextpdf.text.pdf.BarcodeEAN;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.onbarcode.barcode.android.AndroidColor;
+import com.onbarcode.barcode.android.AndroidFont;
+import com.onbarcode.barcode.android.Code128;
+import com.onbarcode.barcode.android.Code39;
+import com.onbarcode.barcode.android.EAN13;
+import com.onbarcode.barcode.android.IBarcode;
+
+import net.sourceforge.barbecue.BarcodeException;
+import net.sourceforge.barbecue.BarcodeFactory;
+import net.sourceforge.barbecue.BarcodeImageHandler;
+import net.sourceforge.barbecue.output.OutputException;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -25,6 +46,7 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
@@ -84,6 +106,8 @@ public class LoginScreen extends ActionBarActivity {
             Intent intent = new Intent(this, MainProfileScreen.class);
             startActivity(intent);
         }
-
+    }
+    public void testCustomDialog(View view) throws BarcodeException {
+        DialogUtil.getInstance().showImgDialog(view.getContext(), BarCodeToBitMap.createBarcodeBitmap(getResources(),"asd"));
     }
 }

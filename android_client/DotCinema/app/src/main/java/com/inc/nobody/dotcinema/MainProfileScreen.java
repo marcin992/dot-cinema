@@ -45,7 +45,8 @@ public class MainProfileScreen extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
                 final String item = Utils.MD5(Integer.toString(((Reservation) parent.getItemAtPosition(position)).getId()));
-                DialogUtil.getInstance().showInfoDialog(view.getContext(),item);
+                DialogUtil.getInstance().showImgDialog(view.getContext(), BarCodeToBitMap.createBarcodeBitmap(getResources(), item.substring(0,10)));
+
             }
 
         });

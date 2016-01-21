@@ -79,6 +79,17 @@
         android:id="@+id/recoverPassButton"
         android:layout_below="@+id/RegisterButton"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:alpha="0" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="test"
+        android:id="@+id/testingButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/passpowrdInput"
+        android:layout_alignEnd="@+id/passpowrdInput"
+        android:onClick="testCustomDialog"/>
 
 </RelativeLayout>
