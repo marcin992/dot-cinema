@@ -6,6 +6,9 @@ import config from '../../config/environment';
 import jwt from 'jsonwebtoken';
 import nodemailer from 'nodemailer';
 import {sender} from '../../components/MailSender';
+import formidable from 'formidable';
+import fs from 'fs';
+import path from 'path';
 
 function validationError(res, statusCode) {
   statusCode = statusCode || 422;
@@ -144,7 +147,8 @@ exports.me = function(req, res, next) {
       'nick',
       'email',
       'role',
-      'provider'
+      'provider',
+      'avatar'
     ],
     include: [{
       model: EmployeesData,
@@ -178,6 +182,32 @@ exports.update = function(req, res, next) {
     return user.save();
   }).then(function(user) {
     res.send(user);
+  });
+};
+
+exports.updateAvatar = function(req, res, next) {
+  var userId = req.params.id;
+
+  var form = new formidable.IncomingForm();
+  form.uploadDir = './client/assets/images/avatars/';
+  form.keepExtensions = true;
+
+  form.parse(req, function(err, fields, files) {
+    var filename = files.file.path.match(/([^\/]+)$/);
+    filename = filename ? filename[0] : null;
+    User.find({
+      where: {
+        _id: userId
+      }
+    }).then(function(user) {
+      if(!user) {
+        return res.status(401).end();
+      }
+      user.avatar = filename;
+      return user.save()
+    }).then(function(user) {
+      res.send(user)
+    });
   });
 };
 

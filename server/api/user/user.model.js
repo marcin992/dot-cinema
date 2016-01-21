@@ -39,6 +39,10 @@ module.exports = function(sequelize, DataTypes) {
         notEmpty: true
       }
     },
+    avatar: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
     provider: DataTypes.STRING,
     salt: DataTypes.STRING
 

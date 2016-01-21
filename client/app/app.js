@@ -30,7 +30,8 @@ angular.module('dotCinemaApp', [
     'ngAnimate',
     'toastr',
     'mm.foundation',
-    'xeditable'
+    'xeditable',
+    'ngFileUpload'
   ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
