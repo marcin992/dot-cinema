@@ -19,7 +19,9 @@ module.exports = function(sequelize, DataTypes) {
     pesel: {
       type: DataTypes.STRING,
       allowNull: true,
-      unique: true
+      unique: {
+        msg: 'PESEL musi być unikalny'
+      }
     },
     phone: {
       type: DataTypes.STRING,

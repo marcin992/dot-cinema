@@ -17,6 +17,12 @@ angular.module('dotCinemaApp')
         params: {
           id:'me'
         }
+      },
+      update: {
+        method: 'PUT'
+      },
+      delete: {
+        method: 'DELETE'
       }
     });
   });

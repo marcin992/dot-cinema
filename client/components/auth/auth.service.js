@@ -21,7 +21,7 @@ angular.module('dotCinemaApp')
     }
 
     var hasRole = function(role, callback) {
-      if (arguments.length === 1) {
+      if (!callback) {
         return currentUser.role === role || _.contains(roleHierarchy[currentUser.role], role);
       }
 
@@ -69,6 +69,14 @@ angular.module('dotCinemaApp')
       logout: function() {
         $cookies.remove('token');
         currentUser = {};
+      },
+
+      createUserNoToken: function(user, callback) {
+        return User.save(user, (data) => {
+          return safeCb(callback)(null, data.user);
+        }, (err) => {
+          return safeCb(callback)(err);
+        })
       },
 
       /**
@@ -131,6 +139,12 @@ angular.module('dotCinemaApp')
             safeCb(callback)({});
             return {};
           });
+      },
+
+      deleteUser: function(id) {
+        return User.delete({
+          id: id
+        });
       },
 
       /**

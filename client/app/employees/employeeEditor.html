@@ -1,15 +1,151 @@
 <div>
-  <h3>{{ row.name }} {{ row.surname }}</h3>
 
-  <div class="row">
-    <div class="large-4 columns">
-      Imię
+
+  <form name="form" ng-submit="submit(row)" novalidate>
+    <h3>Dane pracownika</h3>
+    <div class="row" ng-repeat="column in columns">
+      <div class="large-2 columns">
+        <div class="right">
+          <strong>{{ column.guiName }}</strong>
+        </div>
+      </div>
+      <div class="large-10 columns">
+        <div ng-if="column.type === 'text'">
+          <input type="text"
+                 name="{{column.dbName}}"
+                 ng-maxlength="255"
+                 ng-model="row[column.dbName]"
+                 ng-model-options="{updateOn: 'userSave'}"
+                 ng-class="(form[column.dbName].$error.required || form[column.dbName].$error.maxlength) ? 'error' : ''"
+                 placeholder="{{ column.guiName }}"
+                 ng-required="column.isRequired">
+
+          <small class="error error-label"
+                 ng-if="(form[column.dbName].$error.required || form[column.dbName].$error.maxlength)">
+            To pole jest wymagane (max. 255 znaków)
+          </small>
+        </div>
+        <div ng-if="column.type === 'date'">
+          <input type="date"
+                 name="{{column.dbName}}"
+                 ng-model="row[column.dbName]"
+                 ng-class="(form[column.dbName].$error.required)"
+                 ng-required="column.isRequired">
+          <small class="error error-label"
+                 ng-if="(form[column.dbName].$error.required)">
+            To pole jest wymagane
+          </small>
+        </div>
+
+      </div>
     </div>
-    <div class="large-8 columns">
-      <a href="" editable-text="row.name"> {{ row.name || 'empty' }}</a>
+    <br>
+    <h3>Dane do logowania</h3>
+
+    <div class="row">
+      <div class="large-2 columns">
+        <div class="right">
+          <strong>Nick</strong>
+        </div>
+      </div>
+      <div class="large-10 columns">
+        <input type="text"
+               ng-class="form.nick.$error.required && submitted ? 'error' : ''"
+               name="nick"
+               ng-model="row.user.nick"
+               placeholder="Nick"
+               required>
+      </div>
+      <small class="error error-label" ng-if="form.nick.$error.required && submitted">
+        To pole jest wymagane.
+      </small>
     </div>
 
-    <button type="submit">qweqweqwe</button>
-  </div>
+    <div class="row">
+      <div class="large-2 columns">
+        <div class="right">
+          <strong>Email</strong>
+        </div>
+      </div>
+      <div class="large-10 columns">
+        <input type="email"
+               ng-class="(form.email.$error.email || form.email.$error.required) && submitted ? 'error' : ''"
+               name="email"
+               ng-model="row.user.email"
+               placeholder="Email"
+               required>
+      </div>
+      <small class="error error-label" ng-if="(form.email.$error.email || form.email.$error.required) && submitted">
+        Podaj poprawny email.
+      </small>
+    </div>
+
+    <div class="row">
+      <div class="large-2 columns">
+        <div class="right">
+          <strong>Uprawnienia</strong>
+        </div>
+      </div>
+      <div class="large-10 columns">
+        <select name="role"
+                ng-model="row.user.role">
+          <option ng-repeat="role in roles" value="{{role}}">{{ role }}</option>
+        </select>
+      </div>
+    </div>
+    <div ng-if="mode === 'create'">
+      <div class="row">
+        <div class="large-2 columns">
+          <div class="right">
+            <strong>Hasło</strong>
+          </div>
+        </div>
+        <div class="large-10 columns">
+          <input type="password"
+                 name="password"
+                 ng-minlength="5"
+                 ng-class="(form.password.$error.required || form.password.$error.minlength) ? 'error' : ''"
+                 ng-model="row.user.password"
+                 placeholder="Hasło"
+                 required>
+          <small class="error error-label"
+                 ng-if="(form.password.$error.required || form.password.$error.minlength)">
+            Podaj poprawne hasło (min. 5 znaków)
+          </small>
+        </div>
+      </div>
+      <div class="row">
+        <div class="large-2 columns">
+          <div class="right">
+            <strong>Powtórz hasło</strong>
+          </div>
+        </div>
+        <div class="large-10 columns">
+          <input type="password" name="confirmPassword" ng-model="row.user.confirmPassword"
+                 match="row.user.password"
+                 ng-minlength="5"
+                 required=""/>
+          <small class="error error-label" ng-if="form.confirmPassword.$error.match">
+            Hasła muszą się zgadzać.
+          </small>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="right">
+      <ul class="button-group">
+        <li>
+          <button class="button secondary" ng-click="$dismiss()">Anuluj</button>
+        </li>
+        <li>
+          <button class="button primary" type="submit">
+            Zapisz
+          </button>
+        </li>
+      </ul>
+    </div>
+  </form>
+
+
 
 </div>

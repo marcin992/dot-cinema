@@ -54,7 +54,6 @@ exports.index = function(req, res) {
 exports.create = function(req, res, next) {
   var newUser = User.build(req.body);
   newUser.setDataValue('provider', 'local');
-  newUser.setDataValue('role', 'user');
   newUser.save()
     .then(function(user) {
       var token = jwt.sign({ _id: user._id }, config.secrets.session, {
@@ -64,7 +63,7 @@ exports.create = function(req, res, next) {
       \nInformujemy, że konto w serwisie Dot-cinema zostało założone pomyślnie.
       \nPozdrawiamy,
       \nZespół Dot-cinema`, console.log);
-      res.json({ token: token });
+      res.json({ token: token, user: user });
     })
     .catch(validationError(res));
 };
@@ -96,7 +95,7 @@ exports.show = function(req, res, next) {
  * restriction: 'admin'
  */
 exports.destroy = function(req, res) {
-  User.destroy({ _id: req.params.id })
+  User.destroy({where: { _id: req.params.id }})
     .then(function() {
       res.status(204).end();
     })
@@ -161,6 +160,25 @@ exports.me = function(req, res, next) {
     .catch(function(err) {
       return next(err);
     });
+};
+
+exports.update = function(req, res, next) {
+  var userId = req.params.id;
+  User.find({
+    where: {
+      _id: userId
+    }
+  }).then(function(user) {
+    if(!user) {
+      return res.status(401).end();
+    }
+    user.email = req.body.email;
+    user.nick = req.body.nick;
+    user.role = req.body.role;
+    return user.save();
+  }).then(function(user) {
+    res.send(user);
+  });
 };
 
 /**

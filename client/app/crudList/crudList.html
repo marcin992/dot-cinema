@@ -2,13 +2,15 @@
   <table class="crud-list">
     <thead>
       <tr>
-        <th ng-repeat="column in columns">{{ column.guiName }}</th>
+        <th ng-repeat="column in columns" class="pointer" ng-click="changeSorting(column)">
+          {{ column.guiName }} <span ng-if="sortType === column.dbName" ng-class="{'fa fa-chevron-down' : sortType === column.dbName && sortReverse, 'fa fa-chevron-up': sortType === column.dbName && !sortReverse}"></span>
+        </th>
         <th>Akcje</th>
       </tr>
     </thead>
 
     <tbody>
-      <tr ng-repeat="row in data">
+      <tr ng-repeat="row in data | orderBy:sortType:sortReverse">
         <td ng-repeat="column in columns">
           {{ !column.customValue ? row[column.dbName] : column.customValue(row) }}
         </td>

@@ -65,3 +65,7 @@
 .scrollable {
   overflow-y: auto;
 }
+
+.pointer {
+  cursor: pointer;
+}

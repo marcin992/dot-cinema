@@ -9,6 +9,10 @@ angular.module('dotCinemaApp')
         return ApiRequester.getData(tableNames.employee_data);
       },
 
+      createEmployee: function(employee) {
+        return ApiRequester.createEntity(tableNames.employee_data, employee);
+      },
+
       updateEmployee: function(employee) {
         return ApiRequester.editData(tableNames.employee_data, employee);
       },
