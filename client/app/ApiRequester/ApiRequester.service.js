@@ -28,6 +28,10 @@ angular.module('dotCinemaApp')
       },
 
       deleteData: function (table, id) {
+        if (isNaN(id)) {
+          id = id._id;
+        }
+        
         return $http.delete(url + table + "/" + id)
           .then(function(result) {
             return result.data
