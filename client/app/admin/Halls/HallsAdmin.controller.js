@@ -72,7 +72,7 @@ angular.module('dotCinemaApp')
     				newSeance = content;
 					newMessage("edit", "Seans został zaktualizowany!");
       	     		$scope.init();
-    			});	
+    			});
 
 /*
     			var index = $scope.halls.indexOf($scope.hallEdit);
@@ -86,7 +86,7 @@ angular.module('dotCinemaApp')
 
       	     	$scope.halls[index] = newSeance;
 */
-      	     
+
 			}
     	}
     },
@@ -113,7 +113,7 @@ angular.module('dotCinemaApp')
 			        if (hallEdit._id == $scope.halls[index]._id) {
 			        	$scope.clear();
 			        }
-				}	
+				}
                 newMessage("delete", "Sala " + hall.name + " została usunięta!");
 	      	});
     	}
@@ -139,22 +139,22 @@ angular.module('dotCinemaApp')
     },
 
     $scope.remove = function(index) {
-    	$scope.hall.chairs.splice($scope.hall.chairs[index], 1);
-    	
+    	$scope.hall.chairs.splice(index, 1);
+
     	if ($scope.hall.chairs.length == 0) {
     		$scope.hall.chairs.push({
     			key: "",
     			value: ""
     		});
     	}
-	}, 
+	},
 
 	$scope.add = function() {
 		$scope.hall.chairs.push({
 			key: "",
 			value: ""
 		});
-	} 
+	}
 
     function hallModelInit() {
     	$scope.hall = {

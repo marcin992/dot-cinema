@@ -1,15 +1,17 @@
 <navbar></navbar>
-<div data-ng-init="init()">
+<div data-ng-init="init()" class="row">
 
-<h2 ng-show="!readonly">My Timesheet</h2>
-<h2 ng-show="readonly">Timesheet pracownika {{ Employer.name }} {{ Employer.surname }} </h2>
+  <h2 ng-show="!readonly">Logowanie godzin</h2>
 
-<div ng-repeat="error in errors">
-	<h4>{{error.name}}</h4>
-	<p>{{error.message}}</p>
-</div>
+  <h2 ng-show="readonly">Timesheet pracownika {{ Employer.name }} {{ Employer.surname }} </h2>
 
-<div ng-show="!readonly">
+  <div ng-repeat="error in errors">
+    <h4>{{error.name}}</h4>
+
+    <p>{{error.message}}</p>
+  </div>
+
+  <div ng-show="!readonly">
 	<span ng-if="timesheets.length != 0">
 		<span ng ng-show="!empty">
 			<button ng-click="start()">Rozpocznij pracę</button>
@@ -25,34 +27,35 @@
 		<button disabled="disabled">Zakończ pracę</button>
 	</span>
 
-	<button ng-click="init()">Odśwież listę</button>
-	<button ng-show="false" ng-click="getAll()">Pobierz wszystkie</button>
-</div>
+    <button ng-click="init()">Odśwież listę</button>
+    <button ng-show="false" ng-click="getAll()">Pobierz wszystkie</button>
+  </div>
 
 <span ng-show="timesheets.length != 0">
 	<table>
-		<thead>
-			<tr>
-				<td>Data rozpoczęcie</td>
-				<td>Data zakończenia</td>
-				<td>Czas trwania</td>
-			</tr>
-		</thead>
-		<tbody>
-			  <tr ng-repeat="ts in timesheets | orderBy: '-date_start'">
-			    <td>{{ ts.date_start }}</td>
-			    <td>{{ ts.date_end }}</td>
-			    <td>{{ ts.hours }}</td>
-			  </tr>
-		</tbody>
-	</table>
+    <thead>
+    <tr>
+      <td>Data rozpoczęcie</td>
+      <td>Data zakończenia</td>
+      <td>Czas trwania</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="ts in timesheets | orderBy: '-date_start'">
+      <td>{{ ts.date_start }}</td>
+      <td>{{ ts.date_end }}</td>
+      <td>{{ ts.hours }}</td>
+    </tr>
+    </tbody>
+  </table>
 </span>
 
 <span ng-if="timesheets.length == 0">
 		<span ng-if="loaded">
-			<div> Trwa pobieranie danych... Proszę czekać. </div>
-		<span>
+			<div> Trwa pobieranie danych... Proszę czekać.</div>
+		</span>
 		<span ng-if="!loaded">
 			<div>Brak danych do wyświetlenia</div>
-		<span>
+		</span>
 </span>
+</div>

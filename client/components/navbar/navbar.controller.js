@@ -22,6 +22,10 @@ angular.module('dotCinemaApp')
       title: 'divider',
       condition: true
     }, {
+      title: 'Logowanie godzin',
+      state: 'Timesheet',
+      condition: Auth.isEmployee()
+    }, {
       title: 'Mój profil',
       state: 'profile',
       condition: Auth.isLoggedIn()
