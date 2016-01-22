@@ -21,7 +21,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     cover: {
-      type: DataTypes.BLOB,
+      type: DataTypes.STRING,
       allowNull: true
     }
   }, {

@@ -13,5 +13,6 @@ router.post('/create', auth.isAuthenticated(), controller.create);
 router.put('/:id', auth.isAuthenticated(), controller.update);
 router.patch('/:id', auth.isAuthenticated(), controller.update);
 router.delete('/:id', auth.isAuthenticated(), controller.destroy);
+router.post('/:id/changeCover', auth.isAuthenticated(), controller.changeCover);
 
 module.exports = router;

@@ -7,6 +7,10 @@ angular.module('dotCinemaApp')
       state: 'employees',
       condition: Auth.isManager()
     }, {
+      title: 'Filmy',
+      state: 'movieList',
+      condition: Auth.isCinemaSetter()
+    }, {
       title: 'Seanse',
       state: 'SeancesAdmin',
       condition: Auth.isCinemaSetter()

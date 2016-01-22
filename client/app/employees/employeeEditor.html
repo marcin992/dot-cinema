@@ -30,6 +30,7 @@
                  name="{{column.dbName}}"
                  ng-model="row[column.dbName]"
                  ng-class="(form[column.dbName].$error.required)"
+                 ng-model-options="{updateOn: 'movieSave'}"
                  ng-required="column.isRequired">
           <small class="error error-label"
                  ng-if="(form[column.dbName].$error.required)">

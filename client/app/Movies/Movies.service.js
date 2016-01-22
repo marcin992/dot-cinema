@@ -1,18 +1,46 @@
 'use strict';
 
 angular.module('dotCinemaApp')
-  .factory('Movies', function () {
-    var movies = [{
-      id: 1,
-      name: 'Spectre',
-      //description: 'srata tata',
-      image: 'http://www.007.com/wp-content/uploads/2015/03/UK-Quad-Mono-72dpi.jpg'
-    }];
+  .factory('Movies', function (ApiRequester, TableNames) {
 
+    var tableNames = TableNames.getTableNames();
+
+    var columns = [{
+      dbName: 'title',
+      guiName: 'Tytuł',
+      type: 'text',
+      isRequired: true
+    }, {
+      dbName: 'duration',
+      guiName: 'Czas trwania (w min.)',
+      type: 'number',
+      isRequired: true
+    }, {
+      dbName: 'description',
+      guiName: 'Opis',
+      type: 'textarea',
+      isRequired: false
+    }];
 
     return {
       getMovies: function() {
-        return movies;
+        return ApiRequester.getData(tableNames.movies);
+      },
+
+      getColumns: function() {
+        return columns;
+      },
+
+      updateMovie: function(movie) {
+        return ApiRequester.editData(tableNames.movies, movie);
+      },
+
+      deleteMovie: function(movieId) {
+        return ApiRequester.deleteData(tableNames.movies, movieId);
+      },
+
+      createMovie: function(movie) {
+        return ApiRequester.createEntity(tableNames.movies, movie);
       },
 
       getMovie: function(id) {

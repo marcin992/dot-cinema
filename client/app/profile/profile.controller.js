@@ -14,6 +14,8 @@ angular.module('dotCinemaApp')
         data: {
           file: file
         }
+      }).then(result => {
+        toastr.success('Zmiana avatara zakończona sukcesem', 'Sukces');
       });
       $scope.newAvatar = false;
     };

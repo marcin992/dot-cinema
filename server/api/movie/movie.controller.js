@@ -14,6 +14,7 @@ var sqldb = require('../../sqldb');
 var Movie = sqldb.Movie;
 var Seance = sqldb.Seance;
 var Hall = sqldb.Hall;
+var formidable = require('formidable');
 
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
@@ -129,4 +130,31 @@ exports.destroy = function(req, res) {
     .then(handleEntityNotFound(res))
     .then(removeEntity(res))
     .catch(handleError(res));
+};
+
+exports.changeCover = function(req, res) {
+  var movieId = req.params.id;
+
+  var form = new formidable.IncomingForm();
+  form.uploadDir = './client/assets/images/covers/';
+  form.keepExtensions = true;
+
+  form.parse(req, function(err, fields, files) {
+    var filename = files.file.path.match(/([^\/]+)$/);
+    filename = filename ? filename[0] : null;
+
+    Movie.find({
+      where: {
+        _id: movieId
+      }
+    }).then(function(movie) {
+      if(!movie) {
+        return res.status(401).end();
+      }
+      movie.cover = filename;
+      return movie.save();
+    }).then(function(result) {
+      res.send(result);
+    });
+  });
 };
