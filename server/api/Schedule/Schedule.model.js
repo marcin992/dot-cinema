@@ -8,10 +8,16 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
-    date_start: DataTypes.DATE,
-    date_end: DataTypes.DATE,
+    date_start: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    date_end: {
+      type: DataTypes.DATE,
+      allowNull: false
+    }
   }, {
     underscored: true,
-    tableName: 'ratings'
+    tableName: 'schedules'
   });
 };

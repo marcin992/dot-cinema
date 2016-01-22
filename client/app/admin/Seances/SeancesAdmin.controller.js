@@ -106,7 +106,7 @@ angular.module('dotCinemaApp')
             notExistSeance = bool;
 
             if (formSeance.$valid && notExistSeance) {
-              s.date = s.date.setMinutes(s.date.getMinutes() + ((-1) * s.date.getTimezoneOffset()));
+              //s.date = s.date.setMinutes(s.date.getMinutes() + ((-1) * s.date.getTimezoneOffset()));
 
               if ($scope.seanceForm._id == 0 || $scope.seanceForm._id == null) {
                 var newSeance = {};

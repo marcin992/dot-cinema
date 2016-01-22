@@ -2,10 +2,11 @@
 (function() {
 
 function MainController($scope, $http, socket, ApiRequester) {
-  $scope.randomReview = {};
+  $scope.randomReview = null;
 
   $http.get('api/ratings/get/random').then(result => {
     $scope.randomReview = result.data;
+    console.log($scope.randomReview.movie.cover);
   });
 }
 

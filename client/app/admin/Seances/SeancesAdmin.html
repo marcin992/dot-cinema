@@ -137,7 +137,6 @@
                     <td>lp.</td>
                     <td>Tytuł</td>
                     <td>Czas trwania</td>
-                    <td>Opis</td>
                     <td>Ilość seansów</td>
                     <td></td>
                   </tr>
@@ -148,9 +147,10 @@
                     <td> {{ $index + 1 }} </td>
                     <td> {{ movie.title }} </td>
                     <td> {{ movie.duration }} min. </td>
-                    <td> {{ movie.description }}  </td>
                     <td> {{ movie.seances.length }}  </td>
-                    <td ng-click="selectMovie(movie)">WYBIERZ</td>
+                    <td>
+                      <a href="" ng-click="selectMovie(movie)">WYBIERZ</a>
+                    </td>
                   </tr>
                   </tbody>
 
@@ -160,8 +160,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td ng-click="showAll()">Pokaż więcej ({{ movies.length - moviesToShow }})...</td>
+                    <td ng-click="showAll()" class="pointer">Pokaż więcej ({{ movies.length - moviesToShow }})...</td>
                   </tr>
                   </tfoot>
                 </table>

@@ -44,7 +44,11 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     provider: DataTypes.STRING,
-    salt: DataTypes.STRING
+    salt: DataTypes.STRING,
+    reset_password_token: {
+      type: DataTypes.STRING,
+      allowNull: true
+    }
 
   }, {
 

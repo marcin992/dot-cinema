@@ -12,12 +12,15 @@ angular.module('dotCinemaApp')
     };
 
     $scope.delete = function(row) {
-      return Movies.deleteMovie(row._id)
-        .then((result) => {
-          return Movies.getMovies();
-        }).then((movies) => {
-          $scope.movies = movies;
-        });
+      var confirm = window.confirm(`Czy na pewno chcesz usunąć film ${row.title}?`);
+      if(confirm) {
+        return Movies.deleteMovie(row._id)
+          .then((result) => {
+            return Movies.getMovies();
+          }).then((movies) => {
+            $scope.movies = movies;
+          });
+      }
     };
 
     $scope.select = function(row) {

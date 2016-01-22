@@ -39,8 +39,12 @@
                     <td> {{ hall.view.name }} </td>
                     <td> {{ hall.view.row }} </td>
                     <td> {{ hall.view.place }}  </td>
-                    <td ng-click="edit(hall)">EDYTUJ</td>
-                    <td ng-click="delete(hall)">USUŃ</td>
+                    <td>
+                      <a href="" ng-click="edit(hall)">EDYTUJ</a>
+                    </td>
+                    <td>
+                      <a href="" ng-click="delete(hall)">USUŃ</a>
+                    </td>
                   </tr>
                   </tbody>
                 </table>

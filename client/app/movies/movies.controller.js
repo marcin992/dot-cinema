@@ -10,9 +10,16 @@ angular.module('dotCinemaApp')
     $scope.user = {};
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.newRating = '';
+    $scope.canAddReview = true;
     Auth.getCurrentUser(user => {
       $scope.user = user;
     });
+
+    $scope.updateReviewWritable = function() {
+      return !_.find($scope.movie.ratings, (rating) => {
+        return rating.user_id === $scope.user._id;
+      });
+    };
 
     $scope.addRating = function(rate, comment) {
       var rating = {
@@ -35,6 +42,7 @@ angular.module('dotCinemaApp')
         }
       }).then(function(movie) {
         $scope.movie = _.first(movie);
+        $scope.canAddReview = $scope.updateReviewWritable();
         var sum = 0;
         _.each($scope.movie.ratings, rating => {
           sum += rating.rate;

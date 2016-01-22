@@ -31,6 +31,16 @@ function respondWith(res, statusCode) {
   };
 }
 
+var createToken = function(length) {
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+  for( var i=0; i < length; i++ )
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+  return text;
+};
+
 /**
  * Get list of users
  * restriction: 'admin'
@@ -209,6 +219,64 @@ exports.updateAvatar = function(req, res, next) {
       res.send(user)
     });
   });
+};
+
+exports.remindPassword = function(req, res) {
+  var email = req.body.email;
+  var token = createToken(30);
+  User.find({
+    where: {
+      email: email
+    }
+  }).then(function(user) {
+    if(user) {
+      user.reset_password_token = token;
+      return user.save();
+    }
+  }).then(function(user) {
+    sender.sendMail(email, 'Zapomniane hasło', 'Witaj. Została wysłana prośba zresetowania hasła.' +
+      'Aby przejść dalej przejdź na adres http://' + req.headers.host + '/reset/' + user.reset_password_token +'\n' +
+      'Jeśli nie wysyłałeś zapytania, proszę zignoruj tego maila.\n\n' +
+      'Pozdrawiamy,\n' +
+      'Dot-cinema', function(err, data) {
+      if(err) {
+        res.status(500).send(err);
+      } else {
+        res.send({status: 'success'});
+      }
+
+    });
+  })
+};
+
+exports.resetPassword = function(req, res) {
+  var token = req.body.token;
+  var newPassword = createToken(10);
+  User.find({
+    where: {
+      reset_password_token: token
+    }
+  }).then(function(user) {
+    if(user) {
+      user.password = newPassword;
+      return user.save();
+    } else {
+      return res.status(404).send({message: 'Nie znaleziono użytkownika'});
+    }
+  }).then(function(user) {
+    console.log(user);
+    sender.sendMail(user.email, 'Resetowanie hasła', 'Witaj. Zresetowaliśmy Twoje hasło. Twoje nowe hasło to: \n\n' +
+      newPassword + '\n\n' +
+      'Pozdrawiamy,\n' +
+      'Dot-cinema', function(err, data) {
+      if(err) {
+        res.status(500).send(err);
+      } else {
+        res.send({status: 'success'});
+      }
+
+    });
+  })
 };
 
 /**

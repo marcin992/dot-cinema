@@ -48,12 +48,18 @@ angular.module('dotCinemaApp')
     };
 
     $scope.delete = function(employee) {
-      return Employees.deleteEmployee(employee._id)
-        .then(() => {
-          return Employees.getEmployees();
-        }).then(employees => {
-          $scope.employees = employees;
-        });
+      var confirm = window.confirm(`Czy na pewno chcesz usunąć pracownika ${employee.name} ${employee.surname}?`);
+      if(confirm) {
+        if(employee.user.role === 'admin') {
+          return toastr.error('Nie możesz usunąć pracownika z uprawnieniami admin', 'Błąd');
+        }
+        return Employees.deleteEmployee(employee._id)
+          .then(() => {
+            return Employees.getEmployees();
+          }).then(employees => {
+            $scope.employees = employees;
+          });
+      }
     };
 
     $scope.create = function() {

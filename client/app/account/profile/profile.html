@@ -2,6 +2,7 @@
 <div ng-if="hasAccess">
   <div class="row panel">
     <h3>Ustawienia profilu</h3>
+    <hr>
     <br>
     <div class="row">
       <div class="large-3 columns">
@@ -53,16 +54,18 @@
       </div>
     </div>
   </div>
-  <div class="row panel" ng-if="user.role === 'user'">
-    <reservation-list reservations="reservations" on-delete="cancelReservation(id)"></reservation-list>
-  </div>
   <div class="row panel" ng-if="isEmployee()">
     <h3>Dane pracownika</h3>
+    <hr>
+    <br>
     <div class="row" ng-repeat="column in columns">
       <div class="large-12 columns">
         <strong>{{ column.guiName }}: </strong>{{ user.employee_data[column.dbName] }}
       </div>
     </div>
+  </div>
+  <div class="row panel">
+    <reservation-list reservations="reservations" on-delete="cancelReservation(id)"></reservation-list>
   </div>
 </div>
 <div ng-if="!hasAccess">

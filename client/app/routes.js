@@ -58,5 +58,15 @@ angular.module('dotCinemaApp')
         url: '/seancesList/:movieId',
         templateUrl: 'app/seancesList/seancesList.html',
         controller: 'SeancesListCtrl'
+      })
+      .state('forgotPassword', {
+        url: '/forgotPassword',
+        templateUrl: 'app/account/forgotPassword/forgotPassword.html',
+        controller: 'ForgotPasswordCtrl'
+      })
+      .state('resetPassword', {
+        url: '/reset/:token',
+        templateUrl: 'app/account/resetPassword/resetPassword.html',
+        controller: 'ResetPasswordCtrl'
       });
   });

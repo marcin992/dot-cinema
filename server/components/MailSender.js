@@ -16,16 +16,14 @@ class MailSender {
   }
 
   sendMail(to, subject, body, callback) {
-    // TODO[Marcin] - configure mail sending on production
-    callback();
-    //let options = {
-    //  from: config.user,
-    //  to: to,
-    //  subject: subject,
-    //  text: body
-    //};
-    //
-    //this.transporter.sendMail(options, callback);
+    let options = {
+      from: config.user,
+      to: to,
+      subject: subject,
+      text: body
+    };
+
+    this.transporter.sendMail(options, callback);
   }
 }
 var sender = new MailSender();

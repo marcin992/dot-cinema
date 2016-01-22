@@ -7,6 +7,8 @@ import auth from '../../auth/auth.service';
 var router = express.Router();
 
 router.get('/', auth.hasRole('manager'), controller.index);
+router.post('/remindPassword', controller.remindPassword);
+router.post('/reset/', controller.resetPassword);
 router.delete('/:id', auth.hasRole('manager'), controller.destroy);
 router.get('/me', auth.isAuthenticated(), controller.me);
 router.put('/:id/password', auth.isAuthenticated(), controller.changePassword);
