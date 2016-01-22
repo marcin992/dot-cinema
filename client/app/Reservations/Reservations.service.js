@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('dotCinemaApp')
-  .factory('Reservations', function (ApiRequester, Auth, TableNames) {
+  .factory('Reservations', function (ApiRequester, Auth, TableNames, $http) {
     var tableNames = TableNames.getTableNames();
     return {
       createReservation: function(newReservation) {
@@ -21,6 +21,26 @@ angular.module('dotCinemaApp')
           return ApiRequester.getData(tableNames.reservations, {
             where: {
               user_id: user._id
+            }
+          });
+        }
+      },
+
+      findReservation: function(reservationCode) {
+        if(Auth.isLoggedIn()) {
+          return ApiRequester.getData(tableNames.reservations, {
+            where: {
+              reservation_code: reservationCode
+            }
+          });
+        }
+      },
+
+      getById: function(reservationId) {
+        if(Auth.isLoggedIn()) {
+          return ApiRequester.getData(tableNames.reservations, {
+            where: {
+              _id: reservationId
             }
           });
         }

@@ -3,13 +3,15 @@
 angular.module('dotCinemaApp')
   .controller('SeancesAdminController', function ($scope, Auth, SeancesAdminFactory, $stateParams) {
     var User = Auth.getCurrentUser();
-     
+
     $scope.loaded = {
-      movies: false, 
+      movies: false,
       halls: false,
       seances: true
     };
- 
+
+    $scope.hasAccess = Auth.isCinemaSetter();
+
     $scope.allMovies = false;
     $scope.errors = [];
     $scope.movies = null;;
@@ -68,7 +70,7 @@ angular.module('dotCinemaApp')
 
     $scope.deleteSeance = function(seance) {
       var confirm = window.confirm("Czy chcesz na pewno skasować seans numer " + seance._id + "?");
-      
+
       if (confirm) {
         var s = SeancesAdminFactory.deleteSeance(seance);
 
@@ -192,13 +194,13 @@ angular.module('dotCinemaApp')
         $scope.searchRun = true;
         $scope.loaded.movies = false;
         $scope.movie = null;
-        
-        if ($scope.searchTitle.length > 0 
-              && $scope.searchTitle != null 
-              && $scope.searchTitle != "" 
+
+        if ($scope.searchTitle.length > 0
+              && $scope.searchTitle != null
+              && $scope.searchTitle != ""
               && $scope.searchTitle != undefined) {
           if (isNaN($scope.searchTitle)) {
-            var search = { 
+            var search = {
               where: {
                 title: {
                   $iLike: '%' + $scope.searchTitle + '%'
@@ -207,7 +209,7 @@ angular.module('dotCinemaApp')
             };
           }
           else {
-            var search = { 
+            var search = {
               where: {
                 _id: $scope.searchTitle
               }
@@ -239,7 +241,7 @@ angular.module('dotCinemaApp')
           hall_id: seanceToValidate.hall_id,
           date: {
             $between: [
-              new Date(date - 1000*60*60*24), 
+              new Date(date - 1000*60*60*24),
               new Date(date + 1000*60*60*24)
             ]
           }
@@ -258,10 +260,10 @@ angular.module('dotCinemaApp')
                   if (seancesList[i]._id != seanceToValidate._id) {
                     var dateStart = new Date(seancesList[i].date);
                     var dateEnd = new Date(new Date(dateStart.getTime() + seancesList[i].movie.duration * 60000))
-                  
+
                     var seanceDateStart = new Date(seanceToValidate.date);
                     var seanceDateEnd = new Date(new Date(seanceDateStart.getTime() + $scope.movie.duration * 60000))
-                  
+
                     if (dateStart <= seanceDateStart && dateEnd >= seanceDateStart) {
                       exist = true;
                       callback(false);
@@ -280,7 +282,7 @@ angular.module('dotCinemaApp')
                 callback(true);
               };
         });
-    } 
+    }
 
     function initSeanceForm() {
       $scope.seanceForm = {
@@ -293,7 +295,7 @@ angular.module('dotCinemaApp')
       $scope.dateTime = {
         date: "",
         time: ""
-      };      
+      };
     }
 
 

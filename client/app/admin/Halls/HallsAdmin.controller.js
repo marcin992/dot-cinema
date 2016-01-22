@@ -1,10 +1,12 @@
 'use strict';
 
 angular.module('dotCinemaApp')
-  .controller('HallsAdminController', function ($scope, HallsAdminService, HallsAdminFactory) {
+  .controller('HallsAdminController', function ($scope, HallsAdminService, HallsAdminFactory, Auth) {
     $scope.halls = [];
 
     $scope.hall = null;
+
+    $scope.hasAccess = Auth.isCinemaSetter();
 
     $scope.loaded = {
     	halls: true

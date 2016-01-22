@@ -76,6 +76,11 @@ db.User.hasMany(db.Reservation, {
   as: 'reservations'
 });
 
+db.Reservation.belongsTo(db.User, {
+  foreignKey: 'user_id',
+  as: 'user'
+});
+
 db.Movie.hasMany(db.Rating, {
   foreignKey: 'movie_id',
   as: 'ratings'

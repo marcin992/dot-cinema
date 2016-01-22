@@ -2,6 +2,7 @@
 
 angular.module('dotCinemaApp')
   .controller('PasswordChangeCtrl', function ($scope, Auth, toastr, $state) {
+    $scope.hasAccess = Auth.isLoggedIn();
     $scope.user = {
       oldPassword: '',
       newPassword: ''

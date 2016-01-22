@@ -10,6 +10,6 @@
   <div class="large-10 columns">
     <h5>
       <a ng-class="isPast(reservation) ? 'reservation-past' : ''" ui-sref="movies({movieId: reservation.seance.movie._id})">{{reservation.seance.movie.title}}</a></h5>
-    <p ng-class="isPast(reservation) ? 'reservation-past' : ''">{{reservation.seance.preetyDate}}, godz. {{reservation.seance.hour}}, sala: {{reservation.seance.hall.name}}, miejsce: {{reservation.chair}}</p>
+    <p ng-class="isPast(reservation) ? 'reservation-past' : ''">{{reservation.seance.preetyDate}}, godz. {{reservation.seance.hour}}, sala: {{reservation.seance.hall.name}}, miejsce: {{reservation.chair}}, kod rezerwacji: <strong>{{reservation.reservation_code}}</strong></p>
   </div>
 </div>

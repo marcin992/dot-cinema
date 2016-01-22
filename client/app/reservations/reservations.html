@@ -1,0 +1,22 @@
+<navbar></navbar>
+
+<div ng-if="hasAccess">
+  <div class="row panel">
+    <h3>Rezerwacje</h3>
+    <br><br>
+    <strong>Kod rezerwacji:</strong>
+    <input type="text"
+           ng-model="reservationCode">
+    <a href="" class="button" ng-click="findReservation(reservationCode)">Szukaj</a>
+    <br>
+    <div ng-if="submitted && !reservation">
+      Nie znaleziono rezerwacji.
+    </div>
+    <div ng-if="reservation">
+      <reservation-info reservation="reservation" role="'employee'"></reservation-info>
+    </div>
+  </div>
+</div>
+<div ng-if="!hasAccess">
+  Brak dostępu.
+</div>

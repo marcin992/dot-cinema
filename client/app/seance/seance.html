@@ -1,18 +1,24 @@
 <navbar></navbar>
 
-<div class="row panel">
-  <h3>Rezerwacja</h3>
-  <br>
-  <div class="large-4 columns">
-    <h4>{{seance.movie.title}}</h4>
-    <h5>{{seance.movie.description}}</h5>
-    <h5>{{seance.preetyDate}}, godz. {{seance.hour}}, sala {{seance.hall.name}}</h5>
+<div ng-if="hasAccess">
+  <div class="row panel">
+    <h3>Rezerwacja</h3>
     <br>
-    <h5>Wybrane miejsce: {{selectedPlace}}</h5>
-    <br><br><hr>
-    <a href="" class="button" ng-disabled="!selectedPlace" ng-click="createReservation()">Rezerwuj</a>
+    <div class="large-4 columns">
+      <a href="" ui-sref="movies({movieId: seance.movie._id})"><h4>{{seance.movie.title}}</h4></a>
+
+      <h5>{{seance.movie.description}}</h5>
+      <h5>{{seance.preetyDate}}, godz. {{seance.hour}}, sala {{seance.hall.name}}</h5>
+      <br>
+      <h5>Wybrane miejsce: {{selectedPlace}}</h5>
+      <br><br><hr>
+      <a href="" class="button" ng-disabled="!selectedPlace" ng-click="createReservation()">Rezerwuj</a>
+    </div>
+    <div class="large-8 columns">
+      <place-select seance="seance" selected-place="selectedPlace"></place-select>
+    </div>
   </div>
-  <div class="large-8 columns">
-    <place-select seance="seance" selected-place="selectedPlace"></place-select>
-  </div>
+</div>
+<div ng-if="!hasAccess">
+  Brak dostępu.
 </div>

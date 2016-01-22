@@ -1,0 +1,11 @@
+<navbar></navbar>
+
+<div ng-if="hasAccess">
+  <div class="row panel">
+    <h3>Dane rezerwacji</h3>
+    <reservation-info reservation="reservation" role="user.role"></reservation-info>
+  </div>
+</div>
+<div ng-if="!hasAccess">
+  Brak dostępu.
+</div>

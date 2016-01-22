@@ -1,17 +1,18 @@
 <navbar></navbar>
-<div data-ng-init="init()" class="row">
+<div ng-if="hasAccess">
+  <div data-ng-init="init()" class="row">
 
-  <h2 ng-show="!readonly">Logowanie godzin</h2>
+    <h2 ng-show="!readonly">Logowanie godzin</h2>
 
-  <h2 ng-show="readonly">Timesheet pracownika {{ Employer.name }} {{ Employer.surname }} </h2>
+    <h2 ng-show="readonly">Timesheet pracownika {{ Employer.name }} {{ Employer.surname }} </h2>
 
-  <div ng-repeat="error in errors">
-    <h4>{{error.name}}</h4>
+    <div ng-repeat="error in errors">
+      <h4>{{error.name}}</h4>
 
-    <p>{{error.message}}</p>
-  </div>
+      <p>{{error.message}}</p>
+    </div>
 
-  <div ng-show="!readonly">
+    <div ng-show="!readonly">
 	<span ng-if="timesheets.length != 0">
 		<span ng ng-show="!empty">
 			<button ng-click="start()">Rozpocznij pracę</button>
@@ -27,9 +28,9 @@
 		<button disabled="disabled">Zakończ pracę</button>
 	</span>
 
-    <button ng-click="init()">Odśwież listę</button>
-    <button ng-show="false" ng-click="getAll()">Pobierz wszystkie</button>
-  </div>
+      <button ng-click="init()">Odśwież listę</button>
+      <button ng-show="false" ng-click="getAll()">Pobierz wszystkie</button>
+    </div>
 
 <span ng-show="timesheets.length != 0">
 	<table>
@@ -58,4 +59,8 @@
 			<div>Brak danych do wyświetlenia</div>
 		</span>
 </span>
+  </div>
+</div>
+<div ng-if="!hasAccess">
+  Brak dostępu.
 </div>

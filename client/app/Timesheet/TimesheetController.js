@@ -4,6 +4,8 @@ angular.module('dotCinemaApp')
   .controller('TimesheetController', function($scope, Auth, Timesheet, DateFactory, $stateParams, ApiRequester, TableNames) {
       var User = Auth.getCurrentUser();
 
+    $scope.hasAccess = Auth.isEmployee();
+
       $scope.timesheets = new Array();
 
       $scope.errors = [];
@@ -50,26 +52,26 @@ angular.module('dotCinemaApp')
             $scope.loaded = false;
           }
       }
-        
+
       $scope.init = function() {
         //try {
-          if ($stateParams == undefined) { 
-            getProfile(function(profile) { 
+          if ($stateParams == undefined) {
+            getProfile(function(profile) {
               Employer = profile;
               downloadTs();
               $scope.readonly = false;
             });
-          }        
+          }
           else {
-            if ($stateParams.ID == undefined) { 
-              getProfile(function(profile) { 
+            if ($stateParams.ID == undefined) {
+              getProfile(function(profile) {
                 Employer = profile;
                 downloadTs();
                 $scope.readonly = false;
               });
-            }        
+            }
             else {
-              getEmployerData($stateParams.ID, function(profile) { 
+              getEmployerData($stateParams.ID, function(profile) {
                 Employer = profile.length == 1 ? profile[0] : {};
                 downloadTs();
                 if(User.employee_data._id != $stateParams.ID) {
@@ -88,7 +90,7 @@ angular.module('dotCinemaApp')
           }
         },
         //catch(e) {
-        //  getProfile(function(profile) { 
+        //  getProfile(function(profile) {
         //        Employer = profile;
           //      downloadTs();
            //     $scope.readonly = false;
@@ -113,7 +115,7 @@ angular.module('dotCinemaApp')
       }
 
       function initTimesheet(ts) {
-        $scope.timesheet = $scope.timesheets.length > 0 ? 
+        $scope.timesheet = $scope.timesheets.length > 0 ?
         ts : {
             _id: "",
             date_start: "",
@@ -123,14 +125,14 @@ angular.module('dotCinemaApp')
       }
 
       $scope.start = function() {
-        if ($scope.timesheet.date_end != "" || $scope.timesheets.length == 0) { 
+        if ($scope.timesheet.date_end != "" || $scope.timesheets.length == 0) {
           $scope.timesheet = {
             date_start: DateFactory.GetDateNow(),
-            employee_data_id: (Employer != undefined 
-              ? Employer._id 
+            employee_data_id: (Employer != undefined
+              ? Employer._id
               : 1)
           };
-               
+
           Timesheet.Start($scope.timesheet)
           .success(
             function(data) {
@@ -147,7 +149,7 @@ angular.module('dotCinemaApp')
 
       $scope.end = function() {
         if ($scope.timesheet.date_end == null) {
-          $scope.timesheet.date_end = DateFactory.GetDateNow();                    
+          $scope.timesheet.date_end = DateFactory.GetDateNow();
           $scope.timesheets[$scope.timesheets.length - 1] = getTimesheetView($scope.timesheet);
 
           Timesheet.Update($scope.timesheet)
@@ -162,7 +164,7 @@ angular.module('dotCinemaApp')
       };
 
       function dateEndIsNull() {
-          if ($scope.timesheet.date_end != "" 
+          if ($scope.timesheet.date_end != ""
             && $scope.timesheet.date_end != null
             && $scope.timesheet.date_end != undefined) {
               return false;
@@ -189,9 +191,9 @@ angular.module('dotCinemaApp')
       function getProfile(callback) {
         callback(User.employee_data);
       }
-        
+
       $scope.init = function() {
-        getProfile(function(profile) { 
+        getProfile(function(profile) {
         Employer = profile;
           if (Employer != undefined && Employer._id != undefined) {
             Timesheet.Gets(Employer)
@@ -232,7 +234,7 @@ angular.module('dotCinemaApp')
       }
 
       function initTimesheet(ts) {
-        $scope.timesheet = $scope.timesheets.length > 0 ? 
+        $scope.timesheet = $scope.timesheets.length > 0 ?
         ts : {
             _id: "",
             date_start: "",
@@ -242,14 +244,14 @@ angular.module('dotCinemaApp')
       }
 
       $scope.start = function() {
-        if ($scope.timesheet.date_end != "" || $scope.timesheets.length == 0) { 
+        if ($scope.timesheet.date_end != "" || $scope.timesheets.length == 0) {
           $scope.timesheet = {
             date_start: DateFactory.GetDateNow(),
-            employee_data_id: (Employer != undefined 
-              ? Employer._id 
+            employee_data_id: (Employer != undefined
+              ? Employer._id
               : 1)
           };
-               
+
           Timesheet.Start($scope.timesheet)
           .success(
             function(data) {
@@ -266,7 +268,7 @@ angular.module('dotCinemaApp')
 
       $scope.end = function() {
         if ($scope.timesheet.date_end == null) {
-          $scope.timesheet.date_end = DateFactory.GetDateNow();                    
+          $scope.timesheet.date_end = DateFactory.GetDateNow();
           $scope.timesheets[$scope.timesheets.length - 1] = getTimesheetView($scope.timesheet);
 
           Timesheet.Update($scope.timesheet)
@@ -281,7 +283,7 @@ angular.module('dotCinemaApp')
       };
 
       function dateEndIsNull() {
-          if ($scope.timesheet.date_end != "" 
+          if ($scope.timesheet.date_end != ""
             && $scope.timesheet.date_end != null
             && $scope.timesheet.date_end != undefined) {
               return false;

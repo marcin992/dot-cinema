@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="large-6 columns">
+    <div class="row">
+      <div class="large-12 columns">
+        <strong>Tytuł filmu:</strong> {{ reservation.seance.movie.title }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-12 columns">
+        <strong>Sala:</strong> {{ reservation.seance.hall.name }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-12 columns">
+        <strong>Miejsce:</strong> {{ reservation.chair }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-12 columns">
+        <strong>Data:</strong> {{ reservation.seance.date | date : 'yyyy-MM-dd HH:mm'}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="large-12 columns">
+        <strong>Cena biletu:</strong> {{ reservation.seance.cost }} zł
+      </div>
+    </div>
+
+  </div>
+
+  <div class="large-6 columns">
+    <div class="row">
+      <div class="large-12 columns">
+        <h3>Kod rezerwacji: <strong>{{ reservation.reservation_code }}</strong></h3>
+      </div>
+    </div>
+    <div class="row" ng-if="role !== 'user'">
+      <div class="large-12 columns">
+        <h3>Email rezerwującego: <strong>{{ reservation.user.email }}</strong></h3>
+      </div>
+    </div>
+  </div>
+
+</div>

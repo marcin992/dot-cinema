@@ -8,6 +8,8 @@ angular.module('dotCinemaApp')
     $scope.columns = Employees.getColumns();
     $scope.newAvatar = false;
 
+    $scope.hasAccess = Auth.isLoggedIn();
+
     $scope.upload = function(file) {
       file.upload = Upload.upload({
         url: 'api/users/' + $scope.user._id + '/avatar',

@@ -5,6 +5,8 @@ angular.module('dotCinemaApp')
 
     $scope.employees = [];
 
+    $scope.hasAccess = Auth.isManager();
+
     $scope.columns = [{
       dbName: 'name',
       guiName: 'Imię',

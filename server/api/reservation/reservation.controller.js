@@ -15,6 +15,7 @@ var Reservation = sqldb.Reservation;
 var Seance = sqldb.Seance;
 var Movie = sqldb.Movie;
 var Hall = sqldb.Hall;
+var User = sqldb.User;
 
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
@@ -94,6 +95,9 @@ exports.find = function(req, res) {
         model: Hall,
         as: 'hall'
       }]
+    }, {
+      model: User,
+      as: 'user'
     }]
   });
   Reservation.findAll(payload)

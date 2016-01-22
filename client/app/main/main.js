@@ -38,5 +38,15 @@ angular.module('dotCinemaApp')
         url: '/movieList',
         templateUrl: 'app/movieList/movieList.html',
         controller: 'MovieListCtrl'
-      });
+      })
+      .state('reservations', {
+        url: '/reservations',
+        templateUrl: 'app/reservations/reservations.html',
+        controller: 'ReservationsCtrl'
+      })
+      .state('successReservation', {
+        url: '/reservation/:reservationId',
+        templateUrl: 'app/successReservation/successReservation.html',
+        controller: 'SuccessReservationCtrl'
+    });
   });

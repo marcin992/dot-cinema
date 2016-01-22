@@ -19,6 +19,10 @@ angular.module('dotCinemaApp')
       state: 'HallsAdmin',
       condition: Auth.isCinemaSetter()
     }, {
+      title: 'Rezerwacje',
+      state: 'reservations',
+      condition: Auth.isEmployee()
+    }, {
       title: 'divider',
       condition: true
     }, {
