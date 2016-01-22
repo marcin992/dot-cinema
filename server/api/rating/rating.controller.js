@@ -12,6 +12,8 @@
 var _ = require('lodash');
 var sqldb = require('../../sqldb');
 var Rating = sqldb.Rating;
+var Movie = sqldb.Movie;
+var User = sqldb.User;
 
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
@@ -110,5 +112,24 @@ exports.destroy = function(req, res) {
   })
     .then(handleEntityNotFound(res))
     .then(removeEntity(res))
+    .catch(handleError(res));
+};
+
+exports.getRand = function(req,res) {
+  Rating.find({
+    order: [
+      sqldb.sequelize.fn('RANDOM')
+    ],
+    include: [{
+      model: Movie,
+      as: 'movie',
+      foreignKey: 'movie_id'
+    }, {
+      model: User,
+      as: 'user',
+      foreignKey: 'user_id',
+      attributes: ['nick', 'avatar']
+    }]
+  }).then(responseWithResult(res))
     .catch(handleError(res));
 };

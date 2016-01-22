@@ -23,6 +23,10 @@ angular.module('dotCinemaApp')
       state: 'reservations',
       condition: Auth.isEmployee()
     }, {
+      title: 'Lista filmów',
+      state: 'userMovieList',
+      condition: !Auth.isEmployee()
+    }, {
       title: 'divider',
       condition: true
     }, {

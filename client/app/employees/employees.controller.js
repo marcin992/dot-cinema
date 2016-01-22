@@ -28,6 +28,14 @@ angular.module('dotCinemaApp')
       }
     }];
 
+    $scope.customActions = [{
+      name: 'Godziny pracy',
+      state: 'TimesheetByEmployer',
+      param: 'ID'
+    }];
+
+    $scope.deleteCondition = Auth.isAdmin();
+
     $scope.update = function(employee) {
       return Employees.updateEmployee(employee)
         .then(() => {

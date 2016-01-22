@@ -54,7 +54,7 @@
     </div>
   </div>
   <div class="row panel" ng-if="user.role === 'user'">
-    <reservation-list reservations="reservations"></reservation-list>
+    <reservation-list reservations="reservations" on-delete="cancelReservation(id)"></reservation-list>
   </div>
   <div class="row panel" ng-if="isEmployee()">
     <h3>Dane pracownika</h3>

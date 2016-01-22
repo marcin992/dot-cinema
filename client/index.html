@@ -28,24 +28,25 @@
       <link rel="stylesheet" href="app/app.css">
       <!-- injector:css -->
       <link rel="stylesheet" href="app/Timesheet/Timesheet.css">
+      <link rel="stylesheet" href="app/account/passwordChange/passwordChange.css">
+      <link rel="stylesheet" href="app/account/profile/profile.css">
       <link rel="stylesheet" href="app/admin/admin.css">
       <link rel="stylesheet" href="app/app.css">
-      <link rel="stylesheet" href="app/crudList/crudList.css">
+      <link rel="stylesheet" href="app/common/crudList/crudList.css">
+      <link rel="stylesheet" href="app/common/reservationInfo/reservationInfo.css">
       <link rel="stylesheet" href="app/employees/employees.css">
-      <link rel="stylesheet" href="app/main/main.css">
-      <link rel="stylesheet" href="app/movieCarousel/movieCarousel.css">
-      <link rel="stylesheet" href="app/movieDashboard/movieDashboard.css">
+      <link rel="stylesheet" href="app/mainPage/main/main.css">
+      <link rel="stylesheet" href="app/mainPage/movieDashboard/movieDashboard.css">
+      <link rel="stylesheet" href="app/mainPage/seansesView/seansesView.css">
       <link rel="stylesheet" href="app/movieList/movieList.css">
       <link rel="stylesheet" href="app/movies/movies.css">
-      <link rel="stylesheet" href="app/passwordChange/passwordChange.css">
       <link rel="stylesheet" href="app/placeSelect/placeSelect.css">
-      <link rel="stylesheet" href="app/profile/profile.css">
-      <link rel="stylesheet" href="app/reservationInfo/reservationInfo.css">
       <link rel="stylesheet" href="app/reservationList/reservationList.css">
       <link rel="stylesheet" href="app/reservations/reservations.css">
       <link rel="stylesheet" href="app/seance/seance.css">
-      <link rel="stylesheet" href="app/seansesView/seansesView.css">
+      <link rel="stylesheet" href="app/seancesList/seancesList.css">
       <link rel="stylesheet" href="app/successReservation/successReservation.css">
+      <link rel="stylesheet" href="app/userMovieList/userMovieList.css">
       <link rel="stylesheet" href="components/footer/footer.css">
       <link rel="stylesheet" href="components/modal/modal.css">
       <link rel="stylesheet" href="components/navbar/navbar.css">
@@ -108,14 +109,6 @@
     <!-- build:js({.tmp,client}) app/app.js -->
       <script src="app/app.js"></script>
       <!-- injector:js -->
-      <script src="app/ApiRequester/ApiRequester.service.js"></script>
-      <script src="app/Date/Date.factory.js"></script>
-      <script src="app/Employees/Employees.service.js"></script>
-      <script src="app/Movies/Movies.service.js"></script>
-      <script src="app/Reservations/Reservations.service.js"></script>
-      <script src="app/RoleHierarchy/RoleHierarchy.service.js"></script>
-      <script src="app/Seanses/Seanses.service.js"></script>
-      <script src="app/TableNames/TableNames.service.js"></script>
       <script src="app/Timesheet/Timesheet.factory.js"></script>
       <script src="app/Timesheet/TimesheetController.js"></script>
       <script src="app/Timesheet/TimesheetDirective.js"></script>
@@ -123,6 +116,8 @@
       <script src="app/account/account.js"></script>
       <script src="app/account/helper/pesel.js"></script>
       <script src="app/account/login/login.controller.js"></script>
+      <script src="app/account/passwordChange/passwordChange.controller.js"></script>
+      <script src="app/account/profile/profile.controller.js"></script>
       <script src="app/account/settings/settings.controller.js"></script>
       <script src="app/account/signup/signup.controller.js"></script>
       <script src="app/admin/Halls/HallsAdmin.controller.js"></script>
@@ -131,27 +126,34 @@
       <script src="app/admin/Seances/SeancesAdmin.factory.js"></script>
       <script src="app/admin/admin.controller.js"></script>
       <script src="app/admin/admin.js"></script>
-      <script src="app/crudList/crudList.directive.js"></script>
+      <script src="app/common/ApiRequester/ApiRequester.service.js"></script>
+      <script src="app/common/Date/Date.factory.js"></script>
+      <script src="app/common/Employees/Employees.service.js"></script>
+      <script src="app/common/Movies/Movies.service.js"></script>
+      <script src="app/common/Reservations/Reservations.service.js"></script>
+      <script src="app/common/RoleHierarchy/RoleHierarchy.service.js"></script>
+      <script src="app/common/Seanses/Seanses.service.js"></script>
+      <script src="app/common/TableNames/TableNames.service.js"></script>
+      <script src="app/common/crudList/crudList.directive.js"></script>
+      <script src="app/common/reservationInfo/reservationInfo.directive.js"></script>
       <script src="app/employees/employeeEditor.controller.js"></script>
       <script src="app/employees/employees.controller.js"></script>
-      <script src="app/main/main.controller.js"></script>
-      <script src="app/main/main.js"></script>
-      <script src="app/movieCarousel/movieCarousel.directive.js"></script>
-      <script src="app/movieDashboard/movieDashboard.directive.js"></script>
+      <script src="app/mainPage/main/main.controller.js"></script>
+      <script src="app/mainPage/movieDashboard/movieDashboard.directive.js"></script>
+      <script src="app/mainPage/seansesView/SeansesViewCtrl.controller.js"></script>
+      <script src="app/mainPage/seansesView/seansesView.directive.js"></script>
       <script src="app/movieList/movieCreator.controller.js"></script>
       <script src="app/movieList/movieList.controller.js"></script>
       <script src="app/movies/movies.controller.js"></script>
-      <script src="app/passwordChange/passwordChange.controller.js"></script>
       <script src="app/placeSelect/placeSelect.directive.js"></script>
-      <script src="app/profile/profile.controller.js"></script>
       <script src="app/range/range.filter.js"></script>
-      <script src="app/reservationInfo/reservationInfo.directive.js"></script>
       <script src="app/reservationList/reservationList.directive.js"></script>
       <script src="app/reservations/reservations.controller.js"></script>
+      <script src="app/routes.js"></script>
       <script src="app/seance/seance.controller.js"></script>
-      <script src="app/seansesView/SeansesViewCtrl.controller.js"></script>
-      <script src="app/seansesView/seansesView.directive.js"></script>
+      <script src="app/seancesList/seancesList.controller.js"></script>
       <script src="app/successReservation/successReservation.controller.js"></script>
+      <script src="app/userMovieList/userMovieList.controller.js"></script>
       <script src="components/auth/auth.service.js"></script>
       <script src="components/auth/user.service.js"></script>
       <script src="components/footer/footer.directive.js"></script>

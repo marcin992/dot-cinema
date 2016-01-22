@@ -1,7 +1,7 @@
 <div>
 
 
-  <form name="form" ng-submit="submit(row)" novalidate>
+  <form name="form" ng-submit="submit(row, form)" novalidate>
     <h3>Dane pracownika</h3>
     <div class="row" ng-repeat="column in columns">
       <div class="large-2 columns">
@@ -15,13 +15,11 @@
                  name="{{column.dbName}}"
                  ng-maxlength="255"
                  ng-model="row[column.dbName]"
-                 ng-model-options="{updateOn: 'userSave'}"
-                 ng-class="(form[column.dbName].$error.required || form[column.dbName].$error.maxlength) ? 'error' : ''"
                  placeholder="{{ column.guiName }}"
                  ng-required="column.isRequired">
 
           <small class="error error-label"
-                 ng-if="(form[column.dbName].$error.required || form[column.dbName].$error.maxlength)">
+                 ng-if="(form[column.dbName].$error.required || form[column.dbName].$error.maxlength) && form[column.dbName].$dirty">
             To pole jest wymagane (max. 255 znaków)
           </small>
         </div>
@@ -29,11 +27,9 @@
           <input type="date"
                  name="{{column.dbName}}"
                  ng-model="row[column.dbName]"
-                 ng-class="(form[column.dbName].$error.required)"
-                 ng-model-options="{updateOn: 'movieSave'}"
                  ng-required="column.isRequired">
           <small class="error error-label"
-                 ng-if="(form[column.dbName].$error.required)">
+                 ng-if="(form[column.dbName].$error.required) && form[column.dbName].$dirty">
             To pole jest wymagane
           </small>
         </div>
@@ -51,15 +47,15 @@
       </div>
       <div class="large-10 columns">
         <input type="text"
-               ng-class="form.nick.$error.required && submitted ? 'error' : ''"
                name="nick"
                ng-model="row.user.nick"
                placeholder="Nick"
                required>
+        <small class="error error-label" ng-if="form.nick.$error.required && form.nick.$dirty">
+          To pole jest wymagane.
+        </small>
       </div>
-      <small class="error error-label" ng-if="form.nick.$error.required && submitted">
-        To pole jest wymagane.
-      </small>
+
     </div>
 
     <div class="row">
@@ -70,15 +66,15 @@
       </div>
       <div class="large-10 columns">
         <input type="email"
-               ng-class="(form.email.$error.email || form.email.$error.required) && submitted ? 'error' : ''"
                name="email"
                ng-model="row.user.email"
                placeholder="Email"
                required>
+        <small class="error error-label" ng-if="(form.email.$error.email || form.email.$error.required) && form.email.$dirty">
+          Podaj poprawny email.
+        </small>
       </div>
-      <small class="error error-label" ng-if="(form.email.$error.email || form.email.$error.required) && submitted">
-        Podaj poprawny email.
-      </small>
+
     </div>
 
     <div class="row">
@@ -105,12 +101,11 @@
           <input type="password"
                  name="password"
                  ng-minlength="5"
-                 ng-class="(form.password.$error.required || form.password.$error.minlength) ? 'error' : ''"
                  ng-model="row.user.password"
                  placeholder="Hasło"
                  required>
           <small class="error error-label"
-                 ng-if="(form.password.$error.required || form.password.$error.minlength)">
+                 ng-if="(form.password.$error.required || form.password.$error.minlength) && form.password.$dirty">
             Podaj poprawne hasło (min. 5 znaków)
           </small>
         </div>

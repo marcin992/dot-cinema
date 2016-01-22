@@ -14,6 +14,8 @@ var sqldb = require('../../sqldb');
 var Movie = sqldb.Movie;
 var Seance = sqldb.Seance;
 var Hall = sqldb.Hall;
+var Rating = sqldb.Rating;
+var User = sqldb.User;
 var formidable = require('formidable');
 
 function handleError(res, statusCode) {
@@ -89,6 +91,13 @@ exports.find = function(req, res) {
       include: [{
         model: Hall,
         as: "hall"
+      }]
+    }, {
+      model: Rating,
+      as: 'ratings',
+      include: [{
+        model: User,
+        as: 'user'
       }]
     }]
   });

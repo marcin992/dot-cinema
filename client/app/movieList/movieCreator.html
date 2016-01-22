@@ -1,54 +1,54 @@
 <div>
-
-  <form name="form" ng-submit="submit(row, cover)" novalidate>
+  <form name="form" ng-submit="submit(row)" novalidate>
     <h3>Dane filmu</h3>
-    <div class="row" ng-repeat="column in columns">
+    <div class="row">
       <div class="large-2 columns">
         <div class="right">
-          <strong>{{ column.guiName }}</strong>
+          <strong>Tytuł: </strong>
         </div>
       </div>
       <div class="large-10 columns">
-        <div ng-if="column.type === 'text'">
-          <input type="text"
-                 name="{{column.dbName}}"
-                 ng-maxlength="255"
-                 ng-model="row[column.dbName]"
-                 ng-model-options="{updateOn: 'movieSave'}"
-                 ng-class="(form[column.dbName].$error.required || form[column.dbName].$error.maxlength) ? 'error' : ''"
-                 placeholder="{{ column.guiName }}"
-                 ng-required="column.isRequired">
+        <input type="text"
+               name="title"
+               ng-maxlength="255",
+               ng-model="row.title"
+               placeholder="Tytuł"
+               required>
+        <small class="error error-label"
+               ng-if="(form.title.$error.required || form[column.dbName].$error.maxlength) && form.title.$dirty">
+          To pole jest wymagane (max. 255 znaków)
+        </small>
+      </div>
+    </div>
 
-          <small class="error error-label"
-                 ng-if="(form[column.dbName].$error.required || form[column.dbName].$error.maxlength)">
-            To pole jest wymagane (max. 255 znaków)
-          </small>
+    <div class="row">
+      <div class="large-2 columns">
+        <div class="right">
+          <strong>Czas trwania: </strong>
         </div>
+      </div>
+      <div class="large-10 columns">
+        <input type="number"
+               name="duration"
+               ng-model="row.duration"
+               required>
+        <small class="error error-label"
+               ng-if="(form.duration.$error.required)">
+          To pole jest wymagane
+        </small>
+      </div>
+    </div>
 
-        <div ng-if="column.type === 'textarea'">
-          <textarea rows="4"
-                    ng-model="row[column.dbName]"
-                    ng-model-options="{updateOn: 'movieSave'}"
-                    ng-class="(form[column.dbName].$error.required || form[column.dbName].$error.maxlength) ? 'error' : ''"
-                    placeholder="{{ column.guiName }}"
-                    ng-required="column.isRequired"></textarea>
-
-
-          <small class="error error-label"
-                 ng-if="(form[column.dbName].$error.required || form[column.dbName].$error.maxlength)">
-            To pole jest wymagane (max. 255 znaków)
-          </small>
+    <div class="row">
+      <div class="large-2 columns">
+        <div class="right">
+          <strong>Opis: </strong>
         </div>
-
-        <div ng-if="column.type === 'number'">
-          <input type="number"
-                 name="{{column.dbName}}"
-                 ng-model="row[column.dbName]"
-                 ng-model-options="{updateOn: 'movieSave'}"
-                 ng-class="(form[column.dbName].$error.required) ? 'error' : ''"
-                 placeholder="{{ column.guiName }}"
-                 ng-required="column.isRequired">
-        </div>
+      </div>
+      <div class="large-10 columns">
+        <textarea ng-model="row.description"
+                  ng-model-options="{updateOn: 'movieSave'}"
+                  rows="4"></textarea>
       </div>
     </div>
 
@@ -74,7 +74,6 @@
 
       </div>
     </div>
-
     <br>
     <div class="right">
       <ul class="button-group">
@@ -82,7 +81,7 @@
           <button class="button secondary" ng-click="$dismiss()">Anuluj</button>
         </li>
         <li>
-          <button class="button primary" type="submit">
+          <button class="button primary" type="submit" ng-disabled="form.$invalid">
             Zapisz
           </button>
         </li>

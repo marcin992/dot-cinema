@@ -16,8 +16,9 @@
         </td>
         <td>
           <ul class="stack button-group">
+            <li ng-repeat="action in customActions"><a href="" class="button tiny info" ng-click="goto(action.state, action.param, row)">{{action.name}}</a></li>
             <li><a href="" class="button tiny info" ng-click="onSelect({row: row})">Edytuj</a></li>
-            <li><a href="" class="button tiny info" ng-click="onDelete({row: row})">Usuń</a></li>
+            <li ng-if="deleteCondition"><a href="" class="button tiny info" ng-click="onDelete({row: row})">Usuń</a></li>
           </ul>
         </td>
       </tr>

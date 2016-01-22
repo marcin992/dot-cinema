@@ -5,7 +5,7 @@ angular.module('dotCinemaApp')
     $stateProvider
       .state('main', {
         url: '/',
-        templateUrl: 'app/main/main.html',
+        templateUrl: 'app/mainPage/main/main.html',
         controller: 'MainController',
         controllerAs: 'main'
       })
@@ -17,7 +17,7 @@ angular.module('dotCinemaApp')
       .state('profile', {
         url: '/profile',
         controller: 'ProfileCtrl',
-        templateUrl: 'app/profile/profile.html'
+        templateUrl: 'app/account/profile/profile.html'
       })
       .state('movies', {
         url: '/movies/:movieId',
@@ -31,7 +31,7 @@ angular.module('dotCinemaApp')
       })
       .state('passwordChange', {
         url: '/passwordChange',
-        templateUrl: 'app/passwordChange/passwordChange.html',
+        templateUrl: 'app/account/passwordChange/passwordChange.html',
         controller: 'PasswordChangeCtrl'
       })
       .state('movieList', {
@@ -48,5 +48,15 @@ angular.module('dotCinemaApp')
         url: '/reservation/:reservationId',
         templateUrl: 'app/successReservation/successReservation.html',
         controller: 'SuccessReservationCtrl'
-    });
+      })
+      .state('userMovieList', {
+        url: '/userMovieList',
+        templateUrl: 'app/userMovieList/userMovieList.html',
+        controller: 'UserMovieListCtrl'
+      })
+      .state('seancesList', {
+        url: '/seancesList/:movieId',
+        templateUrl: 'app/seancesList/seancesList.html',
+        controller: 'SeancesListCtrl'
+      });
   });

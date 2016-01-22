@@ -6,12 +6,17 @@ angular.module('dotCinemaApp')
     $scope.seanceId = $stateParams.seanceId;
     $scope.seance = {};
     $scope.selectedPlace = '';
+    $scope.reservations = [];
     $scope.hasAccess = Auth.isLoggedIn();
 
-    $scope.createReservation = function() {
-      if($scope.selectedPlace) {
+    if(!$scope.hasAccess) {
+      $state.go('login');
+    }
+
+    $scope.createReservation = function(place) {
+      if(place !== '') {
         var newReservation = {
-          chair: $scope.selectedPlace,
+          chair: place,
           seance_id: $scope.seanceId
         };
         return Reservations.createReservation(newReservation)
@@ -23,6 +28,14 @@ angular.module('dotCinemaApp')
           })
       }
     };
+
+    ApiRequester.getData(tableNames.reservations, {
+      where: {
+        seance_id: $scope.seanceId
+      }
+    }).then(reservations => {
+      $scope.reservations = reservations;
+    });
 
     ApiRequester.getData(tableNames.seances, {
       where: {

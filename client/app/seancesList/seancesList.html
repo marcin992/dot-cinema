@@ -1,0 +1,12 @@
+<navbar></navbar>
+
+<div class="row panel">
+  <h3>Lista seansów filmu {{ movie.title }}</h3>
+  <br>
+  <div class="row" ng-repeat="(date, seances) in movie.seances">
+    <h4>{{date | date:'yyyy-MM-dd'}}</h4>
+    <a href="" ng-repeat="seance in seances" ui-sref="seance({seanceId: seance._id})">
+      {{ seance.preetyDate }}
+    </a>
+  </div>
+</div>

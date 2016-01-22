@@ -1,9 +1,11 @@
 'use strict';
 
 angular.module('dotCinemaApp')
-  .controller('MovieListCtrl', function ($scope, Movies, $modal, Upload) {
+  .controller('MovieListCtrl', function ($scope, Movies, $modal, Upload, Auth) {
     $scope.movies = [];
     $scope.columns = Movies.getColumns();
+
+    $scope.deleteCondition = Auth.isCinemaSetter();
 
     $scope.update = function(row) {
       return Movies.updateMovie(row);

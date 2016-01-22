@@ -29,6 +29,22 @@ angular.module('dotCinemaApp')
       $scope.newAvatar = true;
     };
 
+    $scope.cancelReservation = function(id) {
+      return Reservations.deleteReservation(id)
+      .then(() => {
+        return Reservations.getUsersReservations();
+      }).then(reservations => {
+          $scope.reservations = _.map(reservations, function(reservation) {
+            return _.merge(reservation, {
+              seance: {
+                preetyDate: moment(reservation.seance.date).format('DD MMMM'),
+                hour: moment(reservation.seance.date).format('HH:mm')
+              }
+            });
+          });
+        });
+    };
+
     Reservations.getUsersReservations()
       .then(function(reservations) {
         $scope.reservations = _.map(reservations, function(reservation) {

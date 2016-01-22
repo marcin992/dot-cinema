@@ -14,8 +14,6 @@
 
 .dashboard-link {
   color: white;
-  margin-top: 70px;
-  margin-left: 40px;
 }
 
 .dashboard-link:hover {
@@ -39,6 +37,11 @@
 }
 
 .dashboard-text-main {
-  padding: 150px 0 0 0;
+  padding: 150px 0 0 40px;
   font-size: 60px;
+}
+
+.dashboard-text-description {
+  padding: 100px 0 0 40px;
+  color: white;
 }

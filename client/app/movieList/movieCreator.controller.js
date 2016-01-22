@@ -13,6 +13,10 @@ angular.module('dotCinemaApp')
       $scope.$close(row);
     };
 
+    $scope.isValid = function(form, name) {
+      return form[name].$error.required;
+    };
+
     $scope.upload = function(form, file) {
       if(!form.cover.$error.pattern) {
         file.upload = Upload.upload({

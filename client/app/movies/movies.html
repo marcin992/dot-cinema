@@ -1,8 +1,62 @@
 <navbar></navbar>
 
 <div class="row panel">
-  <h3>{{movie.title}}</h3>
-  <br><hr>
-  <h5>{{movie.description}}</h5>
-  <p>Czas trwania: {{movie.duration}} minut</p>
+  <div class="row">
+    <div class="large-12 columns">
+      <img class="movie-cover" ng-src="{{movie.cover ? 'assets/images/covers/' + movie.cover : 'http://placehold.it/150x100&text=[img]'}}">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-9 columns">
+      <h3>{{movie.title}}</h3>
+      <br><hr>
+      <h5>{{movie.description}}</h5>
+      <p>Czas trwania: {{movie.duration}} minut</p>
+    </div>
+    <div class="large-3 columns">
+      <h4>Średnia ocen: <strong>{{ averageRating | number:2 }}</strong></h4>
+      <a href="" ui-sref="seancesList({movieId: movie._id})" class="button">Pokaż seanse</a>
+    </div>
+  </div>
+
+  <br>
+  <div class="row" ng-if="isLoggedIn()">
+    <div class="large-12 columns">
+      <h5>Napisz recenzję</h5>
+    </div>
+    <div class="large-1 columns">
+      <img ng-src="{{ 'assets/images/avatars/' + (user.avatar || 'anonymous.jpg') }}" class="avatar">
+    </div>
+    <div class="large-7 columns">
+
+      <textarea rows="7" ng-model="newRating" style="display: inline;"></textarea>
+    </div>
+    <div class="large-4 columns">
+      <h5>Twoja ocena</h5>
+      <rating value="rate" max="10"></rating>
+      <h5>{{rate}}</h5>
+      <a href="" class="button small" ng-click="addRating(rate, newRating)">Dodaj recenzję</a>
+    </div>
+  </div>
+  <h4>Recenzje</h4>
+  <div ng-repeat="rating in movie.ratings">
+    <div class="row">
+      <div class="large-1 columns">
+        {{ rating.user.nick }}
+        <img ng-src="{{ 'assets/images/avatars/' + (rating.user.avatar || 'anonymous.jpg') }}" class="avatar">
+      </div>
+      <div class="large-7 columns">
+        {{ rating.comment }}
+      </div>
+      <div class="large-4 columns">
+        Ocena: <rating value="rating.rate" readonly="true" max="10"></rating>
+        {{ rating.rate }}
+      </div>
+      <br>
+    </div>
+    <br>
+  </div>
+
+
 </div>

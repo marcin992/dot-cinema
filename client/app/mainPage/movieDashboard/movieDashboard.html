@@ -1,0 +1,11 @@
+<div class="row dashboard-container">
+  <div class="small-9 columns main-movie movie-container" ng-style="{'background-image': 'url(' + 'assets/images/covers/' + mainMovie.cover + ')'}">
+    <h2 class="dashboard-text-main"><a href="" ui-sref="movies({movieId: mainMovie._id})" class="dashboard-link">{{mainMovie.title}}</a></h2>
+    <h5 class="dashboard-text-description">{{mainMovie.description}}</h5>
+  </div>
+  <div class="small-3 columns movie-container">
+    <div class="other-movie" ng-repeat="movie in otherMovies" ng-style="{'background-image': 'url(assets/images/covers/' + movie.cover + ')'}">
+      <h5 class="dashboard-text"><a class="dashboard-link" href="" ui-sref="movies({movieId: movie._id})">{{movie.title}}</a></h5>
+    </div>
+  </div>
+</div>

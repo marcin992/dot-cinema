@@ -6,7 +6,8 @@ angular.module('dotCinemaApp')
       templateUrl: 'app/reservationList/reservationList.html',
       restrict: 'EA',
       scope: {
-        reservations: '='
+        reservations: '=',
+        onDelete: '&'
       },
       link: function (scope, element, attrs) {
         scope.isPast = function(reservation) {

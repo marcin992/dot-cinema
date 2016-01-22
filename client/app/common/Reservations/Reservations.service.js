@@ -44,6 +44,10 @@ angular.module('dotCinemaApp')
             }
           });
         }
+      },
+
+      deleteReservation: function(reservationId) {
+        return ApiRequester.deleteData(tableNames.reservations, reservationId);
       }
     };
   });

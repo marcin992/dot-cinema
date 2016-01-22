@@ -91,3 +91,9 @@ input[type="file"] {
   width: 350px;
   height: 200px;
 }
+
+.movie-cover-small {
+  object-fit: cover;
+  width: 150px;
+  height: 100px;
+}
